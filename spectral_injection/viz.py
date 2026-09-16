@@ -380,11 +380,86 @@ def plot_adjacency(ax, W: np.ndarray, roles: np.ndarray, title: str = "",
     reordered_roles = roles[order]
     inj = np.flatnonzero(reordered_roles == ROLE_INJECTION)
     if inj.size:
+            lo, hi = inj.min(), inj.max() + 1
+            ax.add_patch(Rectangle((lo - 0.5, lo - 0.5), hi - lo, hi - lo,
+                                linewidth=2.5, edgecolor="cyan",
+                                facecolor="none", linestyle="-",
+                                clip_on=False, zorder=10))
+
+    ax.set_title(title, fontsize=8, pad=3)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    if caption:
+        ax.set_xlabel(caption, fontsize=7)
+
+
+def aligned_abs_diff(benign: Dict, injected: Dict) -> Tuple[np.ndarray, int]:
+    """|W_injected - W_benign| in the injected prompt's token space.
+
+    The two prompts do not have the same length, so an index-by-index
+    subtraction would compare token k of one with an unrelated token k of the
+    other as soon as the insertion point is passed -- a diagonal smear that is
+    pure misalignment. Tokens are matched by sequence alignment instead
+    (difflib on the token strings, autojunk off so frequent tokens are not
+    discarded). Entries involving a token with no benign counterpart -- the
+    attack, plus any token re-split at its boundaries -- have nothing to be
+    subtracted from and are left NaN rather than filled with a made-up zero.
+
+    Returns the matrix and the number of injected-prompt tokens matched.
+    """
+    from difflib import SequenceMatcher
+
+    Wb = np.asarray(benign["W"], dtype=float)
+    Wi = np.asarray(injected["W"], dtype=float)
+    to_benign = np.full(Wi.shape[0], -1, dtype=int)
+    sm = SequenceMatcher(None, list(benign["tokens"]), list(injected["tokens"]),
+                         autojunk=False)
+    for blk in sm.get_matching_blocks():
+        to_benign[blk.b:blk.b + blk.size] = np.arange(blk.a, blk.a + blk.size)
+
+    D = np.full(Wi.shape, np.nan)
+    m = np.flatnonzero(to_benign >= 0)
+    D[np.ix_(m, m)] = np.abs(Wi[np.ix_(m, m)]
+                             - Wb[np.ix_(to_benign[m], to_benign[m])])
+    return D, int(m.size)
+
+
+def plot_adjacency_diff(ax, D: np.ndarray, roles: np.ndarray, title: str = "",
+                        caption: str = "", floor_percentile: float = 40.0
+                        ) -> None:
+    """Heatmap of an aligned |difference| matrix, ordered like the injected one.
+
+    Same reordering, same log colour logic and same injection rectangle as
+    ``plot_adjacency``, so the three panels line up cell for cell. A different
+    colormap (viridis) keeps it from being read as a third attention matrix;
+    unmatched entries are grey.
+    """
+    order = np.concatenate([np.flatnonzero(roles == ROLE_BENIGN),
+                            np.flatnonzero(roles == ROLE_INJECTION)])
+    A = D[np.ix_(order, order)]
+    off = ~np.eye(A.shape[0], dtype=bool)
+    masked = np.ma.masked_array(A, mask=~np.isfinite(A) | ~off)
+    cmap = plt.cm.viridis.copy()
+    cmap.set_bad("#bdbdbd")
+
+    norm = None
+    positive = A[np.isfinite(A) & (A > 0.0) & off]
+    if positive.size:
+        vmax = float(positive.max())
+        vmin = float(np.percentile(positive, floor_percentile))
+        if not np.isfinite(vmin) or vmin <= 0.0 or vmin >= vmax:
+            vmin = vmax * 1e-4
+        norm = LogNorm(vmin=vmin, vmax=vmax, clip=True)
+    im = ax.imshow(masked, cmap=cmap, aspect="equal", interpolation="nearest",
+                   norm=norm)
+    plt.colorbar(im, ax=ax, fraction=0.046, pad=0.02).ax.tick_params(labelsize=6)
+
+    inj = np.flatnonzero(roles[order] == ROLE_INJECTION)
+    if inj.size:
         lo, hi = inj.min(), inj.max() + 1
         ax.add_patch(Rectangle((lo - 0.5, lo - 0.5), hi - lo, hi - lo,
-                               linewidth=1.4, edgecolor=COLOR_INJECTION,
-                               facecolor="none", linestyle="--"))
-
+                               linewidth=2.5, edgecolor="cyan",
+                               facecolor="none", clip_on=False, zorder=10))
     ax.set_title(title, fontsize=8, pad=3)
     ax.set_xticks([])
     ax.set_yticks([])
@@ -492,6 +567,11 @@ def figure_pair(benign: Dict, injected: Optional[Dict], model_slug: str,
     fig = plt.figure(figsize=(8.2 * ncols, 14.0 if with_text else 11))
     gs = fig.add_gridspec(nrows, ncols, height_ratios=heights,
                           hspace=0.16, wspace=0.12)
+    # With both conditions the adjacency row gets three panels -- benign,
+    # |difference|, injected -- while graphs and texts keep two columns.
+    diff_row = (gs[1, :].subgridspec(1, 3, wspace=0.10)
+                if injected is not None else None)
+    adj_slot = {0: diff_row[0, 0], 1: diff_row[0, 2]} if diff_row else {0: gs[1, 0]}
 
     for col, (label, data, segments) in enumerate(conditions):
         W, roles, tokens = data["W"], data["roles"], data["tokens"]
@@ -508,7 +588,7 @@ def figure_pair(benign: Dict, injected: Optional[Dict], model_slug: str,
             **edge_style_from(config),
         )
         plot_adjacency(
-            fig.add_subplot(gs[1, col]), W, roles,
+            fig.add_subplot(adj_slot[col]), W, roles,
             title="Adjacence (réordonnée par rôle)" if n_inj else "Adjacence",
             reorder=bool(n_inj),
             caption=f"hub={info['hub_token']} · bw={info['bandwidth']:.1f} · "
@@ -524,6 +604,23 @@ def figure_pair(benign: Dict, injected: Optional[Dict], model_slug: str,
                 title="Texte utilisateur — template de chat non montré"
                       + (" · injection en rouge" if n_inj else ""),
             )
+
+    if diff_row is not None:
+        D, n_match = aligned_abs_diff(benign, injected)
+        roles_i = injected["roles"]
+        host = np.flatnonzero(roles_i == ROLE_BENIGN)
+        hh = D[np.ix_(host, host)]
+        hh = hh[np.isfinite(hh) & ~np.eye(len(host), dtype=bool)]
+        ref = np.asarray(benign["W"], float)
+        ref = ref[~np.eye(ref.shape[0], dtype=bool)]
+        plot_adjacency_diff(
+            fig.add_subplot(diff_row[0, 1]), D, roles_i,
+            title="|injecté − bénin| (tokens alignés, même ordre)",
+            caption=(f"{n_match}/{D.shape[0]} tokens appariés · gris = sans "
+                     f"équivalent bénin\n|Δ| moyen hôte×hôte "
+                     f"{hh.mean() if hh.size else float('nan'):.2e} "
+                     f"(poids moyen bénin {ref.mean():.2e})"),
+        )
 
     handles = [Patch(facecolor=COLOR_BENIGN, label="Tokens bénins (hôte)"),
                Patch(facecolor=COLOR_INJECTION, label="Tokens injectés")]

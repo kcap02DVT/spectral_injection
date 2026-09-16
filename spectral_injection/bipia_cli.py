@@ -41,6 +41,22 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--positions", nargs="+", default=list(POSITIONS),
                    choices=list(POSITIONS))
     p.add_argument("--max-context-chars", type=int, default=1200)
+    p.add_argument("--attack-source", default="bipia",
+                   choices=["bipia", "neuralchemy"],
+                   help="origine des attaques : fichiers text_attack de BIPIA, "
+                        "ou neuralchemy/Prompt-injection-dataset (config core). "
+                        "Les emails hôtes viennent toujours de BIPIA")
+    p.add_argument("--attack-category", default=None,
+                   help="ne garder qu'une catégorie d'attaque de la source ; "
+                        "défaut neuralchemy : direct_injection")
+    p.add_argument("--attack-max-chars", type=int, default=None,
+                   help="écarter les attaques plus longues ; recommandé avec "
+                        "neuralchemy (10 à 7009 caractères)")
+    p.add_argument("--attack-severity", nargs="+", default=None,
+                   choices=["low", "medium", "high", "critical"],
+                   help="neuralchemy uniquement : ne garder que ces niveaux "
+                        "de la colonne severity (ex. --attack-severity low "
+                        "critical)")
     p.add_argument("--max-tokens", type=int, default=768)
     p.add_argument("--layer", type=int, default=None,
                    help="layer for the figure and the breakdowns (default: middle)")
@@ -200,8 +216,21 @@ def main(argv=None) -> int:
         split=args.split, n_pairs=args.n_pairs, positions=args.positions,
         max_context_chars=args.max_context_chars, cache_dir=args.cache_dir,
         offline=args.offline, seed=args.seed,
+        attack_source=args.attack_source,
+        attack_category=args.attack_category,
+        attack_max_chars=args.attack_max_chars,
+        attack_severity=args.attack_severity,
     )
     print(describe(pairs))
+    longueurs = [len(p.attack) for p in pairs]
+    print(f"source {args.attack_source}"
+          + (f" · catégorie {args.attack_category}" if args.attack_category
+             else "")
+          + (f" · sévérité {'/'.join(args.attack_severity)}"
+             if args.attack_severity else "")
+          + f" · longueur des attaques : médiane "
+            f"{sorted(longueurs)[len(longueurs) // 2]} car., "
+            f"max {max(longueurs)}")
 
     from .runner import AttentionRunner       # torch imported late
 

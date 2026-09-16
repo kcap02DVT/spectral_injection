@@ -130,6 +130,63 @@ def _load_attacks(path: str) -> List[Tuple[str, str]]:
     return [(cat, text) for cat, items in data.items() for text in items]
 
 
+NEURALCHEMY_REPO = "neuralchemy/Prompt-injection-dataset"
+
+
+def load_neuralchemy_attacks(split: str, category: str = "direct_injection",
+                             max_chars: Optional[int] = None,
+                             offline: bool = False,
+                             severity: Optional[List[str]] = None
+                             ) -> List[Tuple[str, str]]:
+    """Malicious prompts of one category from neuralchemy/Prompt-injection-dataset.
+
+    Uses the ``core`` config -- original samples only; ``full`` differs only
+    by a 3x augmented *training* split, which would put near-duplicates in the
+    pool. Its train and test splits are group-aware and share no text, so
+    ``--split train`` / ``--split test`` keep the out-of-distribution protocol.
+    ``validation`` is not used.
+
+    ``severity`` keeps only those levels of the dataset's ``severity`` column.
+    Beware how skewed it is: direct_injection is almost entirely ``medium``
+    (1389/1397 in train, 310/314 in test), so ``low``/``critical`` leave at
+    most one attack. An empty pool is an error; a pool smaller than
+    ``n_pairs`` is only warned about in ``load_pairs``, since attacks are then
+    reused across pairs.
+
+    ``max_chars`` matters here much more than for BIPIA: these prompts run from
+    10 to 7009 characters (median 100, against 56 for BIPIA). Insertion effects
+    in the attention graph scale with the number of tokens inserted, so an
+    unbounded pool mixes an injection effect with a length effect.
+    """
+    try:
+        import pandas as pd
+        from huggingface_hub import hf_hub_download
+    except ImportError as exc:                              # pragma: no cover
+        raise RuntimeError(
+            "pandas, pyarrow et huggingface_hub sont requis pour "
+            "--attack-source neuralchemy") from exc
+
+    path = hf_hub_download(NEURALCHEMY_REPO,
+                           f"core/{split}-00000-of-00001.parquet",
+                           repo_type="dataset", local_files_only=offline)
+    full = pd.read_parquet(path)
+    df = full[(full["label"] == 1) & (full["category"] == category)]
+    par_severite = df["severity"].value_counts().to_dict()
+    if severity:
+        df = df[df["severity"].isin(severity)]
+    if max_chars is not None:
+        df = df[df["text"].str.len() <= max_chars]
+    if df.empty:
+        cats = sorted(full["category"].unique())
+        filtres = (f"{f' sévérité {severity}' if severity else ''}"
+                   f"{f' sous {max_chars} caractères' if max_chars else ''}")
+        raise RuntimeError(
+            f"aucune attaque '{category}'{filtres} dans core/{split}. "
+            f"Répartition par sévérité de '{category}' : {par_severite}. "
+            f"Catégories disponibles : {cats}")
+    return [(category, t) for t in df["text"].tolist()]
+
+
 # --------------------------------------------------------------------------
 # Insertion
 # --------------------------------------------------------------------------
@@ -214,8 +271,17 @@ def load_pairs(split: str = "test", n_pairs: int = 20,
                positions: Optional[List[str]] = None,
                max_context_chars: int = 1200,
                cache_dir: str = "data/bipia", offline: bool = False,
-               seed: int = 42) -> List[BipiaPair]:
+               seed: int = 42, attack_source: str = "bipia",
+               attack_category: Optional[str] = None,
+               attack_max_chars: Optional[int] = None,
+               attack_severity: Optional[List[str]] = None) -> List[BipiaPair]:
     """Sample ``n_pairs`` (email, attack, position) triples.
+
+    The host emails always come from BIPIA email-QA. The attacks come from
+    ``attack_source``: ``bipia`` (text_attack files) or ``neuralchemy``
+    (neuralchemy/Prompt-injection-dataset, core config). ``attack_category``
+    restricts the pool to one category of that source; for ``neuralchemy`` it
+    defaults to ``direct_injection``.
 
     One attack and one position per email by default: pairing every email with
     every attack would unbalance the classes and inflate the sample with
@@ -232,7 +298,29 @@ def load_pairs(split: str = "test", n_pairs: int = 20,
 
     paths = ensure_data(cache_dir, offline=offline)
     emails = _load_emails(paths[f"email_{split}"])
-    attacks = _load_attacks(paths[f"attack_{split}"])
+
+    if attack_source == "neuralchemy":
+        attacks = load_neuralchemy_attacks(
+            split, attack_category or "direct_injection",
+            max_chars=attack_max_chars, offline=offline,
+            severity=attack_severity)
+    elif attack_source == "bipia":
+        if attack_severity:
+            raise ValueError("--attack-severity n'existe que pour "
+                             "--attack-source neuralchemy (BIPIA n'a pas de "
+                             "niveau de sévérité)")
+        attacks = _load_attacks(paths[f"attack_{split}"])
+        if attack_category is not None:
+            dispo = sorted({c for c, _ in attacks})
+            attacks = [a for a in attacks if a[0] == attack_category]
+            if not attacks:
+                raise RuntimeError(
+                    f"catégorie BIPIA '{attack_category}' absente du split "
+                    f"{split}. Disponibles : {dispo}")
+        if attack_max_chars is not None:
+            attacks = [a for a in attacks if len(a[1]) <= attack_max_chars]
+    else:
+        raise ValueError(f"unknown attack source: {attack_source}")
 
     emails = [e for e in emails if len(e["context"]) <= max_context_chars]
     if not emails:
@@ -240,6 +328,12 @@ def load_pairs(split: str = "test", n_pairs: int = 20,
             f"No email under {max_context_chars} characters; raise "
             f"--max-context-chars."
         )
+
+    if len(attacks) < n_pairs:
+        import sys
+        print(f"  [attention] {len(attacks)} attaque(s) disponible(s) pour "
+              f"{n_pairs} paires : des attaques seront réutilisées, les "
+              f"paires ne sont plus indépendantes.", file=sys.stderr)
 
     rng = random.Random(seed)
     pairs = []
