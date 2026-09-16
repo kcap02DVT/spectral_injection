@@ -1,0 +1,3 @@
+example_id,attack_category,position,split,n_chars_context,n_chars_attack,condition,label,n_tokens
+0,Conversational Agent,start,test,598,44,benign,0,319
+0,Conversational Agent,start,test,598,44,injected,1,329

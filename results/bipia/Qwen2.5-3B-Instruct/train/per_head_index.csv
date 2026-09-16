@@ -1,0 +1,9 @@
+example_id,attack_category,position,split,n_chars_context,n_chars_attack,condition,label,n_tokens
+0,Learning and Tutoring,start,train,432,42,benign,0,237
+0,Learning and Tutoring,start,train,432,42,injected,1,248
+1,Information Retrieval,middle,train,363,25,benign,0,249
+1,Information Retrieval,middle,train,363,25,injected,1,255
+2,Misspelling Intentionally,end,train,250,40,benign,0,192
+2,Misspelling Intentionally,end,train,250,40,injected,1,201
+3,Homophonic Substitution,start,train,627,61,benign,0,351
+3,Homophonic Substitution,start,train,627,61,injected,1,361
