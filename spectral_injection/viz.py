@@ -336,10 +336,29 @@ def plot_node_link(ax, W: np.ndarray, roles: np.ndarray, tokens: Sequence[str],
             "n_edges_total": n_total}
 
 
+def adjacency_color_range(W: np.ndarray, floor_percentile: float = 40.0
+                          ) -> Optional[Tuple[float, float]]:
+    """(vmin, vmax) of the log colour scale for an adjacency matrix.
+
+    vmax is the largest off-diagonal weight, vmin a percentile of the positive
+    ones, so the bottom of the range is not spent on near-zero noise.
+    """
+    A = np.asarray(W, dtype=float)
+    positive = A[(A > 0.0) & ~np.eye(A.shape[0], dtype=bool)]
+    if not positive.size:
+        return None
+    vmax = float(positive.max())
+    vmin = float(np.percentile(positive, floor_percentile))
+    if not np.isfinite(vmin) or vmin <= 0.0 or vmin >= vmax:
+        vmin = vmax * 1e-4
+    return vmin, vmax
+
+
 def plot_adjacency(ax, W: np.ndarray, roles: np.ndarray, title: str = "",
                    reorder: bool = False, caption: str = "",
                    aspect: str = "equal", log_color: bool = True,
-                   floor_percentile: float = 40.0) -> None:
+                   floor_percentile: float = 40.0,
+                   color_range: Optional[Tuple[float, float]] = None) -> None:
     """Adjacency heatmap. ``reorder`` groups benign then injection tokens.
 
     The reordered version is the decisive picture: if the bicluster hypothesis
@@ -352,6 +371,9 @@ def plot_adjacency(ax, W: np.ndarray, roles: np.ndarray, title: str = "",
     while the blocks this panel exists to show stay at the bottom, rendered
     black. A log norm gives each decade equal colour, so the block structure
     becomes visible next to the hub instead of underneath it.
+
+    ``color_range`` imposes (vmin, vmax) instead of deriving them from ``W``,
+    so two panels share one scale and their colours can be compared.
     """
     A = np.array(W, dtype=float, copy=True)
     order = np.arange(A.shape[0])
@@ -365,14 +387,12 @@ def plot_adjacency(ax, W: np.ndarray, roles: np.ndarray, title: str = "",
     cmap.set_bad("black")
 
     norm = None
-    if log_color:
-        positive = A[(A > 0.0) & ~np.eye(A.shape[0], dtype=bool)]
-        if positive.size:
-            vmax = float(positive.max())
-            vmin = float(np.percentile(positive, floor_percentile))
-            if not np.isfinite(vmin) or vmin <= 0.0 or vmin >= vmax:
-                vmin = vmax * 1e-4
-            norm = LogNorm(vmin=vmin, vmax=vmax, clip=True)
+    if log_color and color_range is not None:
+        norm = LogNorm(vmin=color_range[0], vmax=color_range[1], clip=True)
+    elif log_color:
+        vrange = adjacency_color_range(A, floor_percentile)
+        if vrange is not None:
+            norm = LogNorm(vmin=vrange[0], vmax=vrange[1], clip=True)
 
     ax.imshow(masked, cmap=cmap, aspect=aspect, interpolation="nearest",
               norm=norm)
@@ -407,25 +427,117 @@ def aligned_abs_diff(benign: Dict, injected: Dict) -> Tuple[np.ndarray, int]:
 
     Returns the matrix and the number of injected-prompt tokens matched.
     """
+    return aligned_diff(benign, injected, signed=False)
+
+
+def aligned_diff(ref: Dict, cond: Dict, signed: bool = True,
+                 pair_inserted: bool = False) -> Tuple[np.ndarray, int]:
+    """``W_cond - W_ref`` (or its absolute value) in ``cond``'s token space.
+
+    Tokens are matched by sequence alignment, as in ``aligned_abs_diff``.
+    ``pair_inserted`` additionally pairs the inserted spans position by
+    position when both prompts have one of the same length -- injected vs
+    control: token k of the attack against token k of the control text, same
+    slot, different words. Their rows and columns then say whether the attack
+    draws more or less attention than neutral text at that place. With spans
+    of different lengths they stay unmatched (NaN).
+    """
     from difflib import SequenceMatcher
 
-    Wb = np.asarray(benign["W"], dtype=float)
-    Wi = np.asarray(injected["W"], dtype=float)
-    to_benign = np.full(Wi.shape[0], -1, dtype=int)
-    sm = SequenceMatcher(None, list(benign["tokens"]), list(injected["tokens"]),
+    Wr = np.asarray(ref["W"], dtype=float)
+    Wc = np.asarray(cond["W"], dtype=float)
+    to_ref = np.full(Wc.shape[0], -1, dtype=int)
+    sm = SequenceMatcher(None, list(ref["tokens"]), list(cond["tokens"]),
                          autojunk=False)
     for blk in sm.get_matching_blocks():
-        to_benign[blk.b:blk.b + blk.size] = np.arange(blk.a, blk.a + blk.size)
+        to_ref[blk.b:blk.b + blk.size] = np.arange(blk.a, blk.a + blk.size)
 
-    D = np.full(Wi.shape, np.nan)
-    m = np.flatnonzero(to_benign >= 0)
-    D[np.ix_(m, m)] = np.abs(Wi[np.ix_(m, m)]
-                             - Wb[np.ix_(to_benign[m], to_benign[m])])
+    if pair_inserted:
+        ins_r = np.flatnonzero(ref["roles"] == ROLE_INJECTION)
+        ins_c = np.flatnonzero(cond["roles"] == ROLE_INJECTION)
+        if ins_r.size and ins_r.size == ins_c.size:
+            to_ref[ins_c] = ins_r
+
+    D = np.full(Wc.shape, np.nan)
+    m = np.flatnonzero(to_ref >= 0)
+    delta = Wc[np.ix_(m, m)] - Wr[np.ix_(to_ref[m], to_ref[m])]
+    D[np.ix_(m, m)] = delta if signed else np.abs(delta)
     return D, int(m.size)
 
 
+def plot_adjacency_signed_diff(ax, D: np.ndarray, roles: np.ndarray,
+                               title: str = "", caption: str = "",
+                               floor_percentile: float = 40.0) -> None:
+    """Signed difference heatmap: red = first condition higher, blue = lower.
+
+    Same ordering and injection rectangle as the other adjacency panels. The
+    colour scale is symmetric around zero and logarithmic on both sides
+    (SymLogNorm), linear only below a threshold set at a percentile of |D|:
+    differences span several decades, and a linear diverging scale would show
+    only the handful of largest ones.
+    """
+    from matplotlib.colors import SymLogNorm
+
+    order = np.concatenate([np.flatnonzero(roles == ROLE_BENIGN),
+                            np.flatnonzero(roles == ROLE_INJECTION)])
+    A = D[np.ix_(order, order)]
+    off = ~np.eye(A.shape[0], dtype=bool)
+    masked = np.ma.masked_array(A, mask=~np.isfinite(A) | ~off)
+    cmap = plt.cm.RdBu_r.copy()
+    cmap.set_bad("#bdbdbd")
+
+    mag = np.abs(A[np.isfinite(A) & off])
+    mag = mag[mag > 0.0]
+    norm = None
+    if mag.size:
+        vmax = float(mag.max())
+        lin = float(np.percentile(mag, floor_percentile))
+        if not np.isfinite(lin) or lin <= 0.0 or lin >= vmax:
+            lin = vmax * 1e-4
+        norm = SymLogNorm(linthresh=lin, vmin=-vmax, vmax=vmax, base=10)
+    im = ax.imshow(masked, cmap=cmap, aspect="equal", interpolation="nearest",
+                   norm=norm)
+    cbar = plt.colorbar(im, ax=ax, fraction=0.046, pad=0.02)
+    if norm is not None:
+        # Default symlog ticks crowd around the linear zone; keep 0 and whole
+        # decades clearly above the threshold, on both sides.
+        k_lo = int(np.floor(np.log10(lin))) + 1
+        k_hi = int(np.floor(np.log10(vmax)))
+        decades = [10.0 ** k for k in range(k_lo, k_hi + 1)][-3:]
+        cbar.set_ticks(sorted([-d for d in decades] + [0.0] + decades))
+    cbar.ax.tick_params(labelsize=6)
+
+    inj = np.flatnonzero(roles[order] == ROLE_INJECTION)
+    if inj.size:
+        lo, hi = inj.min(), inj.max() + 1
+        ax.add_patch(Rectangle((lo - 0.5, lo - 0.5), hi - lo, hi - lo,
+                               linewidth=2.5, edgecolor="black",
+                               facecolor="none", clip_on=False, zorder=10))
+    ax.set_title(title, fontsize=8, pad=3)
+    ax.set_xticks([])
+    ax.set_yticks([])
+    if caption:
+        ax.set_xlabel(caption, fontsize=7)
+
+
+def diff_color_range(*Ds: np.ndarray, floor_percentile: float = 40.0
+                     ) -> Optional[Tuple[float, float]]:
+    """One (vmin, vmax) over several |difference| matrices, NaN ignored."""
+    vals = [D[np.isfinite(D) & (D > 0.0) & ~np.eye(D.shape[0], dtype=bool)]
+            for D in Ds]
+    vals = np.concatenate(vals) if vals else np.array([])
+    if not vals.size:
+        return None
+    vmax = float(vals.max())
+    vmin = float(np.percentile(vals, floor_percentile))
+    if not np.isfinite(vmin) or vmin <= 0.0 or vmin >= vmax:
+        vmin = vmax * 1e-4
+    return vmin, vmax
+
+
 def plot_adjacency_diff(ax, D: np.ndarray, roles: np.ndarray, title: str = "",
-                        caption: str = "", floor_percentile: float = 40.0
+                        caption: str = "", floor_percentile: float = 40.0,
+                        color_range: Optional[Tuple[float, float]] = None
                         ) -> None:
     """Heatmap of an aligned |difference| matrix, ordered like the injected one.
 
@@ -442,14 +554,9 @@ def plot_adjacency_diff(ax, D: np.ndarray, roles: np.ndarray, title: str = "",
     cmap = plt.cm.viridis.copy()
     cmap.set_bad("#bdbdbd")
 
-    norm = None
-    positive = A[np.isfinite(A) & (A > 0.0) & off]
-    if positive.size:
-        vmax = float(positive.max())
-        vmin = float(np.percentile(positive, floor_percentile))
-        if not np.isfinite(vmin) or vmin <= 0.0 or vmin >= vmax:
-            vmin = vmax * 1e-4
-        norm = LogNorm(vmin=vmin, vmax=vmax, clip=True)
+    vrange = color_range or diff_color_range(A, floor_percentile=floor_percentile)
+    norm = (LogNorm(vmin=vrange[0], vmax=vrange[1], clip=True)
+            if vrange is not None else None)
     im = ax.imshow(masked, cmap=cmap, aspect="equal", interpolation="nearest",
                    norm=norm)
     plt.colorbar(im, ax=ax, fraction=0.046, pad=0.02).ax.tick_params(labelsize=6)
@@ -518,7 +625,9 @@ def plot_prompt_text(ax, segments: Sequence[Tuple[str, str]], title: str = "",
     lines, truncated = _wrap_spans(text, width, max_lines)
 
     char_w = 1.0 / width
-    line_h = 1.0 / max(len(lines) + 1, 2)
+    # Floor at half the line budget: a two-line prompt (the attack alone)
+    # would otherwise be spread over the whole panel height.
+    line_h = 1.0 / max(len(lines) + 1, max_lines // 2)
 
     for li, (start, end) in enumerate(lines):
         y = 1.0 - (li + 1) * line_h
@@ -551,37 +660,104 @@ def figure_pair(benign: Dict, injected: Optional[Dict], model_slug: str,
                 layer: int, n_layers: int, config, out_path: str,
                 benign_segments: Optional[Sequence[Tuple[str, str]]] = None,
                 injected_segments: Optional[Sequence[Tuple[str, str]]] = None,
-                subtitle: str = "") -> str:
-    """Two-column figure: benign control | injected prompt.
+                subtitle: str = "",
+                isolated: Optional[Dict] = None,
+                isolated_segments: Optional[Sequence[Tuple[str, str]]] = None,
+                control: Optional[Dict] = None,
+                control_segments: Optional[Sequence[Tuple[str, str]]] = None,
+                control_note: str = "",
+                ) -> str:
+    """Benign | injected [| attack alone  or  | control insertion].
 
     Each ``Dict`` holds ``W``, ``roles`` and ``tokens`` for one condition.
+
+    Two conditions: the adjacency row holds benign, |difference|, injected.
+
+    A third column -- ``isolated`` (``--compare triptych``) or ``control``
+    (``--compare control``) -- turns every row into three columns, and the
+    three adjacency panels share one colour scale. The |difference| row then
+    holds:
+
+    triptych  |injected - benign| under the first two columns (the attack
+              alone shares no tokens with the others);
+    control   |injected - benign| under the injected column and
+              |control - benign| under the control column, on one shared
+              scale -- the comparison the control exists for: if the two look
+              alike, the injection picture is an insertion/length effect.
     """
-    conditions = [("Bénin (contrôle)", benign, benign_segments)]
+    if isolated is not None and control is not None:
+        raise ValueError("isolated et control sont exclusifs")
+    conditions = [("Bénin (référence)", benign, benign_segments)]
     if injected is not None:
         conditions.append(("Avec injection", injected, injected_segments))
+    third = None
+    if injected is not None and isolated is not None:
+        third = "isolated"
+        conditions.append(("Injection seule", isolated, isolated_segments))
+    elif injected is not None and control is not None:
+        third = "control"
+        conditions.append(("Contrôle inséré (texte d'email)", control,
+                           control_segments))
+    triptych = third is not None
     ncols = len(conditions)
     with_text = any(seg for _, _, seg in conditions)
 
-    nrows = 3 if with_text else 2
-    heights = [2.4, 1.35, 1.6] if with_text else [2.4, 1.35]
-    fig = plt.figure(figsize=(8.2 * ncols, 14.0 if with_text else 11))
-    gs = fig.add_gridspec(nrows, ncols, height_ratios=heights,
+    color_range = None
+    if triptych:
+        ranges = [r for r in (adjacency_color_range(d["W"])
+                              for _, d, _ in conditions) if r is not None]
+        if ranges:
+            color_range = (min(r[0] for r in ranges), max(r[1] for r in ranges))
+
+    if triptych:
+        rows = ["graph", "adj", "diff"] + (["text"] if with_text else [])
+        heights = [2.4, 1.35, 1.35] + ([1.6] if with_text else [])
+        fig = plt.figure(figsize=(8.2 * ncols, 18.5 if with_text else 15))
+    else:
+        rows = ["graph", "adj"] + (["text"] if with_text else [])
+        heights = [2.4, 1.35] + ([1.6] if with_text else [])
+        fig = plt.figure(figsize=(8.2 * ncols, 14.0 if with_text else 11))
+    gs = fig.add_gridspec(len(rows), ncols, height_ratios=heights,
                           hspace=0.16, wspace=0.12)
-    # With both conditions the adjacency row gets three panels -- benign,
-    # |difference|, injected -- while graphs and texts keep two columns.
-    diff_row = (gs[1, :].subgridspec(1, 3, wspace=0.10)
-                if injected is not None else None)
-    adj_slot = {0: diff_row[0, 0], 1: diff_row[0, 2]} if diff_row else {0: gs[1, 0]}
+    r_graph, r_adj = rows.index("graph"), rows.index("adj")
+    r_text = rows.index("text") if with_text else None
+
+    # (slot, inserted-condition dict, title) for each |difference| panel.
+    diffs = []
+    if third == "isolated":
+        adj_slot = {c: gs[r_adj, c] for c in range(3)}
+        diffs = [(gs[rows.index("diff"), 0:2], injected,
+                  "|injecté − bénin| (tokens alignés, même ordre)")]
+    elif third == "control":
+        adj_slot = {c: gs[r_adj, c] for c in range(3)}
+        r_diff = rows.index("diff")
+        diffs = [(gs[r_diff, 1], injected,
+                  "|injecté − bénin| (tokens alignés)"),
+                 (gs[r_diff, 2], control,
+                  "|contrôle − bénin| (tokens alignés)")]
+    elif injected is not None:
+        # Two conditions: the adjacency row gets three panels -- benign,
+        # |difference|, injected -- while graphs and texts keep two columns.
+        sub = gs[r_adj, :].subgridspec(1, 3, wspace=0.10)
+        adj_slot = {0: sub[0, 0], 1: sub[0, 2]}
+        diffs = [(sub[0, 1], injected,
+                  "|injecté − bénin| (tokens alignés, même ordre)")]
+    else:
+        adj_slot = {0: gs[r_adj, 0]}
 
     for col, (label, data, segments) in enumerate(conditions):
         W, roles, tokens = data["W"], data["roles"], data["tokens"]
         n_inj = int((roles == ROLE_INJECTION).sum())
+        is_control = third == "control" and col == 2
         head = f"{label} — {W.shape[0]} tokens"
         if n_inj:
-            head += f"  [bleu={W.shape[0] - n_inj} · rouge={n_inj}]"
+            head += (f"  [bleu={W.shape[0] - n_inj} · "
+                     f"{'inséré' if is_control else 'rouge'}={n_inj}]")
+        if is_control and control_note:
+            head += f"\n{control_note}"
 
         info = plot_node_link(
-            fig.add_subplot(gs[0, col]), W, roles, tokens, title=head,
+            fig.add_subplot(gs[r_graph, col]), W, roles, tokens, title=head,
             top_k_edges=config.top_k_edges,
             max_label_tokens=config.max_label_tokens,
             color_by=config.color_by, seed=config.seed,
@@ -592,7 +768,9 @@ def figure_pair(benign: Dict, injected: Optional[Dict], model_slug: str,
             title="Adjacence (réordonnée par rôle)" if n_inj else "Adjacence",
             reorder=bool(n_inj),
             caption=f"hub={info['hub_token']} · bw={info['bandwidth']:.1f} · "
-                    f"{info['n_edges_drawn']} arêtes",
+                    f"{info['n_edges_drawn']} arêtes"
+                    + (" · échelle commune aux 3" if color_range else ""),
+            color_range=color_range,
         )
         if with_text:
             # The segments are the *user* turn. The chat template and system
@@ -600,30 +778,68 @@ def figure_pair(benign: Dict, injected: Optional[Dict], model_slug: str,
             # they are not reproduced here -- saying so beats implying that
             # this is the literal input.
             plot_prompt_text(
-                fig.add_subplot(gs[2, col]), segments or [],
+                fig.add_subplot(gs[r_text, col]), segments or [],
                 title="Texte utilisateur — template de chat non montré"
-                      + (" · injection en rouge" if n_inj else ""),
+                      + ((" · contrôle inséré en rouge" if is_control
+                          else " · injection en rouge") if n_inj else ""),
             )
 
-    if diff_row is not None:
-        D, n_match = aligned_abs_diff(benign, injected)
-        roles_i = injected["roles"]
-        host = np.flatnonzero(roles_i == ROLE_BENIGN)
-        hh = D[np.ix_(host, host)]
-        hh = hh[np.isfinite(hh) & ~np.eye(len(host), dtype=bool)]
+    if diffs:
+        computed = [(slot, cond, title, *aligned_abs_diff(benign, cond))
+                    for slot, cond, title in diffs]
+        shared = (diff_color_range(*(c[3] for c in computed))
+                  if len(computed) > 1 else None)
         ref = np.asarray(benign["W"], float)
         ref = ref[~np.eye(ref.shape[0], dtype=bool)]
-        plot_adjacency_diff(
-            fig.add_subplot(diff_row[0, 1]), D, roles_i,
-            title="|injecté − bénin| (tokens alignés, même ordre)",
-            caption=(f"{n_match}/{D.shape[0]} tokens appariés · gris = sans "
-                     f"équivalent bénin\n|Δ| moyen hôte×hôte "
-                     f"{hh.mean() if hh.size else float('nan'):.2e} "
-                     f"(poids moyen bénin {ref.mean():.2e})"),
+        for slot, cond, title, D, n_match in computed:
+            roles_c = cond["roles"]
+            host = np.flatnonzero(roles_c == ROLE_BENIGN)
+            hh = D[np.ix_(host, host)]
+            hh = hh[np.isfinite(hh) & ~np.eye(len(host), dtype=bool)]
+            plot_adjacency_diff(
+                fig.add_subplot(slot), D, roles_c, title=title,
+                caption=(f"{n_match}/{D.shape[0]} tokens appariés · gris = "
+                         f"sans équivalent bénin\n|Δ| moyen hôte×hôte "
+                         f"{hh.mean() if hh.size else float('nan'):.2e} "
+                         f"(poids moyen bénin {ref.mean():.2e})"
+                         + (" · échelle commune" if shared else "")),
+                color_range=shared,
+            )
+
+    if third == "control":
+        # Signed injected - control, in the empty slot of the difference row.
+        # Both prompts have the same length and host, so what is left is the
+        # content of the inserted text. Kept signed: whether the attack draws
+        # *more* attention than neutral text is the question, not just how
+        # much the two differ.
+        S, n_match = aligned_diff(control, injected, signed=True,
+                                  pair_inserted=True)
+        roles_i = injected["roles"]
+        host = np.flatnonzero(roles_i == ROLE_BENIGN)
+        ins = np.flatnonzero(roles_i == ROLE_INJECTION)
+
+        def _mean(block):
+            v = block[np.isfinite(block)]
+            return float(v.mean()) if v.size else float("nan")
+
+        hh = S[np.ix_(host, host)].copy()
+        np.fill_diagonal(hh, np.nan)
+        ii = S[np.ix_(ins, ins)].copy() if ins.size else np.full((0, 0), np.nan)
+        np.fill_diagonal(ii, np.nan)
+        cross = S[np.ix_(host, ins)] if ins.size else np.array([np.nan])
+        plot_adjacency_signed_diff(
+            fig.add_subplot(gs[rows.index("diff"), 0]), S, roles_i,
+            title="injecté − contrôle (signé : rouge = plus sous injection)",
+            caption=(f"{n_match}/{S.shape[0]} tokens appariés · insérés "
+                     f"appariés par position\nmoyennes Δ : hôte×hôte "
+                     f"{_mean(hh):+.2e} · hôte×inséré {_mean(cross):+.2e} · "
+                     f"inséré×inséré {_mean(ii):+.2e}"),
         )
 
+    red = ("Tokens insérés (injection, ou texte de contrôle en col. 3)"
+           if third == "control" else "Tokens injectés")
     handles = [Patch(facecolor=COLOR_BENIGN, label="Tokens bénins (hôte)"),
-               Patch(facecolor=COLOR_INJECTION, label="Tokens injectés")]
+               Patch(facecolor=COLOR_INJECTION, label=red)]
     if config.color_by == "cluster":
         handles = [Patch(facecolor=c, label=f"Cluster {i + 1}")
                    for i, c in enumerate(CLUSTER_COLORS[:3])]
@@ -631,7 +847,8 @@ def figure_pair(benign: Dict, injected: Optional[Dict], model_slug: str,
         handles += [
             Line2D([], [], color=COLOR_EDGE_BB, lw=2.4, label="Arête hôte–hôte"),
             Line2D([], [], color=COLOR_EDGE_II, lw=2.4,
-                   label="Arête injection–injection"),
+                   label="Arête insérée–insérée" if third == "control"
+                   else "Arête injection–injection"),
             Line2D([], [], color=COLOR_EDGE_BI, lw=2.4,
                    label="Arête croisée (la coupe mesurée)"),
         ]

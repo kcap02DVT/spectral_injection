@@ -20,6 +20,7 @@ from typing import List
 import numpy as np
 
 from .bipia import POSITIONS, describe, load_pairs
+from .controls import control_segments
 from .cli import (
     _fiedler_drop_head, _graph_view, _head_graph_view, _write_csv,
 )
@@ -125,6 +126,22 @@ def build_parser() -> argparse.ArgumentParser:
                    help="'first' (défaut) : une figure pour la paire 0 ; "
                         "'all' : une figure par paire, dans figures/ ; "
                         "'none' : aucune")
+    p.add_argument("--compare", default="paired",
+                   choices=["paired", "triptych", "control"],
+                   help="'paired' (défaut) : bénin | injecté ; 'triptych' : "
+                        "bénin | injecté | injection seule (l'attaque sans "
+                        "email ni tâche) ; 'control' : bénin | injecté | "
+                        "contrôle inséré de même longueur en tokens, avec "
+                        "|injecté − bénin| et |contrôle − bénin| côte à côte. "
+                        "Figures uniquement : une passe du modèle en plus par "
+                        "paire tracée, métriques et CSV d'évaluation inchangés")
+    p.add_argument("--control", default="email_text", choices=["email_text"],
+                   help="texte de contrôle pour --compare control. "
+                        "'email_text' : phrases consécutives du corps (après "
+                        "CONTENT:) d'un AUTRE email du split, sans suite de 6 "
+                        "mots commune avec l'email hôte, même nombre de "
+                        "tokens que l'attaque (tokenizer du modèle, "
+                        "troncature au dernier mot entier si besoin)")
     p.add_argument("--figure-pair", type=int, default=0,
                    help="index de la paire tracée quand --figures first")
     p.add_argument("--figure-pairs", nargs="+", type=int, default=None,
@@ -238,6 +255,23 @@ def main(argv=None) -> int:
     layer = args.layer if args.layer is not None else runner.middle_layer()
     print(f"Couches : {runner.n_layers} | couche analysée : {layer}\n")
 
+    control_pool = None
+    control_log = os.path.join(out_dir, "controls.csv")
+    if args.compare == "control":
+        from .bipia import _load_emails, ensure_data
+        from .controls import EmailTextControl
+
+        emails_split = _load_emails(ensure_data(
+            args.cache_dir, offline=args.offline)[f"email_{args.split}"])
+        control_pool = EmailTextControl(emails_split, runner.tokenizer,
+                                        seed=args.seed)
+        os.makedirs(out_dir, exist_ok=True)
+        if os.path.exists(control_log):         # a previous run's draws
+            os.remove(control_log)
+        print(f"contrôle {args.control} : {len(control_pool.windows)} "
+              f"fenêtres de phrases (emails {args.split}) ; "
+              f"tirages consignés dans controls.csv\n")
+
     # Figures are drawn inside the evaluation loop, where the attentions are
     # already in hand: re-running the model afterwards would double the cost.
     fig_dir = os.path.join(out_dir, "figures")
@@ -325,6 +359,53 @@ def main(argv=None) -> int:
         else:
             picked = [(lay, None) for lay in fig_layers]
 
+        # --compare triptych: the attack alone, run once per drawn pair and
+        # reused for every layer. Never enters the metrics -- see
+        # BipiaPair.isolated_segments for why it cannot.
+        lab_s = attn_s = None
+        if args.compare == "triptych" and picked:
+            lab_s, attn_s = runner.analyse_segments(pair.isolated_segments)
+
+        # --compare control: same slot as the attack, same token count, text
+        # from another email. Drawn once per pair, logged for traceability.
+        lab_c = attn_c = ctl = ctl_segments = None
+        if control_pool is not None and picked:
+            import csv
+            from .prompts import build_labelled_prompt_from_segments
+
+            def in_prompt(text, _pair=pair):
+                lab = build_labelled_prompt_from_segments(
+                    runner.tokenizer, control_segments(_pair, text),
+                    system_prompt=config.system_prompt)
+                return lab.count("injection"), len(lab)
+
+            # Same criteria as specificity_cli, so a figure shows the very
+            # control the statistics were computed on.
+            ctl = control_pool.choose(
+                pair, idx, in_prompt=in_prompt,
+                n_target=(lab_i.count("injection"), len(lab_i)),
+                match_chars=True)
+            ctl_segments = control_segments(pair, ctl.text)
+            lab_c, attn_c = runner.analyse_segments(ctl_segments)
+            new = not os.path.exists(control_log)
+            with open(control_log, "w" if new else "a", newline="",
+                      encoding="utf-8") as fh:
+                w = csv.writer(fh)
+                if new:
+                    w.writerow(["pair", "position", "host_email", "donor_email",
+                                "tokens_attack", "tokens_control",
+                                "tokens_inserted_injected",
+                                "tokens_inserted_control", "truncated",
+                                "candidates", "attack", "control"])
+                # host index in the same numbering as donor_email (the full
+                # split file), not example_id, which counts filtered emails.
+                w.writerow([idx, pair.position,
+                            control_pool.contexts.index(pair.context),
+                            ctl.donor_index, ctl.n_tokens_attack,
+                            ctl.n_tokens_control, lab_i.count("injection"),
+                            lab_c.count("injection"), int(ctl.truncated),
+                            ctl.n_candidates, pair.attack, ctl.text])
+
         for rank, (lay, score) in enumerate(picked, start=1):
             path = os.path.join(
                 target, f"{prefix}_L{lay}_{pair.position}.png")
@@ -339,6 +420,13 @@ def main(argv=None) -> int:
                 subtitle=f"paire {idx} · email #{pair.example_id} · "
                          f"insertion {pair.position} · "
                          f"{pair.attack_category}{why}",
+                isolated=(_graph_view(attn_s[lay], lab_s, config)
+                          if attn_s is not None else None),
+                isolated_segments=pair.isolated_segments,
+                control=(_graph_view(attn_c[lay], lab_c, config)
+                         if attn_c is not None else None),
+                control_segments=ctl_segments,
+                control_note=ctl.label() if ctl is not None else "",
             )
             written.append(path)
 
@@ -367,6 +455,13 @@ def main(argv=None) -> int:
                         subtitle=f"paire {idx} · tête {h} seule · "
                                  f"$\\lambda_2$ {vb:.4f} → {vi:.4f} "
                                  f"({-drop:+.1%}) · insertion {pair.position}",
+                        isolated=(_head_graph_view(attn_s[lay], lab_s, config, h)
+                                  if attn_s is not None else None),
+                        isolated_segments=pair.isolated_segments,
+                        control=(_head_graph_view(attn_c[lay], lab_c, config, h)
+                                 if attn_c is not None else None),
+                        control_segments=ctl_segments,
+                        control_note=ctl.label() if ctl is not None else "",
                     )
                     written.append(hpath)
 

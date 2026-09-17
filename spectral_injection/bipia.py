@@ -80,6 +80,18 @@ class BipiaPair:
     benign_segments: List[Tuple[str, str]]
     injected_segments: List[Tuple[str, str]]
 
+    @property
+    def isolated_segments(self) -> List[Tuple[str, str]]:
+        """The attack alone, with no task, email or question around it.
+
+        Only the chat template and system prompt still wrap it (they stay
+        benign), as they wrap the other two conditions. For visualisation only
+        (``--compare triptych``): with a handful of tokens instead of hundreds,
+        its spectral metrics are dominated by graph size and are not comparable
+        with the paired conditions.
+        """
+        return [(self.attack, ROLE_INJECTION)]
+
     def meta(self) -> Dict:
         return {
             "example_id": self.example_id,

@@ -1,3 +1,3 @@
 example_id,attack_category,position,split,n_chars_context,n_chars_attack,condition,label,n_tokens
-0,direct_injection,start,train,432,58,benign,0,237
-0,direct_injection,start,train,432,58,injected,1,250
+0,indirect_injection,start,train,432,158,benign,0,237
+0,indirect_injection,start,train,432,158,injected,1,271
