@@ -1,0 +1,3 @@
+layer,n_benign,n_injected,auroc_cut_conductance,dir_cut_conductance,auroc_cut_modularity,dir_cut_modularity,auroc_fiedler_value,dir_fiedler_value,auroc_spectral_entropy_norm,dir_spectral_entropy_norm,mean_separation,mean_conductance,mean_modularity,mean_accuracy,mean_ari
+6,1,1,1.0,-1.0,1.0,1.0,1.0,-1.0,1.0,1.0,3.1748394011271857,1.7418088377270113,0.004073650507307357,0.6413373860182371,0.012071404141568744
+14,1,1,1.0,-1.0,1.0,1.0,1.0,-1.0,1.0,1.0,3.2605296683659626,1.6565883802113806,0.0074170548169535935,0.5957446808510638,0.013479592017034477

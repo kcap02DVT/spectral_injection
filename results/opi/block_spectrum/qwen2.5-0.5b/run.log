@@ -1,0 +1,45 @@
+=== spectre sur l'UNION de deux regions  Qwen/Qwen2.5-0.5B-Instruct -> results\opi\block_spectrum\qwen2.5-0.5b
+spectral-trust 0.5.3
+correctif float64 : APPLIQUE
+15 blocs : ['task+normal', 'task+preamble', 'task+slot', 'task+tail', 'task+template', 'normal+preamble', 'normal+slot', 'normal+tail', 'normal+template', 'preamble+slot', 'preamble+tail', 'preamble+template', 'slot+tail', 'slot+template', 'tail+template']
+bloc declare : task+slot ; bras ('C3_opi', 'C4', 'C3_wiki')
+24 couches x 14 tetes ; couche declaree 6
+[1/16] naive__sentiment__spam__r164  T=101  10 blocs  30.6s
+[2/16] combine__sentiment__spam__r718  T=119  15 blocs  43.7s
+[3/16] ignore__sentiment__jfleg__r1179  T=95  15 blocs  36.5s
+[4/16] escape__sentiment__gigaword__r2147  T=88  10 blocs  26.0s
+[5/16] escape__sentiment__hsol__r2897  T=116  10 blocs  35.0s
+[6/16] ignore__sentiment__mrpc__r3485  T=129  15 blocs  55.1s
+[7/16] naive__sentiment__rte__r4043  T=129  10 blocs  45.3s
+[8/16] combine__sentiment__rte__r4730  T=158  15 blocs  67.2s
+[9/16] ignore__spam__sentiment__r5114  T=77  15 blocs  39.8s
+[10/16] escape__spam__jfleg__r6038  T=102  10 blocs  32.6s
+[11/16] naive__spam__gigaword__r6438  T=130  10 blocs  47.4s
+[12/16] combine__spam__gigaword__r7013  T=144  15 blocs  62.6s
+[13/16] naive__spam__hsol__r7365  T=101  10 blocs  33.5s
+[14/16] combine__spam__hsol__r7808  T=136  15 blocs  58.6s
+[15/16] escape__spam__mrpc__r8451  T=149  10 blocs  52.7s
+[16/16] ignore__spam__rte__r9099  T=171  15 blocs  78.3s
+
+16 paires retenues ; ignorees {'unmatched': 0, 'too_long': 0, 'audit': 0, 'deltaN': 0, 'labels': 0}
+Parseval, pire ecart relatif : 5.440e-15
+
+-- ce que les aretes croisees apportent au spectre de l'union (couche 6, bras C3_opi)
+bloc                  poids croise  D sans croise  max |d lambda|
+normal+preamble             0.0346         0.2827          0.2293
+normal+slot                 0.0610         0.2242          0.2010
+normal+tail                 0.0304         0.2111          0.1287
+normal+template             0.1868         0.4920          0.3441
+preamble+slot               0.0804         0.2539          0.2711
+preamble+tail               0.0213         0.2922          0.1518
+preamble+template           0.1109         0.4415          0.3632
+slot+tail                   0.0821         0.2297          0.2143
+slot+template               0.1627         0.4846          0.3345
+tail+template               0.1725         0.4914          0.3392
+task+normal                 0.0771         0.2445          0.2101
+task+preamble               0.0442         0.3540          0.2015
+task+slot                   0.0311         0.2456          0.1169
+task+tail                   0.0182         0.2243          0.0790
+task+template               0.2095         0.4836          0.3465
+
+8,867,376 lignes ; termine en 782s

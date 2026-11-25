@@ -1,0 +1,153 @@
+{
+  "model": "meta-llama/Llama-3.2-1B-Instruct",
+  "tag": "llama3.2-1b",
+  "n_layers": 16,
+  "n_heads": 32,
+  "n_kv_heads": 8,
+  "device": "cpu",
+  "nested_config": null,
+  "template": {
+    "name": "llama3-user-only-nosystem",
+    "marker_ids": {
+      "<|begin_of_text|>": 128000,
+      "<|start_header_id|>": 128006,
+      "<|end_header_id|>": 128007,
+      "<|eot_id|>": 128009
+    },
+    "bos_marker": "<|begin_of_text|>",
+    "n_template_tokens": 10
+  },
+  "bos_marker": "<|begin_of_text|>",
+  "regions": [
+    "task",
+    "normal",
+    "preamble",
+    "slot",
+    "tail",
+    "template"
+  ],
+  "blocks": [
+    "task--task",
+    "task--normal",
+    "task--preamble",
+    "task--slot",
+    "task--tail",
+    "task--template",
+    "normal--normal",
+    "normal--preamble",
+    "normal--slot",
+    "normal--tail",
+    "normal--template",
+    "preamble--preamble",
+    "preamble--slot",
+    "preamble--tail",
+    "preamble--template",
+    "slot--slot",
+    "slot--tail",
+    "slot--template",
+    "tail--tail",
+    "tail--template",
+    "template--template"
+  ],
+  "arms": [
+    "C3_opi",
+    "C3_wiki",
+    "C4"
+  ],
+  "n_pairs_planned": 56,
+  "n_pairs_kept": 55,
+  "skipped": {
+    "unmatched": 0,
+    "too_long": 0,
+    "audit": 1
+  },
+  "seed": 2027,
+  "per_stratum": 2,
+  "max_tokens": 512,
+  "asr": true,
+  "dirichlet": true,
+  "dirichlet_note": "signal = flux residuel hidden_states[l+1], donc famille HYBRIDE et non attention-only ; energie par tete, jamais sur un graphe moyenne entre tetes ; 'comb' (L = D - W) est un controle d'integrite, pas une mesure, car la moyenne par tete y est identique a l'energie du graphe moyen par linearite",
+  "dirichlet_primary_block": "task--slot",
+  "dirichlet_decomposition_check": [
+    {
+      "rel_max": 1.0391636709330889e-14,
+      "rel_median": 3.554352268988713e-15,
+      "normalization": "sym",
+      "primary_block": "task--slot"
+    },
+    {
+      "rel_max": 1.1283593042211832e-14,
+      "rel_median": 2.806072965377058e-15,
+      "normalization": "none",
+      "primary_block": "task--slot"
+    }
+  ],
+  "dirichlet_linearity": {
+    "none": {
+      "rel_max": 2.1850970958161508e-14,
+      "rel_median": 3.763378054775615e-15
+    },
+    "sym": {
+      "rel_max": 0.003435464683693897,
+      "rel_median": 0.0024355291014843106
+    }
+  },
+  "asr_criterion": {
+    "label_sets": {
+      "hsol": [
+        "yes",
+        "no"
+      ],
+      "mrpc": [
+        "equivalent",
+        "not equivalent"
+      ],
+      "rte": [
+        "entailment",
+        "not entailment"
+      ],
+      "sentiment": [
+        "positive",
+        "negative"
+      ],
+      "spam": [
+        "spam",
+        "not spam"
+      ]
+    },
+    "open_tasks": [
+      "gigaword",
+      "jfleg"
+    ],
+    "max_new_tokens": 16,
+    "disjoint": true
+  },
+  "wikitext_pool": 4000,
+  "identity_residual": 2.42861286636753e-17,
+  "graph": {
+    "symmetrization": "symmetric",
+    "normalization": "sym",
+    "remove_self_loops": false,
+    "note": "M = I - construct_laplacian(symmetrize(A)) ; Q = M^2, Q_ii = 0"
+  },
+  "spectral_trust_version": "0.3.0",
+  "spectral_trust_path": "C:\\Users\\damsw\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\spectral_trust",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "python": "3.12.10",
+  "elapsed_s": 1240.5,
+  "asr_summary": {
+    "C3_opi": {
+      "n_defined": 39,
+      "n_hijacked": 1
+    },
+    "C3_wiki": {
+      "n_defined": 39,
+      "n_hijacked": 2
+    },
+    "C4": {
+      "n_defined": 39,
+      "n_hijacked": 9
+    }
+  }
+}

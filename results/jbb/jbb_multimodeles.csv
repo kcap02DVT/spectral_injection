@@ -1,0 +1,7 @@
+modele,comparaison,n_paires,candidats,max_pooled,paired_du_max,cellule,nul_moyen,nul_q95,p_familial,couches,tetes
+qwen2.5-0.5b,qwen2.5-0.5b: jailbreak vs neutre,8,1680,1.0,1.0,hfer c0 t1,0.8283854166666667,0.96875,0.036544850498338874,24,14
+llama3.2-1b,llama3.2-1b: jailbreak vs neutre,8,2560,1.0,1.0,connectivity_ratio c0 t11,0.8536458333333333,0.96875,0.03986710963455149,16,32
+qwen2.5-1.5b,qwen2.5-1.5b: jailbreak vs neutre,8,1680,1.0,1.0,fiedler_value c2 t0,0.8580729166666666,0.984375,0.029900332225913623,28,12
+smollm2-1.7b,smollm2-1.7b: jailbreak vs neutre,8,3840,1.0,1.0,spectral_radius c0 t5,0.88859375,0.9695312500000002,0.03986710963455149,24,32
+qwen3-0.6b,qwen3-0.6b: jailbreak vs neutre,8,2240,1.0,1.0,fiedler_value c0 t3,0.8490625,0.96875,0.036544850498338874,28,16
+tinyllama,tinyllama: jailbreak vs neutre,8,3520,1.0,1.0,connectivity_ratio c0 t10,0.8508854166666666,0.984375,0.026578073089700997,22,32

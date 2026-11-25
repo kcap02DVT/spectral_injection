@@ -1,0 +1,116 @@
+============================================================================================================
+STRATIFICATION PAR FAMILLE D'ATTAQUE   (mediane de C4-C3, win_rate)
+Rappel : pour `ignore` et `combine`, P_atk porte deja une directive DES DEUX COTES.
+
+metrique                                    combine           escape           ignore            naive
+------------------------------------------------------------------------------------------------------
+h1_lambda_2                          -0.0042/ 0.18   -0.0062/ 0.25   -0.0053/ 0.32   -0.0009/ 0.43
+h1_eigengap_23                       -0.0005/ 0.39    0.0002/ 0.54    0.0012/ 0.57   -0.0026/ 0.29
+h2_conductance                        0.0041/ 0.82    0.0076/ 0.89    0.0042/ 0.75    0.0102/ 1.00
+h2_cut_over_vol_E                     0.0067/ 0.68    0.0112/ 0.82    0.0079/ 0.71    0.0139/ 0.93
+h3_Fbar_E_to_U                        0.0054/ 1.00    0.0102/ 1.00    0.0081/ 1.00    0.0098/ 1.00
+h3_Fbar_E_to_E                       -0.0038/ 0.25   -0.0093/ 0.21   -0.0061/ 0.29   -0.0113/ 0.07
+h4B_hfer                              0.0066/ 0.82    0.0093/ 0.89    0.0079/ 0.82    0.0101/ 0.93
+h4B_centroid                          0.0107/ 0.71    0.0134/ 0.75    0.0084/ 0.79    0.0156/ 0.93
+h5_k3_mix_UE                          0.0000/ 0.00    0.0000/ 0.00    0.0000/ 0.00    0.0000/ 0.00
+h5_k3_region_entropy_mean             0.0068/ 0.75    0.0233/ 0.89    0.0141/ 0.86    0.0148/ 0.96
+traj_h1_lambda_2__total_variation     0.0579/ 0.64   -0.0069/ 0.39   -0.0436/ 0.39    0.0129/ 0.54
+traj_h4B_hfer__total_variation        0.1175/ 0.96    0.1074/ 0.93    0.0827/ 0.79    0.1024/ 0.96
+
+============================================================================================================
+STRATIFICATION PAR TACHE LEGITIME   (mediane de C4-C3)
+metrique                             gigaword       hsol      jfleg       mrpc        rte  sentiment       spam
+---------------------------------------------------------------------------------------------------------------
+h1_lambda_2                           -0.0133    -0.0044     0.0020    -0.0031    -0.0033    -0.0097    -0.0040
+h1_eigengap_23                         0.0013    -0.0031    -0.0065     0.0009     0.0019    -0.0009     0.0005
+h2_conductance                         0.0043     0.0070     0.0108     0.0064     0.0055     0.0069     0.0062
+h2_cut_over_vol_E                     -0.0017     0.0080     0.0108     0.0128     0.0102     0.0092     0.0080
+h3_Fbar_E_to_U                         0.0044     0.0128     0.0130     0.0057     0.0061     0.0088     0.0120
+h3_Fbar_E_to_E                         0.0017    -0.0063    -0.0091    -0.0115    -0.0083    -0.0084    -0.0047
+h4B_hfer                               0.0054     0.0095     0.0047     0.0121     0.0090     0.0090     0.0097
+h4B_centroid                          -0.0024     0.0149     0.0143     0.0157     0.0120     0.0068     0.0140
+h5_k3_mix_UE                           0.0000     0.0000     0.0000     0.0000     0.0000     0.0000     0.0000
+h5_k3_region_entropy_mean              0.0191     0.0184     0.0066     0.0031     0.0068     0.0188     0.0276
+traj_h1_lambda_2__total_variation     -0.0589    -0.0029     0.0279     0.0185     0.0080     0.0064    -0.0123
+traj_h4B_hfer__total_variation         0.0834     0.1293     0.0747     0.0798     0.0823     0.1481     0.1793
+
+============================================================================================================
+COHERENCE DE DIRECTION ENTRE STRATES
+metrique                            signe identique / 4 attaques    / 7 taches
+--------------------------------------------------------------------------------
+h1_lambda_2                                                    4/4            6/7
+h1_eigengap_23                                                 2/4            4/7
+h2_conductance                                                 4/4            7/7
+h2_cut_over_vol_E                                              4/4            6/7
+h3_Fbar_E_to_U                                                 4/4            7/7
+h3_Fbar_E_to_E                                                 4/4            6/7
+h4B_hfer                                                       4/4            7/7
+h4B_centroid                                                   4/4            6/7
+h5_k3_mix_UE                                                   0/4            0/7
+h5_k3_region_entropy_mean                                      4/4            7/7
+traj_h1_lambda_2__total_variation                              2/4            4/7
+traj_h4B_hfer__total_variation                                 4/4            7/7
+
+============================================================================================================
+SENSIBILITE A LA LONGUEUR   (Spearman entre C4-C3 et T_C4)
+metrique                                rho        p
+----------------------------------------------------
+h1_lambda_2                          -0.211   0.0255
+h1_eigengap_23                        0.220   0.0195
+h2_conductance                       -0.328   0.0004
+h2_cut_over_vol_E                    -0.094   0.3221
+h3_Fbar_E_to_U                       -0.201   0.0338
+h3_Fbar_E_to_E                        0.095   0.3186
+h4B_hfer                             -0.059   0.5372
+h4B_centroid                         -0.160   0.0922
+h5_k3_mix_UE                            nan      nan
+h5_k3_region_entropy_mean            -0.172   0.0702
+traj_h1_lambda_2__total_variation    -0.071   0.4572
+traj_h4B_hfer__total_variation       -0.284   0.0024
+
+============================================================================================================
+CONTROLE DES COVARIABLES  (Freedman-Lane)
+  covariables d'ecart : ['d_T', 'd_nE'], ecart-type [0. 0.]
+  covariables de niveau centrees : 10
+metrique                                   b0        p   ddl  cov.  mediane brute
+----------------------------------------------------------------------------------
+h1_lambda_2                          -0.00526   0.0002   101    10       -0.00368
+h1_eigengap_23                       -0.00100   0.0187   101    10       -0.00060
+h2_conductance                        0.00723   0.0002   101    10        0.00644
+h2_cut_over_vol_E                     0.00866   0.0002   101    10        0.00856
+h3_Fbar_E_to_U                        0.00937   0.0002   101    10        0.00815
+h3_Fbar_E_to_E                       -0.00702   0.0002   101    10       -0.00745
+h4B_hfer                              0.00909   0.0002   101    10        0.00903
+h4B_centroid                          0.01195   0.0002   101    10        0.01253
+h5_k3_mix_UE                          0.00000   1.0000   101    10        0.00000
+h5_k3_region_entropy_mean             0.01665   0.0002   101    10        0.01435
+traj_h1_lambda_2__total_variation    -0.00386   0.6376   101    10       -0.00230
+traj_h4B_hfer__total_variation        0.10790   0.0002   101    10        0.10436
+
+============================================================================================================
+SENSIBILITE A L'AGREGATEUR  (mediane vs moyenne sur couches x tetes)
+metrique                            p_fwer mediane  p_fwer moyenne  meme verdict
+----------------------------------------------------------------------------------
+h1_lambda_2                                 0.0032          0.0107          True
+h1_eigengap_23                              0.5271          0.6736          True
+h2_conductance                              0.0002          0.0002          True
+h2_cut_over_vol_E                           0.0002          0.0002          True
+h3_Fbar_E_to_U                              0.0002          0.0002          True
+h3_Fbar_E_to_E                              0.0002          0.0002          True
+h4B_hfer                                    0.0002          0.0002          True
+h4B_centroid                                0.0002          0.0002          True
+h5_k3_mix_UE                                1.0000          0.0002         False
+h5_k3_region_entropy_mean                   0.0002          0.0002          True
+traj_h1_lambda_2__total_variation           1.0000          0.6468          True
+traj_h4B_hfer__total_variation              0.0002          0.0002          True
+
+============================================================================================================
+ROBUSTESSE : graphes SANS self-loops (prefixe nsl_)
+metrique                  mediane avec  mediane sans  p_fwer avec  p_fwer sans  meme verdict
+--------------------------------------------------------------------------------------------
+h1_lambda_2                   -0.00368      -0.00650       0.0032       0.0002          True
+h2_conductance                 0.00644       0.00594       0.0002       0.0002          True
+h2_cut_over_vol_E              0.00856       0.00882       0.0002       0.0002          True
+h4B_hfer                       0.00903       0.00871       0.0002       0.0002          True
+h4B_centroid                   0.01253       0.01235       0.0002       0.0002          True
+h1_eigengap_23                -0.00060       0.00024       0.5271       0.8753          True

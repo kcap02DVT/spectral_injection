@@ -1,0 +1,33 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "tag": "qwen2.5-0.5b",
+  "n_layers": 24,
+  "n_heads": 14,
+  "arms": [
+    "C3_opi",
+    "C4",
+    "C3_wiki",
+    "C3_align"
+  ],
+  "ancres": [
+    "fin",
+    "finE"
+  ],
+  "poids": [
+    "attn",
+    "vw"
+  ],
+  "vw_message": "",
+  "n_pairs_kept": 55,
+  "skipped": {
+    "unmatched": 0,
+    "align": 0,
+    "too_long": 0,
+    "audit": 1,
+    "deltaN": 0,
+    "labels": 0
+  },
+  "seed": 2027,
+  "python": "3.12.10",
+  "secondes": 394.7
+}

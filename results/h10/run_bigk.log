@@ -1,0 +1,72 @@
+3 seuillages x 4 plongements x 2 K = 24 combinaisons
+
+  1 paires  (123.7 s/paire)
+  2 paires  (118.3 s/paire)
+  3 paires  (99.1 s/paire)
+  4 paires  (116.2 s/paire)
+  5 paires  (118.2 s/paire)
+  6 paires  (124.2 s/paire)
+  7 paires  (121.6 s/paire)
+  8 paires  (138.2 s/paire)
+  9 paires  (130.7 s/paire)
+  10 paires  (135.5 s/paire)
+  11 paires  (129.8 s/paire)
+  12 paires  (2295.2 s/paire)
+  13 paires  (4055.4 s/paire)
+  14 paires  (3770.8 s/paire)
+  15 paires  (3524.7 s/paire)
+  16 paires  (3320.1 s/paire)
+  17 paires  (3135.5 s/paire)
+  18 paires  (2967.3 s/paire)
+  19 paires  (2816.9 s/paire)
+  20 paires  (2681.3 s/paire)
+  21 paires  (2557.5 s/paire)
+  22 paires  (2449.9 s/paire)
+  23 paires  (2350.3 s/paire)
+  24 paires  (2258.8 s/paire)
+  25 paires  (2173.5 s/paire)
+  26 paires  (2092.8 s/paire)
+  27 paires  (2018.5 s/paire)
+  28 paires  (1953.6 s/paire)
+  29 paires  (1889.8 s/paire)
+  30 paires  (1829.4 s/paire)
+  31 paires  (1773.1 s/paire)
+  32 paires  (1721.7 s/paire)
+  33 paires  (1672.6 s/paire)
+  34 paires  (1628.3 s/paire)
+  35 paires  (1587.1 s/paire)
+  36 paires  (1547.4 s/paire)
+  37 paires  (1509.8 s/paire)
+
+37 paires, 1554 graphes par combinaison, couches tous les 8
+
+graphe  plongement   K   f1 inj   f1 ctl   ecart  maj inj  maj ctl   ecart  hit inj  hit ctl   ecart
+--------------------------------------------------------------------------------------------------------
+dense   hamilton    20    0.526    0.528  -0.002    0.491    0.466  +0.025    0.037    0.026  +0.010
+dense   hamilton    32    0.555    0.558  -0.003    0.653    0.636  +0.017    0.024    0.024  -0.001
+dense   vluxburg    20    0.527    0.529  -0.002    0.482    0.468  +0.014    0.034    0.028  +0.006
+dense   vluxburg    32    0.554    0.560  -0.006    0.654    0.649  +0.005    0.038    0.025  +0.013
+dense   njw         20    0.590    0.590  +0.000    0.515    0.519  -0.004    0.037    0.035  +0.001
+dense   njw         32    0.613    0.615  -0.001    0.695    0.707  -0.012    0.030    0.035  -0.005
+dense   shimalik    20    0.561    0.555  +0.006    0.519    0.500  +0.019    0.036    0.042  -0.006
+dense   shimalik    32    0.582    0.587  -0.005    0.689    0.678  +0.011    0.026    0.023  +0.003
+q90     hamilton    20    0.541    0.539  +0.002    0.521    0.512  +0.009    0.040    0.031  +0.009
+q90     hamilton    32    0.556    0.559  -0.004    0.669    0.660  +0.008    0.032    0.032  -0.001
+q90     vluxburg    20    0.536    0.539  -0.003    0.523    0.507  +0.016    0.037    0.030  +0.006
+q90     vluxburg    32    0.553    0.556  -0.003    0.665    0.661  +0.005    0.024    0.041  -0.016
+q90     njw         20    0.584    0.586  -0.002    0.543    0.530  +0.013    0.035    0.034  +0.001
+q90     njw         32    0.599    0.601  -0.001    0.696    0.690  +0.006    0.032    0.031  +0.001
+q90     shimalik    20    0.568    0.561  +0.008    0.560    0.535  +0.026    0.042    0.039  +0.004
+q90     shimalik    32    0.568    0.570  -0.002    0.714    0.690  +0.023    0.032    0.030  +0.002
+topk16  hamilton    20    0.544    0.549  -0.005    0.518    0.506  +0.012    0.039    0.036  +0.003
+topk16  hamilton    32    0.565    0.561  +0.004    0.676    0.669  +0.007    0.022    0.033  -0.011
+topk16  vluxburg    20    0.550    0.548  +0.001    0.519    0.512  +0.006    0.042    0.038  +0.005
+topk16  vluxburg    32    0.558    0.561  -0.002    0.674    0.660  +0.014    0.024    0.033  -0.008
+topk16  njw         20    0.593    0.597  -0.004    0.537    0.533  +0.003    0.035    0.040  -0.005
+topk16  njw         32    0.611    0.611  -0.000    0.714    0.697  +0.017    0.037    0.030  +0.007
+topk16  shimalik    20    0.583    0.583  +0.000    0.555    0.539  +0.017    0.048    0.037  +0.010
+topk16  shimalik    32    0.587    0.589  -0.003    0.703    0.707  -0.004    0.036    0.032  +0.004
+
+Aucune combinaison ne separe l'injection : le verdict de la serie B tient, il n'etait pas un artefact du graphe choisi.
+
+-> results/h10/qwen05_bigk.csv

@@ -1,0 +1,125 @@
+{
+  "model": "google/gemma-2-2b-it",
+  "tag": "gemma-2-2b",
+  "n_layers": 26,
+  "n_heads": 8,
+  "n_kv_heads": 4,
+  "device": "cpu",
+  "nested_config": null,
+  "template": {
+    "name": "gemma-user-only-nosystem",
+    "marker_ids": {
+      "<bos>": 2,
+      "<start_of_turn>": 106,
+      "<end_of_turn>": 107
+    },
+    "bos_marker": "<bos>",
+    "n_template_tokens": 9
+  },
+  "bos_marker": "<bos>",
+  "regions": [
+    "task",
+    "normal",
+    "preamble",
+    "slot",
+    "tail",
+    "template"
+  ],
+  "blocks": [
+    "task--task",
+    "task--normal",
+    "task--preamble",
+    "task--slot",
+    "task--tail",
+    "task--template",
+    "normal--normal",
+    "normal--preamble",
+    "normal--slot",
+    "normal--tail",
+    "normal--template",
+    "preamble--preamble",
+    "preamble--slot",
+    "preamble--tail",
+    "preamble--template",
+    "slot--slot",
+    "slot--tail",
+    "slot--template",
+    "tail--tail",
+    "tail--template",
+    "template--template"
+  ],
+  "arms": [
+    "C3_opi",
+    "C3_wiki",
+    "C4"
+  ],
+  "n_pairs_planned": 56,
+  "n_pairs_kept": 56,
+  "skipped": {
+    "unmatched": 0,
+    "too_long": 0,
+    "audit": 0
+  },
+  "seed": 2027,
+  "per_stratum": 2,
+  "max_tokens": 512,
+  "asr": true,
+  "asr_criterion": {
+    "label_sets": {
+      "hsol": [
+        "yes",
+        "no"
+      ],
+      "mrpc": [
+        "equivalent",
+        "not equivalent"
+      ],
+      "rte": [
+        "entailment",
+        "not entailment"
+      ],
+      "sentiment": [
+        "positive",
+        "negative"
+      ],
+      "spam": [
+        "spam",
+        "not spam"
+      ]
+    },
+    "open_tasks": [
+      "gigaword",
+      "jfleg"
+    ],
+    "max_new_tokens": 16,
+    "disjoint": true
+  },
+  "wikitext_pool": 4000,
+  "identity_residual": 8.326672684688674e-17,
+  "graph": {
+    "symmetrization": "symmetric",
+    "normalization": "sym",
+    "remove_self_loops": false,
+    "note": "M = I - construct_laplacian(symmetrize(A)) ; Q = M^2, Q_ii = 0"
+  },
+  "spectral_trust_version": "0.3.0",
+  "spectral_trust_path": "C:\\Users\\damsw\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\spectral_trust",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "python": "3.12.10",
+  "elapsed_s": 2399.9,
+  "asr_summary": {
+    "C3_opi": {
+      "n_defined": 40,
+      "n_hijacked": 0
+    },
+    "C3_wiki": {
+      "n_defined": 40,
+      "n_hijacked": 0
+    },
+    "C4": {
+      "n_defined": 40,
+      "n_hijacked": 13
+    }
+  }
+}

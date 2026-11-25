@@ -1,0 +1,18 @@
+pair,position,category,tokens_inserted,prompt_tokens,chars_attack,chars_control
+0,start,Space Removal & Grouping,7,245,44,45
+1,middle,Instruction,14,264,85,77
+2,end,Content Creation,9,202,56,51
+3,start,Homophonic Substitution,8,360,50,50
+5,end,Persuasion,12,311,67,66
+6,start,Instruction,12,322,78,72
+7,middle,Misspelling Intentionally,9,224,42,46
+8,end,Persuasion,13,371,78,72
+9,start,Space Removal & Grouping,5,177,33,29
+10,middle,Malware Distribution,17,298,77,78
+11,end,Alphanumeric Substitution,6,179,51,40
+12,start,Persuasion,13,207,75,72
+14,end,Misspelling Intentionally,8,246,42,39
+16,middle,Learning and Tutoring,6,180,38,36
+17,end,Homophonic Substitution,11,182,75,70
+18,start,Clickbait,14,371,76,77
+19,middle,Language Translation,11,296,43,47

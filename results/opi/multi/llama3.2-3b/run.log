@@ -1,0 +1,188 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+1. dataset
+   33600 lignes, decomposition verifiee
+   echantillon : 112 lignes
+   taches  : ['gigaword', 'hsol', 'jfleg', 'mrpc', 'rte', 'sentiment', 'spam']
+   attaques: ['combine', 'escape', 'ignore', 'naive']
+
+2. modele
+Loading weights:   0%|          | 0/254 [00:00<?, ?it/s]Loading weights:   3%|▎         | 8/254 [00:00<00:06, 40.65it/s]Loading weights:   7%|▋         | 17/254 [00:00<00:06, 36.16it/s]Loading weights:  10%|▉         | 25/254 [00:00<00:05, 43.47it/s]Loading weights:  12%|█▏        | 30/254 [00:00<00:06, 37.15it/s]Loading weights:  14%|█▍        | 35/254 [00:00<00:05, 39.90it/s]Loading weights:  16%|█▌        | 40/254 [00:01<00:05, 38.62it/s]Loading weights:  18%|█▊        | 45/254 [00:01<00:06, 34.01it/s]Loading weights:  21%|██        | 53/254 [00:01<00:06, 30.30it/s]Loading weights:  23%|██▎       | 58/254 [00:01<00:06, 32.19it/s]Loading weights:  25%|██▍       | 63/254 [00:01<00:06, 29.28it/s]Loading weights:  28%|██▊       | 70/254 [00:01<00:05, 36.53it/s]Loading weights:  30%|██▉       | 75/254 [00:02<00:06, 28.76it/s]Loading weights:  32%|███▏      | 81/254 [00:02<00:06, 27.65it/s]Loading weights:  33%|███▎      | 85/254 [00:02<00:06, 27.51it/s]Loading weights:  35%|███▌      | 89/254 [00:02<00:07, 22.42it/s]Loading weights:  38%|███▊      | 97/254 [00:03<00:06, 25.63it/s]Loading weights:  40%|███▉      | 101/254 [00:03<00:05, 27.57it/s]Loading weights:  42%|████▏     | 107/254 [00:03<00:05, 25.73it/s]Loading weights:  44%|████▍     | 113/254 [00:03<00:05, 26.01it/s]Loading weights:  46%|████▋     | 118/254 [00:03<00:04, 29.06it/s]Loading weights:  49%|████▉     | 125/254 [00:03<00:03, 36.12it/s]Loading weights:  51%|█████     | 130/254 [00:04<00:03, 31.01it/s]Loading weights:  53%|█████▎    | 135/254 [00:04<00:04, 27.79it/s]Loading weights:  56%|█████▋    | 143/254 [00:04<00:03, 30.79it/s]Loading weights:  58%|█████▊    | 148/254 [00:04<00:03, 32.49it/s]Loading weights:  60%|██████    | 153/254 [00:05<00:03, 27.25it/s]Loading weights:  63%|██████▎   | 161/254 [00:05<00:03, 27.25it/s]Loading weights:  67%|██████▋   | 170/254 [00:05<00:03, 27.50it/s]Loading weights:  70%|███████   | 178/254 [00:05<00:02, 31.37it/s]Loading weights:  72%|███████▏  | 182/254 [00:06<00:03, 23.38it/s]Loading weights:  73%|███████▎  | 185/254 [00:06<00:03, 17.90it/s]Loading weights:  74%|███████▍  | 188/254 [00:06<00:04, 15.55it/s]Loading weights:  76%|███████▌  | 192/254 [00:07<00:03, 16.71it/s]Loading weights:  78%|███████▊  | 197/254 [00:07<00:04, 12.81it/s]Loading weights:  80%|███████▉  | 202/254 [00:08<00:04, 12.10it/s]Loading weights:  82%|████████▏ | 208/254 [00:09<00:04,  9.30it/s]Loading weights:  83%|████████▎ | 211/254 [00:09<00:04, 10.65it/s]Loading weights:  84%|████████▍ | 214/254 [00:09<00:03, 12.42it/s]Loading weights:  85%|████████▌ | 216/254 [00:11<00:09,  4.13it/s]Loading weights:  86%|████████▌ | 219/254 [00:11<00:07,  4.41it/s]Loading weights:  87%|████████▋ | 221/254 [00:11<00:06,  5.05it/s]Loading weights:  88%|████████▊ | 224/254 [00:12<00:04,  6.63it/s]Loading weights:  89%|████████▉ | 226/254 [00:12<00:03,  7.49it/s]Loading weights:  90%|████████▉ | 228/254 [00:12<00:04,  6.13it/s]Loading weights:  92%|█████████▏| 233/254 [00:12<00:02,  9.74it/s]Loading weights:  93%|█████████▎| 235/254 [00:13<00:02,  8.59it/s]Loading weights:  93%|█████████▎| 237/254 [00:13<00:01,  9.09it/s]Loading weights:  95%|█████████▍| 241/254 [00:13<00:01,  8.83it/s]Loading weights:  96%|█████████▌| 243/254 [00:14<00:01,  9.44it/s]Loading weights:  97%|█████████▋| 247/254 [00:14<00:00, 11.96it/s]Loading weights: 100%|██████████| 254/254 [00:14<00:00, 17.79it/s]
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+   meta-llama/Llama-3.2-3B-Instruct
+   28 couches x 24 tetes (kv=8), device=cpu
+   template experimental : llama3-user-only-nosystem
+   marqueurs : {'<|begin_of_text|>': 128000, '<|start_header_id|>': 128006, '<|end_header_id|>': 128007, '<|eot_id|>': 128009}
+   tokens de template hors contenu : 10
+   AUCUN message systeme : le bloc fabrique par le template officiel de la famille est supprime
+
+3. construction des conditions
+   appariement exact du remplissage : 112/112
+
+4. capture et analyse
+   [1/112] sentiment/naive T=114 (71950.4 s/ligne)
+   [2/112] sentiment/ignore T=92 (36039.8 s/ligne)
+   [3/112] sentiment/combine T=103 (24065.4 s/ligne)
+   [4/112] sentiment/naive T=82 (18072.0 s/ligne)
+   [5/112] sentiment/escape T=90 (14476.7 s/ligne)
+   [6/112] sentiment/combine T=107 (12081.9 s/ligne)
+   [7/112] sentiment/ignore T=104 (10371.1 s/ligne)
+   [8/112] sentiment/escape T=111 (9088.5 s/ligne)
+   [9/112] sentiment/ignore T=108 (8090.0 s/ligne)
+   [10/112] sentiment/escape T=131 (7292.4 s/ligne)
+   [11/112] sentiment/naive T=118 (6639.4 s/ligne)
+   [12/112] sentiment/escape T=110 (6094.8 s/ligne)
+   [13/112] sentiment/combine T=144 (5635.4 s/ligne)
+   [14/112] sentiment/naive T=147 (5241.5 s/ligne)
+   [15/112] sentiment/ignore T=130 (4899.8 s/ligne)
+   [16/112] sentiment/combine T=192 (4602.2 s/ligne)
+   [17/112] spam/ignore T=121 (4338.4 s/ligne)
+   [18/112] spam/escape T=91 (4102.6 s/ligne)
+   [19/112] spam/naive T=88 (3891.5 s/ligne)
+   [20/112] spam/ignore T=80 (3701.4 s/ligne)
+   [21/112] spam/combine T=153 (3531.7 s/ligne)
+   [22/112] spam/naive T=139 (3377.1 s/ligne)
+   [23/112] spam/escape T=125 (3235.8 s/ligne)
+   [24/112] spam/combine T=130 (3106.3 s/ligne)
+   [25/112] spam/naive T=121 (2986.6 s/ligne)
+   [26/112] spam/escape T=109 (2875.9 s/ligne)
+   [27/112] spam/combine T=123 (2773.4 s/ligne)
+   [28/112] spam/naive T=126 (2678.4 s/ligne)
+   [29/112] spam/ignore T=158 (2590.4 s/ligne)
+   [30/112] spam/combine T=157 (2508.4 s/ligne)
+   [31/112] spam/ignore T=186 (2432.1 s/ligne)
+   [32/112] spam/escape T=249 (2362.7 s/ligne)
+   [33/112] jfleg/naive T=135 (2294.8 s/ligne)
+   [34/112] jfleg/ignore T=124 (2230.8 s/ligne)
+   [35/112] jfleg/combine T=110 (2170.1 s/ligne)
+   [36/112] jfleg/naive T=179 (2113.9 s/ligne)
+   [37/112] jfleg/ignore T=129 (2059.9 s/ligne)
+   [38/112] jfleg/combine T=147 (2008.9 s/ligne)
+   [39/112] jfleg/ignore T=129 (1960.5 s/ligne)
+   [40/112] jfleg/escape T=147 (1914.8 s/ligne)
+   [41/112] jfleg/ignore T=172 (1871.4 s/ligne)
+   [42/112] jfleg/escape T=128 (1829.5 s/ligne)
+   [43/112] jfleg/naive T=128 (1789.5 s/ligne)
+   [44/112] jfleg/escape T=162 (1751.8 s/ligne)
+   [45/112] jfleg/combine T=165 (1715.8 s/ligne)
+   [46/112] jfleg/naive T=161 (1681.3 s/ligne)
+   [47/112] jfleg/escape T=164 (1648.3 s/ligne)
+   [48/112] jfleg/combine T=146 (1616.6 s/ligne)
+   [49/112] gigaword/ignore T=92 (1585.6 s/ligne)
+   [50/112] gigaword/escape T=96 (1555.7 s/ligne)
+   [51/112] gigaword/ignore T=101 (1527.3 s/ligne)
+   [52/112] gigaword/escape T=121 (1500.1 s/ligne)
+   [53/112] gigaword/naive T=103 (1474.0 s/ligne)
+   [54/112] gigaword/escape T=126 (1448.9 s/ligne)
+   [55/112] gigaword/combine T=90 (1424.2 s/ligne)
+   [56/112] gigaword/naive T=141 (1400.9 s/ligne)
+   [57/112] gigaword/escape T=111 (1378.3 s/ligne)
+   [58/112] gigaword/combine T=113 (1356.3 s/ligne)
+   [59/112] gigaword/naive T=115 (1335.1 s/ligne)
+   [60/112] gigaword/ignore T=162 (1315.0 s/ligne)
+   [61/112] gigaword/combine T=167 (1295.7 s/ligne)
+   [62/112] gigaword/naive T=131 (1276.7 s/ligne)
+   [63/112] gigaword/ignore T=210 (1259.1 s/ligne)
+   [64/112] gigaword/combine T=157 (1241.4 s/ligne)
+   [65/112] hsol/naive T=91 (1223.8 s/ligne)
+   [66/112] hsol/escape T=104 (1206.9 s/ligne)
+   [67/112] hsol/combine T=118 (1190.6 s/ligne)
+   [68/112] hsol/naive T=121 (1174.8 s/ligne)
+   [69/112] hsol/escape T=135 (1159.5 s/ligne)
+   [70/112] hsol/combine T=160 (1144.8 s/ligne)
+   [71/112] hsol/naive T=98 (1130.1 s/ligne)
+   [72/112] hsol/ignore T=110 (1115.9 s/ligne)
+   [73/112] hsol/combine T=114 (1102.1 s/ligne)
+   [74/112] hsol/naive T=112 (1088.7 s/ligne)
+   [75/112] hsol/ignore T=124 (1075.7 s/ligne)
+   [76/112] hsol/combine T=150 (1063.3 s/ligne)
+   [77/112] hsol/ignore T=156 (1051.1 s/ligne)
+   [78/112] hsol/escape T=160 (1039.3 s/ligne)
+   [79/112] hsol/ignore T=214 (1028.3 s/ligne)
+   [80/112] hsol/escape T=133 (1016.9 s/ligne)
+   [81/112] mrpc/ignore T=117 (1005.8 s/ligne)
+   [82/112] mrpc/escape T=134 (995.1 s/ligne)
+   [83/112] mrpc/ignore T=134 (984.7 s/ligne)
+   [84/112] mrpc/escape T=107 (974.3 s/ligne)
+   [85/112] mrpc/naive T=144 (964.4 s/ligne)
+   [86/112] mrpc/ignore T=166 (954.8 s/ligne)
+   [87/112] mrpc/combine T=142 (945.3 s/ligne)
+   [88/112] mrpc/naive T=170 (936.3 s/ligne)
+   [89/112] mrpc/escape T=146 (927.4 s/ligne)
+   [90/112] mrpc/combine T=153 (918.5 s/ligne)
+   [91/112] mrpc/naive T=181 (910.0 s/ligne)
+   [92/112] mrpc/escape T=148 (901.5 s/ligne)
+   [93/112] mrpc/combine T=209 (893.6 s/ligne)
+   [94/112] mrpc/naive T=171 (885.6 s/ligne)
+   [95/112] mrpc/ignore T=131 (877.5 s/ligne)
+   [96/112] mrpc/combine T=195 (869.9 s/ligne)
+   [97/112] rte/naive T=117 (862.1 s/ligne)
+   [98/112] rte/escape T=164 (854.7 s/ligne)
+   [99/112] rte/combine T=183 (847.6 s/ligne)
+   [100/112] rte/naive T=127 (840.4 s/ligne)
+   [101/112] rte/escape T=135 (833.2 s/ligne)
+   [102/112] rte/combine T=115 (826.1 s/ligne)
+   [103/112] rte/ignore T=179 (819.6 s/ligne)
+   [104/112] rte/escape T=117 (812.8 s/ligne)
+   [105/112] rte/naive T=174 (806.4 s/ligne)
+   [106/112] rte/ignore T=152 (800.1 s/ligne)
+   [107/112] rte/combine T=225 (794.6 s/ligne)
+   [108/112] rte/naive T=133 (788.3 s/ligne)
+   [109/112] rte/ignore T=140 (782.2 s/ligne)
+   [110/112] rte/combine T=162 (776.3 s/ligne)
+   [111/112] rte/ignore T=187 (770.7 s/ligne)
+   [112/112] rte/escape T=142 (764.9 s/ligne)
+
+5. sorties
+   tenseur H1-H5 (112, 4, 28, 24, 164) -> results/opi/multi/llama3.2-3b/values.npz
+   tenseur H6     (112, 4, 24, 172) (172 statistiques de trajectoire)
+   112 lignes -> results/opi/multi/llama3.2-3b/rows.csv
+   provenance -> results/opi/multi/llama3.2-3b/provenance.json
+
+6. controles d'integrite
+   valeurs finies : 100.00 %
+   F_(U->E) maximal : 0.000e+00  (doit etre nul, masque causal)
+   |cut - Dirichlet combinatoire| maximal : 2.842e-14
+   variante A : |centroide - Rayleigh| maximal : 3.664e-15
+   variante B : |centroide - Rayleigh| maximal : 5.107e-15
+   variante sans boucles : |cut - Dirichlet| maximal : 2.842e-14
+   |cut(avec boucles) - cut(sans boucles)| maximal : 0.000e+00   (doit etre nul : la diagonale ne traverse aucune frontiere)
+   lambda_max observe : [0.7800, 1.9869]  (borne theorique 2)
+   lambda_max sans boucles : [1.2521, 1.9980]
+   effet des boucles sur lambda_2 : mediane +0.0374 (sans - avec)
+
+7a. audit de la segmentation U/E/T
+   prompts conformes : 448/448
+   offset_gaps      : total 0
+   offset_overlaps  : total 0
+   covers_end       : 448/448
+   U_contiguous     : 448/448
+   E_contiguous     : 448/448
+   U_before_E       : 448/448
+   U_matches_span   : 0/448
+   E_matches_span   : 448/448
+   queue de U absorbee par le token frontiere : ['\'".\'', "'.'"]
+   tokens frontieres par prompt : min 1, max 1
+     token  21        '.ĊĊ' assigne a T, 1/3 caracteres dans U (part 0.333)
+
+7b. audit des tokens techniques T
+   taille de T : {11: 448}
+   compositions distinctes de T : 2 sur 448 prompts
+   composition (prompt 1), 11 tokens :
+     ['<|begin_of_text|>', '<|start_header_id|>', 'user', '<|end_header_id|>', 'ĊĊ', '.ĊĊ', '<|eot_id|>', '<|start_header_id|>', 'assistant', '<|end_header_id|>', 'ĊĊ']
+   positions : debut [0, 1, 2, 3, 4, 21] ... fin [21, 43, 44, 45, 46, 47]
+   bloc d'ouverture toujours aux positions 0-4 : True
+   taille de T constante : True
+   T varie sur 1 position(s) : [5] -- fusion du token frontiere U/E, sans effet structurel
+
+8. controles H5 / H6
+   K=2 : clusters effectifs mediane 2.00 (demande 2), melange U/E mediane 0.500
+   K=3 : clusters effectifs mediane 3.00 (demande 3), melange U/E mediane 0.333
+   K=5 : clusters effectifs mediane 5.00 (demande 5), melange U/E mediane 0.200
+   K=8 : clusters effectifs mediane 8.00 (demande 8), melange U/E mediane 0.125
+   K suggere par l'ecart spectral (K: occurrences) : {1: 292795, 2: 5507, 3: 1198, 4: 750}
+   stabilite ARI entre couches, K=2 : mediane 0.076
+   stabilite ARI entre couches, K=3 : mediane 0.105
+   variation totale de lambda_2 : mediane 4.5108
+   valeurs finies dans le tenseur H6 : 100.00 %
+
+termine en 85739 s

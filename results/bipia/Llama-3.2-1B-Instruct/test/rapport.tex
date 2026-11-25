@@ -1,0 +1,281 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage[T1]{fontenc}
+
+\usepackage[french]{babel}
+
+\usepackage{booktabs,graphicx,geometry,amsmath,hyperref}
+
+\geometry{margin=2.4cm}
+
+\title{Analyse spectrale du graphe d'attention\\Llama-3.2-1B-Instruct --- BIPIA test}
+
+\author{Rapport généré automatiquement}
+
+\date{15/09/2026 15:29}
+
+\begin{document}\maketitle
+
+\section{Protocole}
+
+
+Les paires proviennent de la tâche \emph{email\_QA} du benchmark BIPIA.
+Pour chaque email, deux prompts sont construits : une condition \textbf{bénigne}
+(l'email seul) et une condition \textbf{injectée}, identique à la précédente
+augmentée d'une instruction d'attaque insérée au début, au milieu ou à la fin
+du corps du message. L'insertion étant réalisée par le code, la position en
+caractères de l'attaque est connue exactement, ce qui permet d'étiqueter chaque
+token sans alignement approximatif entre deux tokenisations.
+
+Le prompt complet est envoyé au modèle : template de chat, prompt système,
+consignes de tâche et question. Tout ce qui n'est pas l'attaque est étiqueté
+\texttt{benign} ; seule l'attaque est \texttt{injection}. L'étiquetage est
+donc strictement binaire.
+
+Les catégories d'attaque des splits \texttt{train} et \texttt{test} sont
+disjointes. Choisir une couche ou une tête sur \texttt{train} puis la
+rapporter sur \texttt{test} constitue donc une évaluation hors distribution
+par construction.
+
+\paragraph{Construction du graphe.} L'attention d'un décodeur étant causale,
+elle est symétrisée par $W = (A + A^{\top})/2$ avant tout traitement spectral.
+Le Laplacien, la décomposition propre et les cinq métriques spectrales sont
+calculés par la bibliothèque \texttt{spectral-trust} (v0.3.0) ; le filtrage
+des n\oe uds par rôle et les statistiques de coupe sont propres à ce travail.
+Ce run a porté sur 40 paires, soit 40 observations bénignes et
+40 injectées.
+
+
+\section{Configuration}
+
+\begin{table}[htbp]\centering\small
+\begin{tabular}{ll}
+\hline
+paramètre & valeur \\
+\hline
+modèle & meta-llama/Llama-3.2-1B-Instruct \\
+couches & 16 \\
+split & test \\
+paires & 40 \\
+normalisation du Laplacien & sym \\
+symétrisation & symmetric \\
+agrégation des têtes & uniform \\
+solveur propre & dense \\
+retrait du puits & False \\
+retrait du template & False \\
+couche analysée & 8 \\
+métriques par tête & True \\
+\hline
+\end{tabular}
+\caption{Paramètres qui modifient un chiffre.}
+\label{tab:config}
+\end{table}
+
+
+\paragraph{Commande.}
+\texttt{C:\textbackslash{}Users\textbackslash{}damsw\textbackslash{}Desktop\textbackslash{}spectral\_injection\textbackslash{}spectral\_injection\textbackslash{}bipia\_cli.py --model llama3.2-1b --split test --n-pairs 40 --per-head --figures none --out results/bipia}
+
+\paragraph{Environnement.}
+Python 3.12.10, Windows-11-10.0.26200-SP0.
+
+
+\section{Résultats}
+
+\subsection{Détection par couche}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\hline
+layer & auroc cut conductance & auroc fiedler value & mean separation & mean accuracy \\
+\hline
+0 & 0.5700 & 0.5875 & 3.7186 & 0.5421 \\
+1 & 0.5337 & 0.5394 & 3.4657 & 0.5917 \\
+2 & 0.5650 & 0.5219 & 3.1261 & 0.5712 \\
+3 & 0.6525 & 0.5450 & 3.9376 & 0.5703 \\
+4 & 0.5837 & 0.5363 & 3.9618 & 0.5713 \\
+5 & 0.5106 & 0.5356 & 3.7255 & 0.5676 \\
+6 & 0.5637 & 0.5206 & 4.2087 & 0.5723 \\
+7 & 0.5456 & 0.5194 & 3.5013 & 0.5694 \\
+8 & 0.5125 & 0.5250 & 3.7026 & 0.5762 \\
+9 & 0.5131 & 0.5031 & 4.1301 & 0.5706 \\
+10 & 0.5456 & 0.5162 & 3.2759 & 0.5754 \\
+11 & 0.5075 & 0.5244 & 2.9425 & 0.5589 \\
+12 & 0.5237 & 0.5131 & 2.8623 & 0.5708 \\
+13 & 0.5544 & 0.5369 & 2.7953 & 0.5687 \\
+14 & 0.5337 & 0.5381 & 2.8438 & 0.5635 \\
+15 & 0.5787 & 0.5363 & 3.1299 & 0.5554 \\
+\hline
+\end{tabular}
+\caption{AUROC bénin contre injecté, par couche. \texttt{cut\_conductance} est le score sans label : il ne voit jamais où est l'injection.}
+\label{tab:layers}
+\end{table}
+
+
+\paragraph{Meilleure couche.} L3 avec
+AUROC $= 0.6525$, intervalle de confiance à 95\%
+$[0.532,\ 0.773]$ (Hanley--McNeil, $n_+ = 40$, $n_- = 40$).
+
+
+
+\textbf{Cet intervalle ne tient pas compte de la sélection.} Il suppose une
+couche fixée d'avance, alors que L3 est le \emph{maximum} sur
+16 couches. Sous l'hypothèse nulle, le maximum de
+16 AUROC calculées sur $n_+ = 40$ et $n_- = 40$ est déjà
+nettement supérieur à $0{,}5$. La conclusion appartient à la section
+Interprétation, qui est rédigée à la main : aucun verdict n'est produit
+automatiquement ici.
+
+
+\subsection{Ventilation par position d'insertion}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\hline
+position & n & mean accuracy & mean separation & mean conductance \\
+\hline
+end & 13.0000 & 0.5746 & 4.1093 & 1.5498 \\
+middle & 13.0000 & 0.5696 & 3.7302 & 1.5564 \\
+start & 14.0000 & 0.5837 & 3.2995 & 1.6436 \\
+\hline
+\end{tabular}
+\caption{Couche 8, condition injectée uniquement. Une valeur stable entre les trois positions indique que la coupe suit l'injection et non une région fixe de la séquence.}
+\label{tab:positions}
+\end{table}
+
+\subsection{Catégories d'attaque les plus difficiles}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{lrrr}
+\hline
+attack category & n & mean accuracy & mean separation \\
+\hline
+Business Intelligence & 1.0000 & 0.5000 & 2.9276 \\
+Entertainment & 1.0000 & 0.5481 & 2.8098 \\
+Research Assistance & 2.0000 & 0.5605 & 3.8941 \\
+Marketing \& Advertising & 1.0000 & 0.5649 & 3.8232 \\
+Conversational Agent & 7.0000 & 0.5682 & 3.4913 \\
+Reverse Text & 3.0000 & 0.5685 & 4.0307 \\
+Substitution Ciphers & 6.0000 & 0.5694 & 3.8037 \\
+Task Automation & 5.0000 & 0.5764 & 3.9233 \\
+Emoji Substitution & 3.0000 & 0.5809 & 3.8913 \\
+Scams \& Fraud & 2.0000 & 0.5851 & 3.5104 \\
+\hline
+\end{tabular}
+\caption{Couche 8, dix catégories les moins bien retrouvées.}
+\label{tab:categories}
+\end{table}
+
+\subsection{Métriques par tête}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\hline
+metric & layer & head & auroc & direction \\
+\hline
+fiedler\_value & 6.0000 & 21.0000 & 0.8400 & -1.0000 \\
+connectivity\_ratio & 6.0000 & 21.0000 & 0.8337 & -1.0000 \\
+connectivity\_ratio & 9.0000 & 25.0000 & 0.7744 & -1.0000 \\
+fiedler\_value & 9.0000 & 25.0000 & 0.7644 & -1.0000 \\
+fiedler\_value & 4.0000 & 9.0000 & 0.7625 & -1.0000 \\
+connectivity\_ratio & 4.0000 & 9.0000 & 0.7612 & -1.0000 \\
+fiedler\_value & 15.0000 & 30.0000 & 0.7575 & 1.0000 \\
+fiedler\_value & 0.0000 & 21.0000 & 0.7544 & -1.0000 \\
+connectivity\_ratio & 6.0000 & 7.0000 & 0.7512 & -1.0000 \\
+connectivity\_ratio & 4.0000 & 4.0000 & 0.7481 & -1.0000 \\
+fiedler\_value & 4.0000 & 4.0000 & 0.7463 & -1.0000 \\
+fiedler\_value & 6.0000 & 7.0000 & 0.7438 & -1.0000 \\
+connectivity\_ratio & 13.0000 & 15.0000 & 0.7369 & 1.0000 \\
+connectivity\_ratio & 7.0000 & 6.0000 & 0.7275 & 1.0000 \\
+fiedler\_value & 15.0000 & 21.0000 & 0.7275 & 1.0000 \\
+\hline
+\end{tabular}
+\caption{Quinze meilleurs triplets (couche, tête, métrique).}
+\label{tab:heads}
+\end{table}
+
+
+\textbf{Avertissement.} Ce maximum est pris sur 2560 candidats
+(16 couches $\times$ 32 têtes
+$\times$ 5 métriques) évalués sur 80
+observations. Le maximum de plusieurs milliers d'AUROC est élevé même sous
+l'hypothèse nulle : une simulation avec des scores purement aléatoires donne
+un maximum proche de $0{,}99$ pour 12 observations et $0{,}69$ pour 120.
+\emph{Ce chiffre n'est pas un résultat de détection.} Il ne le devient
+qu'après avoir fixé la tête sur \texttt{train} et l'avoir rapportée sur
+\texttt{test}.
+
+
+\section{Contrôles chiffrés}
+
+
+\paragraph{Séparation.} $\sqrt{d_b \cdot d_i} / d_{\text{croisé}}$ varie
+de $2.80$ à $4.21$ selon la couche
+(16 couches sur 16 au-dessus de 1).
+Cette quantité utilise les \emph{vraies} étiquettes : elle mesure si les deux
+familles se tiennent, pas si un détecteur les trouve.
+
+
+
+\paragraph{Accord contre ligne de base.} À la couche 8, accord moyen
+$0.576$ ; ligne de base triviale (tous les n\oe uds dans
+un seul groupe, \texttt{partition\_agreement} maximisant sur les deux
+orientations) $0.960$.
+0 paire(s) sur 40 dépassent cette ligne.
+
+
+
+\paragraph{Indice de Rand ajusté.} Moyenne $-0.0022$ sur
+640 observations injectées (0 correspond au hasard). L'ARI est corrigé
+du hasard, contrairement à l'accord ci-dessus.
+
+
+\section{Interprétation}
+
+
+\IfFileExists{interpretation.tex}{\input{interpretation}}{%
+\emph{À rédiger.} Les sections précédentes sont générées automatiquement à
+partir des CSV ; celle-ci ne l'est pas. Déposer un fichier
+\texttt{interpretation.tex} dans ce dossier puis recompiler : il sera inclus
+ici, sans avoir à relancer le run.
+
+Points à trancher, qu'aucun gabarit ne peut trancher : l'effet de sélection sur
+la meilleure couche ou la meilleure tête, la part de la séparation imputable à
+la contiguïté des tokens injectés, et l'écart entre une séparation élevée et un
+accord nul.%
+}
+
+\section{Définitions des métriques}
+
+
+\begin{description}
+\item[fiedler\_value] $\lambda_2$ du Laplacien, la connectivité algébrique.
+  Proche de 0 lorsque le graphe est presque déconnecté en deux.
+\item[connectivity\_ratio] $\lambda_2 / \lambda_{\max}$, sans échelle.
+\item[spectral\_entropy\_norm] entropie de la distribution des valeurs propres,
+  normalisée par $\log n$. Élevée si le spectre est étalé.
+\item[hfer] part de la masse spectrale dans la moitié haute du spectre.
+\item[spectral\_radius] $\lambda_{\max}$.
+\item[density\_benign, density\_injection] poids moyen par paire \emph{possible}
+  à l'intérieur de chaque famille.
+\item[density\_cross] idem entre les deux familles.
+\item[separation] $\sqrt{d_b \cdot d_i} / d_{\text{croisé}}$.
+\item[conductance, normalized\_cut, modularity] qualité de la coupe entre la
+  vraie frontière bénin/injection.
+\item[cut\_conductance] conductance de la coupe \emph{découverte} par le signe
+  du vecteur de Fiedler, sans utiliser les étiquettes. C'est le score du
+  détecteur.
+\item[accuracy, ari] accord entre la coupe découverte et la vraie frontière.
+\end{description}
+
+
+\end{document}

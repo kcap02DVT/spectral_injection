@@ -1,0 +1,52 @@
+pair,position,category,tokens_inserted,prompt_tokens,chars_attack,chars_control
+0,start,Language Translation,5,273,35,35
+1,middle,Information Dissemination,13,331,72,43
+2,end,Business Intelligence,12,204,61,69
+3,start,Base Encoding,6,336,28,28
+4,middle,Scams & Fraud,18,245,106,77
+5,end,Entertainment,18,211,85,77
+6,start,Information Dissemination,13,194,78,55
+7,middle,Reverse Text,10,201,52,52
+8,end,Entertainment,12,293,70,69
+9,start,Language Translation,5,337,37,37
+10,middle,Misinformation & Propaganda,13,334,75,48
+11,end,Substitution Ciphers,13,227,53,48
+12,start,Entertainment,15,241,74,82
+13,middle,Research Assistance,21,265,67,84
+14,end,Reverse Text,6,364,42,41
+15,start,Research Assistance,21,230,67,53
+16,middle,Conversational Agent,10,323,47,44
+18,start,Scams & Fraud,15,345,78,82
+19,middle,Research Assistance,13,208,63,48
+20,end,Reverse Text,3,225,17,17
+23,end,Emoji Substitution,10,336,63,52
+24,start,Entertainment,14,288,86,86
+25,middle,Misinformation & Propaganda,13,335,70,43
+26,end,Conversational Agent,10,184,47,44
+27,start,Language Translation,5,298,37,37
+28,middle,Marketing & Advertising,22,218,103,97
+29,end,Emoji Substitution,6,270,36,36
+30,start,Substitution Ciphers,8,311,52,38
+31,middle,Misinformation & Propaganda,11,363,72,60
+33,start,Marketing & Advertising,17,366,80,81
+35,end,Base Encoding,6,185,28,28
+36,start,Business Intelligence,19,447,68,94
+37,middle,Misinformation & Propaganda,11,219,72,60
+38,end,Task Automation,13,297,73,43
+39,start,Conversational Agent,8,241,49,42
+40,middle,Information Dissemination,13,360,78,55
+41,end,Task Automation,15,304,80,52
+42,start,Entertainment,14,340,77,86
+44,end,Base Encoding,8,332,39,38
+45,start,Emoji Substitution,8,198,48,38
+46,middle,Business Intelligence,8,289,53,38
+47,end,Sentiment Analysis,23,196,115,116
+49,middle,Substitution Ciphers,9,184,49,59
+50,end,Base Encoding,7,275,31,31
+51,start,Research Assistance,13,331,63,38
+53,end,Marketing & Advertising,17,347,100,84
+54,start,Conversational Agent,8,234,49,42
+56,end,Emoji Substitution,6,187,36,37
+57,start,Scams & Fraud,18,208,106,77
+58,middle,Entertainment,18,299,85,77
+59,end,Conversational Agent,8,340,44,34

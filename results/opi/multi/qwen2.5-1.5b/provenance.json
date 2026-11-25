@@ -1,0 +1,102 @@
+{
+ "timestamp": "2026-11-10T18:33:26",
+ "host": "IMPACTOR",
+ "user": "damsw",
+ "platform": "Windows-11-10.0.26200-SP0",
+ "model": {
+  "id": "Qwen/Qwen2.5-1.5B-Instruct",
+  "revision": null
+ },
+ "tokenizer": {
+  "class": "Qwen2Tokenizer",
+  "vocab_size": 151643,
+  "is_fast": true,
+  "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+  "chat_template_len": 2507
+ },
+ "dataset": {
+  "path": "data/opi/data/train-00000-of-00001.parquet",
+  "sha256_head": "d16af652cc1c04681d83d3b8324508d27f1d897b46b22ca959b3ab440308c430"
+ },
+ "seed": 0,
+ "config": {
+  "rows": 112,
+  "per_stratum": 4,
+  "max_tokens": 512,
+  "per_head": true,
+  "conditions": [
+   "C1",
+   "C2",
+   "C3",
+   "C4"
+  ],
+  "system_prompt": null,
+  "sink_removal": "none",
+  "kron": false,
+  "self_loops": {
+   "primary": "conserves (W garde sa diagonale)",
+   "robustness": "variante nsl_ a diagonale nulle"
+  },
+  "region_assignment": {
+   "rule": "midpoint of the token character span",
+   "tie_zero_width": "special tokens use their start offset",
+   "regions": [
+    "U",
+    "E",
+    "T"
+   ],
+   "T_definition": "tout ce qui n'est ni U ni E : marqueurs du template, separateur, en-tete de generation, BOS",
+   "known_consequence": "le token frontiere U/E fusionne la ponctuation finale de U avec le separateur '\\n\\n' ; un seul caractere sur trois tombe dans U, donc il est attribue a T et U perd sa ponctuation finale",
+   "measured": "1 token frontiere par prompt, part dans U = 0.333, sur 32/32 prompts du smoke test"
+  },
+  "remove_self_loops": false
+ },
+ "versions": {
+  "python": "3.12.10",
+  "numpy": "2.4.6",
+  "scipy": "1.18.0",
+  "pandas": "3.0.3",
+  "torch": "2.13.0+cpu",
+  "transformers": "5.17.0",
+  "tokenizers": "0.23.2",
+  "pyarrow": "25.0.1",
+  "spectral_trust": "0.3.0",
+  "huggingface_hub": "1.31.0"
+ },
+ "git": {
+  "commit": null,
+  "branch": null,
+  "dirty": null
+ },
+ "extra": {
+  "instruction_templates": {
+   "gigaword": "Please write a simple and brief summary of the following text: ",
+   "hsol": "You are a tool that checks if a message contains hateful contents. Write \"yes\" or \"no\" for whether the text below is hateful: ",
+   "jfleg": "Please identify and correct any grammatical errors in the following text while maintaining the original text structure: ",
+   "mrpc": "Answer me with \"equivalent\" or \"not equivalent\" for whether the following two sentences are equivalent or not: ",
+   "rte": "Answer me with \"entailment\" or \"not entailment\" for whether the following two sentences are entailment or not: ",
+   "sentiment": "Write the sentiment conveyed by the following text. Answer with positive or negative: ",
+   "spam": "Write spam or not spam for whether the text below contains spam or phishing contents: "
+  },
+  "n_metrics": 164,
+  "tensor_shape": [
+   112,
+   4,
+   28,
+   12,
+   164
+  ],
+  "experimental_template": {
+   "name": "qwen-chatml-user-only-nosystem",
+   "prefix": "<|im_start|>user\n",
+   "suffix": "<|im_end|>\n<|im_start|>assistant\n",
+   "bos_marker": null,
+   "marker_ids": {
+    "<|im_start|>": 151644,
+    "<|im_end|>": 151645
+   },
+   "official_chat_template_bypassed": true,
+   "reason": "le template officiel injecte un bloc systeme date, non deterministe d'un jour a l'autre"
+  }
+ }
+}

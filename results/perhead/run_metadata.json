@@ -1,0 +1,258 @@
+{
+ "run_started": "2026-11-13T16:07:02",
+ "spectral_trust_version": "0.3.0",
+ "torch": "2.13.0+cpu",
+ "python": "3.12.10",
+ "seed": 0,
+ "n_pairs": {
+  "xtram1": 20,
+  "spml": 20
+ },
+ "max_tokens": {
+  "xtram1": 256,
+  "spml": 512
+ },
+ "length_tolerance": {
+  "frac": 0.1,
+  "min_tokens": 4
+ },
+ "stats": {
+  "primary_metric": "fiedler_value",
+  "fdr_q": 0.05,
+  "n_perm": 20000,
+  "head_selection_rule": "TOUTES les tetes ; BH q=0.05 (principal) + max-stat FWER (secondaire)"
+ },
+ "xtram1": {
+  "primary_system": "vide",
+  "system_configs": [
+   "vide",
+   "defaut_qwen",
+   "minimal"
+  ],
+  "name": "xTRam1/safe-guard-prompt-injection",
+  "splits": {
+   "train": 8236,
+   "test": 2060
+  },
+  "columns": [
+   "text",
+   "label"
+  ],
+  "labels": {
+   "train": {
+    "0": 5740,
+    "1": 2496
+   },
+   "test": {
+    "0": 1410,
+    "1": 650
+   }
+  },
+  "system_prompt_provided": false,
+  "note": "aucun System Prompt fourni ; 'text' est un bloc unique. Les exemples label=1 sont des phrases adversariales autonomes, non des injections enfouies dans un contenu externe : le contraste teste 'ce message est-il adversarial', pas 'y a-t-il une injection cachee'.",
+  "pairing": {
+   "adv_too_long": 3,
+   "adv_unmatched": 0,
+   "ctl_pool": 1109,
+   "ctl_pool_dropped_too_long": 91,
+   "n_pairs": 20,
+   "gap_abs_median": 0.0,
+   "gap_abs_max": 0,
+   "gap_signed_mean": 0.0
+  }
+ },
+ "spml": {
+  "name": "reshabhs/SPML_Chatbot_Prompt_Injection",
+  "splits": {
+   "train": 16012
+  },
+  "columns": [
+   "System Prompt",
+   "User Prompt",
+   "Prompt injection",
+   "Degree",
+   "Source"
+  ],
+  "labels": {
+   "1": 12542,
+   "0": 3470
+  },
+  "degree": {
+   "0": 3470,
+   "1": 2509,
+   "2": 1670,
+   "3": 2509,
+   "4": 1670,
+   "5": 2507,
+   "7": 839,
+   "10": 838
+  },
+  "degree_x_injection": {
+   "0": {
+    "0": 3470,
+    "1": 0
+   },
+   "1": {
+    "0": 0,
+    "1": 2509
+   },
+   "2": {
+    "0": 0,
+    "1": 1670
+   },
+   "3": {
+    "0": 0,
+    "1": 2509
+   },
+   "4": {
+    "0": 0,
+    "1": 1670
+   },
+   "5": {
+    "0": 0,
+    "1": 2507
+   },
+   "7": {
+    "0": 0,
+    "1": 839
+   },
+   "10": {
+    "0": 0,
+    "1": 838
+   }
+  },
+  "degree_semantics": "Degree=0 <=> injection=0 exactement ; Degree in {1,2,3,4,5,7,10} <=> injection=1. Degree est une intensite d'injection.",
+  "source": {
+   "<null>": 11844,
+   "Gandalf": 4168
+  },
+  "system_prompt_provided": true,
+  "n_system_prompts_distinct": 840,
+  "system_prompt_constant": false,
+  "rows_per_system_median": 20.0,
+  "n_systems_with_both_labels": 694,
+  "rows_covered_by_both_label_systems": 13859,
+  "pairing": {
+   "systems_considered": 116,
+   "systems_unmatched": 83,
+   "pairs_dropped_too_long": 13,
+   "n_pairs": 20,
+   "gap_abs_median": 13.0,
+   "gap_abs_max": 31,
+   "gap_signed_mean": -12.95
+  },
+  "degree_analysis": "descriptive seulement : 20 paires sur 5 niveaux, aucun test par niveau"
+ },
+ "limits": [
+  "Pilote : 20 + 20 paires, un seul modele (Qwen/Qwen2.5-0.5B-Instruct). Aucune generalisation.",
+  "xTRam1 : controle ENTRE exemples (textes differents en tout sauf la longueur) ; les exemples adverses sont des phrases adversariales autonomes, pas des injections enfouies dans un contenu externe.",
+  "SPML : systeme identique dans la paire, mais le User Prompt change de contenu, de forme et d'intention simultanement ; une difference par cellule n'isole pas la malveillance.",
+  "Appariement en longueur : ecart residuel max 0 (xTRam1) et 31 (SPML) tokens ; 83 systemes SPML ecartes faute de controle assez proche.",
+  "Aucune etiquette de succes d'attaque : la mesure comportementale est provisoire (regle de mots-cles) et non annotee.",
+  "Aucune performance de detection n'est rapportee : un effet apparie n'est pas un detecteur.",
+  "Analyse par Degree descriptive seulement (sous-puissance).",
+  "per_head_metrics calcule en float32 : le controle croise lambda_2 porte un residu ~1e-7 attendu."
+ ],
+ "template": {
+  "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+  "default_system_injected": true,
+  "default_system_content": "You are Qwen, created by Alibaba Cloud. You are a helpful assistant.",
+  "rendered_probe": {
+   "vide": {
+    "system_arg": "",
+    "rendered": "<|im_start|>system\n<|im_end|>\n<|im_start|>user\nTranslate to French: hello<|im_end|>\n<|im_start|>assistant\n",
+    "n_tokens": 18
+   },
+   "defaut_qwen": {
+    "system_arg": null,
+    "rendered": "<|im_start|>system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>\n<|im_start|>user\nTranslate to French: hello<|im_end|>\n<|im_start|>assistant\n",
+    "n_tokens": 34
+   },
+   "minimal": {
+    "system_arg": "You are a helpful assistant.",
+    "rendered": "<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n<|im_start|>user\nTranslate to French: hello<|im_end|>\n<|im_start|>assistant\n",
+    "n_tokens": 24
+   }
+  }
+ },
+ "model": {
+  "id": "Qwen/Qwen2.5-0.5B-Instruct",
+  "n_layers": 24,
+  "n_heads": 14,
+  "n_kv_heads": 2,
+  "device": "cpu",
+  "dtype": "float32",
+  "attn_implementation": "eager"
+ },
+ "declared_cell": [
+  12,
+  0
+ ],
+ "sensitivity": {
+  "spearman": [
+   "vide         vs defaut_qwen   rho=0.777  p=5.4e-69  meme signe sur 82.4% des cellules",
+   "vide         vs minimal       rho=0.869  p=7.3e-104  meme signe sur 85.1% des cellules",
+   "defaut_qwen  vs minimal       rho=0.812  p=3.1e-80  meme signe sur 86.0% des cellules"
+  ],
+  "sig_bh_by_config": {
+   "vide": 73,
+   "defaut_qwen": 90,
+   "minimal": 83
+  }
+ },
+ "run_finished": "2026-11-13T16:20:47",
+ "results": {
+  "xtram1_vide": {
+   "n_pairs": 20,
+   "dropped": [],
+   "counts": {
+    "n_cells": 336,
+    "sig_bh": 73,
+    "sig_bh_plus": 68,
+    "sig_bh_minus": 5,
+    "sig_fwer": 15,
+    "sig_fwer_plus": 14,
+    "sig_fwer_minus": 1
+   }
+  },
+  "spml": {
+   "n_pairs": 20,
+   "dropped": [],
+   "counts": {
+    "n_cells": 336,
+    "sig_bh": 101,
+    "sig_bh_plus": 27,
+    "sig_bh_minus": 74,
+    "sig_fwer": 21,
+    "sig_fwer_plus": 5,
+    "sig_fwer_minus": 16
+   }
+  },
+  "xtram1_defaut_qwen": {
+   "n_pairs": 20,
+   "dropped": [],
+   "counts": {
+    "n_cells": 336,
+    "sig_bh": 90,
+    "sig_bh_plus": 84,
+    "sig_bh_minus": 6,
+    "sig_fwer": 28,
+    "sig_fwer_plus": 26,
+    "sig_fwer_minus": 2
+   }
+  },
+  "xtram1_minimal": {
+   "n_pairs": 20,
+   "dropped": [],
+   "counts": {
+    "n_cells": 336,
+    "sig_bh": 83,
+    "sig_bh_plus": 74,
+    "sig_bh_minus": 9,
+    "sig_fwer": 22,
+    "sig_fwer_plus": 22,
+    "sig_fwer_minus": 0
+   }
+  }
+ }
+}

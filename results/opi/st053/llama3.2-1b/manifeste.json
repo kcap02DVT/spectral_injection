@@ -1,0 +1,44 @@
+{
+  "model": "meta-llama/Llama-3.2-1B-Instruct",
+  "version": "0.5.3",
+  "pairs": 55,
+  "couches": [
+    4
+  ],
+  "q": 0.25,
+  "cutoff": 0.1,
+  "lambda_max": 2.0,
+  "familles": {
+    "A_attention": [
+      "mag_lambda2",
+      "mag_lambda_max",
+      "mag_trou_spectral",
+      "op_pr",
+      "op_pr_centre",
+      "op_contraction",
+      "forman_moy",
+      "forman_slot_med",
+      "flow_desequilibre"
+    ],
+    "B_hybride": [
+      "mag_hfer",
+      "tv_dirigee",
+      "bande_entropie",
+      "bande_part_haute",
+      "dirichlet_slot"
+    ],
+    "C_valeurs": [
+      "vw_part_bos",
+      "vw_lambda2",
+      "vw_hfer"
+    ]
+  },
+  "ignorees": {
+    "unmatched": 0,
+    "too_long": 0,
+    "audit": 1,
+    "deltaN": 0,
+    "labels": 0
+  },
+  "secondes": 1387.7
+}

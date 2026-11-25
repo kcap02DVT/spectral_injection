@@ -1,0 +1,19 @@
+# Environnement virtuel Python
+env/
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Caches de calcul (régénérables)
+cache/
+
+# Données numériques lourdes (régénérables par les scripts)
+*.npz
+*.npy
+*.parquet
+
+# Fichiers > 100 Mo (limite GitHub)
+results/opi/st053/llama3.2-1b/demo/head_atlas.html

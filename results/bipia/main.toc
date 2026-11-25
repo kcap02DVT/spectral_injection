@@ -1,0 +1,95 @@
+\babel@toc {french}{}\relax 
+\contentsline {section}{\numberline {1}Objet de ce document}{2}{section.1}%
+\contentsline {paragraph}{Protocole.}{2}{section*.2}%
+\contentsline {paragraph}{Correction pour sélection.}{2}{section*.3}%
+\contentsline {paragraph}{Sur les addenda.}{2}{section*.4}%
+\contentsline {paragraph}{Limite majeure, valable pour tout ce document.}{2}{section*.5}%
+\contentsline {section}{\numberline {2}Définition des métriques}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Construction du graphe}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Métriques spectrales (graphe seul)}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Statistiques de coupe (graphe et étiquettes)}{3}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Coupe découverte (sans étiquettes)}{4}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Accord entre la coupe découverte et la vérité}{4}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Agrégation sur l'ensemble des paires}{5}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Quantités descriptives}{5}{subsection.2.7}%
+\contentsline {section}{\numberline {3}Synthèse sur les huit modèles}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Ce qui est établi}{5}{subsection.3.1}%
+\contentsline {paragraph}{1. \texttt {cut\_conductance} ne détecte rien : 8 modèles sur 8.}{5}{section*.6}%
+\contentsline {paragraph}{2. Le mécanisme de cet échec est identifié.}{5}{section*.7}%
+\contentsline {paragraph}{3. La connectivité algébrique porte le signal : 8 modèles sur 8.}{6}{section*.8}%
+\contentsline {paragraph}{4. Les deux voies convergent.}{6}{section*.9}%
+\contentsline {subsection}{\numberline {3.2}Ce qui n'est pas établi}{6}{subsection.3.2}%
+\contentsline {paragraph}{La localisation ne se réplique pas.}{6}{section*.10}%
+\contentsline {paragraph}{La part de contiguïté n'est pas quantifiée.}{6}{section*.11}%
+\contentsline {paragraph}{\texttt {separation} ne prédit pas la détection.}{6}{section*.12}%
+\contentsline {paragraph}{Le nombre de têtes : piste non concluante.}{6}{section*.13}%
+\contentsline {subsection}{\numberline {3.3}Biais connus du protocole}{6}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Étape suivante}{7}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Interprétations par modèle}{8}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Llama-3.2-1B-Instruct}{8}{subsection.4.1}%
+\contentsline {paragraph}{Détection : non établie.}{8}{section*.14}%
+\contentsline {paragraph}{Mécanisme : la coupe découverte ne tombe pas sur l'injection.}{8}{section*.15}%
+\contentsline {paragraph}{La tension entre les deux résultats, et son explication.}{8}{section*.16}%
+\contentsline {paragraph}{Conséquence pratique : changer de règle de coupe.}{8}{section*.17}%
+\contentsline {paragraph}{Le contrôle qui manque.}{8}{section*.18}%
+\contentsline {paragraph}{Biais connus de ce protocole.}{9}{section*.19}%
+\contentsline {paragraph}{Ce que ce run permet de conclure.}{9}{section*.20}%
+\contentsline {paragraph}{Addendum du 14/09/2026 --- résultats par tête.}{9}{section*.21}%
+\contentsline {paragraph}{Addendum --- bilan sur les quatre modèles.}{9}{section*.22}%
+\contentsline {subsection}{\numberline {4.2}Qwen2.5-1.5B-Instruct}{10}{subsection.4.2}%
+\contentsline {paragraph}{Détection agrégée : échec net.}{10}{section*.23}%
+\contentsline {paragraph}{Mécanisme : la coupe découverte reste au hasard.}{10}{section*.24}%
+\contentsline {paragraph}{La séparation décroît avec la profondeur --- et c'est un problème.}{10}{section*.25}%
+\contentsline {paragraph}{Résultat par tête : le premier signal qui survit à la correction.}{10}{section*.26}%
+\contentsline {paragraph}{Ce qu'il faut faire de ce résultat.}{10}{section*.27}%
+\contentsline {paragraph}{Une anomalie à signaler.}{11}{section*.28}%
+\contentsline {paragraph}{Addendum du 14/09/2026 --- l'anomalie ci-dessus était significative.}{11}{section*.29}%
+\contentsline {paragraph}{Biais connus, inchangés.}{11}{section*.30}%
+\contentsline {paragraph}{Conclusion.}{11}{section*.31}%
+\contentsline {subsection}{\numberline {4.3}SmolLM3-3B}{11}{subsection.4.3}%
+\contentsline {paragraph}{Détection agrégée : toujours pas de signal.}{11}{section*.32}%
+\contentsline {paragraph}{Mécanisme : inchangé.}{11}{section*.33}%
+\contentsline {paragraph}{Résultat central : \texttt {separation} ne prédit pas la détection.}{12}{section*.34}%
+\contentsline {paragraph}{Addendum du 14/09/2026 --- révision du paragraphe ci-dessus.}{12}{section*.35}%
+\contentsline {paragraph}{Par tête : le signal se confirme, à un autre endroit.}{12}{section*.36}%
+\contentsline {paragraph}{Ce qu'il faut faire maintenant.}{13}{section*.37}%
+\contentsline {paragraph}{Limites.}{13}{section*.38}%
+\contentsline {subsection}{\numberline {4.4}Llama-3.2-3B-Instruct}{13}{subsection.4.4}%
+\contentsline {paragraph}{Détection agrégée : quatrième échec.}{13}{section*.39}%
+\contentsline {paragraph}{Par tête : le signal le plus net obtenu jusqu'ici.}{13}{section*.40}%
+\contentsline {paragraph}{Bilan par tête sur trois modèles.}{14}{section*.41}%
+\contentsline {paragraph}{Révision d'un énoncé antérieur.}{14}{section*.42}%
+\contentsline {paragraph}{Mécanisme et biais : inchangés.}{14}{section*.43}%
+\contentsline {paragraph}{À faire.}{14}{section*.44}%
+\contentsline {subsection}{\numberline {4.5}Qwen3-1.7B}{14}{subsection.4.5}%
+\contentsline {paragraph}{Détection agrégée : cinquième échec.}{14}{section*.45}%
+\contentsline {paragraph}{Par tête : une tête domine nettement.}{15}{section*.46}%
+\contentsline {paragraph}{Une régularité se dégage : la famille $\lambda _2$.}{15}{section*.47}%
+\contentsline {paragraph}{La séparation décroît avec la profondeur, plus nettement que jamais.}{15}{section*.48}%
+\contentsline {paragraph}{Addendum du 14/09/2026 --- un contre-exemple.}{15}{section*.49}%
+\contentsline {paragraph}{Corrélation séparation / détection.}{16}{section*.50}%
+\contentsline {paragraph}{Mécanisme : inchangé.}{16}{section*.51}%
+\contentsline {paragraph}{À faire.}{16}{section*.52}%
+\contentsline {subsection}{\numberline {4.6}SmolLM2-1.7B-Instruct}{16}{subsection.4.6}%
+\contentsline {paragraph}{Détection agrégée : sixième échec.}{16}{section*.53}%
+\contentsline {paragraph}{Par tête : sixième succès.}{16}{section*.54}%
+\contentsline {paragraph}{La famille $\lambda _2$ se confirme.}{17}{section*.55}%
+\contentsline {paragraph}{Révision : la tendance en profondeur n'est pas universelle.}{17}{section*.56}%
+\contentsline {paragraph}{Corrélation séparation / détection.}{17}{section*.57}%
+\contentsline {paragraph}{Mécanisme : inchangé.}{17}{section*.58}%
+\contentsline {paragraph}{À faire.}{17}{section*.59}%
+\contentsline {subsection}{\numberline {4.7}gemma-2-2b-it}{17}{subsection.4.7}%
+\contentsline {paragraph}{Détection agrégée : septième échec.}{17}{section*.60}%
+\contentsline {paragraph}{Par tête : significatif, mais le plus faible de la série.}{18}{section*.61}%
+\contentsline {paragraph}{Famille $\lambda _2$ : sixième confirmation sur sept.}{18}{section*.62}%
+\contentsline {paragraph}{Piste exploratoire : le nombre de têtes.}{18}{section*.63}%
+\contentsline {paragraph}{Tendance en profondeur.}{18}{section*.64}%
+\contentsline {paragraph}{Mécanisme : inchangé.}{18}{section*.65}%
+\contentsline {paragraph}{À faire.}{19}{section*.66}%
+\contentsline {subsection}{\numberline {4.8}Qwen2.5-3B-Instruct}{19}{subsection.4.8}%
+\contentsline {paragraph}{Ce run change la conclusion de la série.}{19}{section*.67}%
+\contentsline {paragraph}{Révision : \texttt {fiedler\_value} fonctionne sur trois modèles.}{19}{section*.68}%
+\contentsline {paragraph}{Ce que cela réorganise.}{19}{section*.69}%
+\contentsline {paragraph}{Par tête : huitième succès, structure riche.}{20}{section*.70}%
+\contentsline {paragraph}{Mécanisme et tendances : inchangés.}{20}{section*.71}%
+\contentsline {paragraph}{À faire.}{20}{section*.72}%

@@ -1,0 +1,47 @@
+{
+ "aggregator": "median",
+ "n_perm": 20000,
+ "n_boot": 10000,
+ "seed": 0,
+ "confirmatory": [
+  "h1_lambda_2",
+  "h1_eigengap_23",
+  "h2_conductance",
+  "h2_cut_over_vol_E",
+  "h3_Fbar_E_to_U",
+  "h3_Fbar_E_to_E",
+  "h4B_hfer",
+  "h4B_centroid",
+  "h5_k3_mix_UE",
+  "h5_k3_region_entropy_mean"
+ ],
+ "confirmatory_traj": [
+  "traj_h1_lambda_2__total_variation",
+  "traj_h4B_hfer__total_variation"
+ ],
+ "primary_contrast": [
+  "C4",
+  "C3"
+ ],
+ "secondary_contrasts": [
+  [
+   "C4",
+   "C2"
+  ],
+  [
+   "C4",
+   "C1"
+  ],
+  [
+   "C2",
+   "C1"
+  ],
+  [
+   "C3",
+   "C1"
+  ]
+ ],
+ "n_examples": 112,
+ "n_kept": 112,
+ "n_dropped": 0
+}

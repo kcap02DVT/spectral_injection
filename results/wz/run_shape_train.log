@@ -1,0 +1,80 @@
+  1 paires  (0.8 s/paire)
+  2 paires  (0.8 s/paire)
+  3 paires  (0.6 s/paire)
+  4 paires  (0.9 s/paire)
+  5 paires  (1.0 s/paire)
+  6 paires  (1.0 s/paire)
+  7 paires  (1.0 s/paire)
+  8 paires  (1.2 s/paire)
+  9 paires  (1.1 s/paire)
+  10 paires  (1.1 s/paire)
+  11 paires  (1.1 s/paire)
+  12 paires  (1.0 s/paire)
+  13 paires  (1.0 s/paire)
+  14 paires  (1.0 s/paire)
+  15 paires  (0.9 s/paire)
+  16 paires  (1.1 s/paire)
+  17 paires  (1.1 s/paire)
+  18 paires  (1.0 s/paire)
+  19 paires  (1.0 s/paire)
+  20 paires  (1.0 s/paire)
+  21 paires  (1.0 s/paire)
+  22 paires  (1.0 s/paire)
+  23 paires  (1.0 s/paire)
+  24 paires  (1.0 s/paire)
+  25 paires  (1.0 s/paire)
+  26 paires  (1.0 s/paire)
+  27 paires  (1.0 s/paire)
+  28 paires  (1.0 s/paire)
+  29 paires  (1.0 s/paire)
+  30 paires  (1.0 s/paire)
+  31 paires  (1.0 s/paire)
+  32 paires  (1.0 s/paire)
+  33 paires  (0.9 s/paire)
+  34 paires  (1.0 s/paire)
+  35 paires  (1.0 s/paire)
+  36 paires  (1.0 s/paire)
+  37 paires  (1.0 s/paire)
+
+couche 8, tete 7 (PRE-ENREGISTREE), n = 37 paires, kron + q90
+
+FAMILLE PRIMAIRE -- 4 metriques x 5 echelles = 20 candidats
+metrique            echelle  AUROC pooled  AUROC apparie  paires gagnees
+------------------------------------------------------------------------
+iqr                    1.71         0.606          0.757           28/37
+skew                   1.71         0.600          0.757           28/37
+skew                   1.00         0.588          0.730           27/37
+iqr                    3.00         0.568          0.757           28/37
+skew                   0.50         0.561          0.649           24/37
+iqr                    1.00         0.560          0.622           23/37
+low_mass               1.71         0.451          0.324           12/37
+iqr                    5.00         0.541          0.649           24/37
+iqr                    0.50         0.538          0.568           21/37
+skew                   5.00         0.538          0.649           24/37
+low_mass               1.00         0.531          0.378           14/37
+low_mass               5.00         0.477          0.405           15/37
+skew                   3.00         0.519          0.541           20/37
+low_mass               0.50         0.486          0.270           10/37
+low_mass               3.00         0.491          0.432           16/37
+ipr                    1.71         0.508          0.757           28/37
+ipr                    3.00         0.508          0.757           28/37
+ipr                    1.00         0.506          0.703           26/37
+ipr                    5.00         0.505          0.649           24/37
+ipr                    0.50         0.503          0.568           21/37
+
+Maximum observe        : 0.606 (iqr @ s=1.71)
+Maximum sous le nul    : moyenne 0.560, q95 0.597  (2000 permutations intra-paires)
+
+-> CANDIDAT RETENU pour la lecture unique sur test : iqr @ s=1.71
+
+EXPLORATOIRE -- variantes, non eligibles au test
+metrique            echelle  AUROC pooled  AUROC apparie
+--------------------------------------------------------
+iqr_rel                1.71         0.607          0.757
+iqr_rel                3.00         0.566          0.757
+iqr_rel                1.00         0.562          0.568
+ipr_norm               1.71         0.554          0.757
+ipr_norm               1.00         0.547          0.703
+iqr_rel                5.00         0.543          0.649
+
+-> results/wz/shape_train.csv

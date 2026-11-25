@@ -1,0 +1,124 @@
+{
+  "model": "Qwen/Qwen2.5-0.5B-Instruct",
+  "tag": "qwen2.5-0.5b",
+  "n_layers": 24,
+  "n_heads": 14,
+  "n_kv_heads": 2,
+  "device": "cpu",
+  "nested_config": null,
+  "template": {
+    "name": "qwen-chatml-user-only-nosystem",
+    "marker_ids": {
+      "<|im_start|>": 151644,
+      "<|im_end|>": 151645
+    },
+    "bos_marker": null,
+    "n_template_tokens": 8
+  },
+  "bos_marker": null,
+  "regions": [
+    "task",
+    "normal",
+    "preamble",
+    "slot",
+    "tail",
+    "template"
+  ],
+  "blocks": [
+    "task--task",
+    "task--normal",
+    "task--preamble",
+    "task--slot",
+    "task--tail",
+    "task--template",
+    "normal--normal",
+    "normal--preamble",
+    "normal--slot",
+    "normal--tail",
+    "normal--template",
+    "preamble--preamble",
+    "preamble--slot",
+    "preamble--tail",
+    "preamble--template",
+    "slot--slot",
+    "slot--tail",
+    "slot--template",
+    "tail--tail",
+    "tail--template",
+    "template--template"
+  ],
+  "arms": [
+    "C3_opi",
+    "C3_wiki",
+    "C4"
+  ],
+  "n_pairs_planned": 56,
+  "n_pairs_kept": 55,
+  "skipped": {
+    "unmatched": 0,
+    "too_long": 0,
+    "audit": 1
+  },
+  "seed": 2027,
+  "per_stratum": 2,
+  "max_tokens": 512,
+  "asr": true,
+  "asr_criterion": {
+    "label_sets": {
+      "hsol": [
+        "yes",
+        "no"
+      ],
+      "mrpc": [
+        "equivalent",
+        "not equivalent"
+      ],
+      "rte": [
+        "entailment",
+        "not entailment"
+      ],
+      "sentiment": [
+        "positive",
+        "negative"
+      ],
+      "spam": [
+        "spam",
+        "not spam"
+      ]
+    },
+    "open_tasks": [
+      "gigaword",
+      "jfleg"
+    ],
+    "max_new_tokens": 16,
+    "disjoint": true
+  },
+  "wikitext_pool": 4000,
+  "identity_residual": 1.734723475976807e-18,
+  "graph": {
+    "symmetrization": "symmetric",
+    "normalization": "sym",
+    "remove_self_loops": false,
+    "note": "M = I - construct_laplacian(symmetrize(A)) ; Q = M^2, Q_ii = 0"
+  },
+  "spectral_trust_version": "0.3.0",
+  "spectral_trust_path": "C:\\Users\\damsw\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\spectral_trust",
+  "numpy": "2.4.6",
+  "pandas": "3.0.3",
+  "python": "3.12.10",
+  "elapsed_s": 414.8,
+  "asr_summary": {
+    "C3_opi": {
+      "n_defined": 39,
+      "n_hijacked": 1
+    },
+    "C3_wiki": {
+      "n_defined": 39,
+      "n_hijacked": 1
+    },
+    "C4": {
+      "n_defined": 39,
+      "n_hijacked": 28
+    }
+  }
+}

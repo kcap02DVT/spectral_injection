@@ -1,0 +1,63 @@
+  1 paires  (6.3 s/paire)
+  2 paires  (7.8 s/paire)
+  3 paires  (7.1 s/paire)
+  4 paires  (9.1 s/paire)
+  5 paires  (9.2 s/paire)
+  6 paires  (9.4 s/paire)
+  7 paires  (9.1 s/paire)
+  8 paires  (11.1 s/paire)
+  9 paires  (10.4 s/paire)
+  10 paires  (10.3 s/paire)
+  11 paires  (9.8 s/paire)
+  12 paires  (9.4 s/paire)
+  13 paires  (9.2 s/paire)
+  14 paires  (9.0 s/paire)
+  15 paires  (8.7 s/paire)
+  16 paires  (9.7 s/paire)
+  17 paires  (9.7 s/paire)
+  18 paires  (9.5 s/paire)
+  19 paires  (9.3 s/paire)
+  20 paires  (9.1 s/paire)
+  21 paires  (9.0 s/paire)
+  22 paires  (9.1 s/paire)
+  23 paires  (9.2 s/paire)
+  24 paires  (9.2 s/paire)
+  25 paires  (9.1 s/paire)
+  26 paires  (9.0 s/paire)
+  27 paires  (8.9 s/paire)
+  28 paires  (8.9 s/paire)
+  29 paires  (8.8 s/paire)
+  30 paires  (8.7 s/paire)
+  31 paires  (8.6 s/paire)
+  32 paires  (8.5 s/paire)
+  33 paires  (8.4 s/paire)
+  34 paires  (8.5 s/paire)
+  35 paires  (8.6 s/paire)
+  36 paires  (8.6 s/paire)
+  37 paires  (8.6 s/paire)
+
+444 mesures · echelles [5, 10, 15, 20, 30] · retrait kron · q90 · noyau mexican_hat
+
+ couche  tete    n  AUROC pooled  AUROC apparie  IoU inj   top-k
+----------------------------------------------------------------
+      0     0   37         0.481          0.351    0.000   0.000
+      0     7   37         0.475          0.405    0.015   0.162
+      8     0   37         0.482          0.405    0.104   0.297
+      8     7   37         0.481          0.459    0.021   0.189
+     16     0   37         0.508          0.459    0.000   0.000
+     16     7   37         0.518          0.459    0.000   0.000
+
+Meilleure cellule : couche 0, tete 7 -- pooled 0.475, apparie 0.405
+AUROC pooled  = ce que voit un detecteur (pas de paire).
+AUROC apparie = part des paires ou l'injecte depasse son controle.
+IoU           = recouvrement de la fenetre predite avec le span.
+top-k         = le span touche-t-il une des k meilleures fenetres.
+
+Echelle retenue par la regle aveugle (condition injectee) :
+  s =     5 :  73.9 %
+  s =    10 :  16.7 %
+  s =    15 :   8.1 %
+  s =    20 :   0.9 %
+  s =    30 :   0.5 %
+
+-> results/wz/qwen05_both.csv

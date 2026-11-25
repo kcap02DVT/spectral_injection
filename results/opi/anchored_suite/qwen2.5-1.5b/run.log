@@ -1,0 +1,63 @@
+=== suite ancree  Qwen/Qwen2.5-1.5B-Instruct -> results\opi\anchored_suite\qwen2.5-1.5b
+28 couches x 12 tetes ; bras ('C3_opi', 'C4', 'C3_wiki', 'C3_align') ; ancres ('fin', 'finE')
+[1/56] naive__sentiment__spam__r164  T=101 slot=16 align=completee(0.94) temoin 0.0e+00  15.1s
+[2/56] combine__sentiment__spam__r718  T=119 slot=16 align=completee(0.94) temoin 0.0e+00  17.5s
+[3/56] ignore__sentiment__jfleg__r1179  T=95 slot=19 align=completee(0.79) temoin 0.0e+00  14.4s
+[4/56] escape__sentiment__gigaword__r2147  T=88 slot=12 align=coupee(1.00) temoin 0.0e+00  13.4s
+[5/56] escape__sentiment__hsol__r2897  T=116 slot=29 align=completee(0.52) temoin 0.0e+00  17.1s
+[6/56] ignore__sentiment__mrpc__r3485  T=129 slot=23 align=completee(0.65) temoin 0.0e+00  18.3s
+[7/56] naive__sentiment__rte__r4043  T=129 slot=26 align=completee(0.58) temoin 0.0e+00  18.9s
+[8/56] combine__sentiment__rte__r4730  T=158 slot=26 align=completee(0.58) temoin 0.0e+00  22.1s
+[9/56] ignore__spam__sentiment__r5114  T=77 slot=15 align=completee(0.93) temoin 0.0e+00  12.3s
+[10/56] escape__spam__jfleg__r6038  T=102 slot=19 align=completee(0.84) temoin 0.0e+00  15.5s
+[11/56] naive__spam__gigaword__r6438  T=130 slot=12 align=coupee(1.00) temoin 0.0e+00  18.1s
+[12/56] combine__spam__gigaword__r7013  T=144 slot=12 align=coupee(1.00) temoin 0.0e+00  20.2s
+[13/56] naive__spam__hsol__r7365  T=101 slot=29 align=completee(0.55) temoin 0.0e+00  15.4s
+[14/56] combine__spam__hsol__r7808  T=136 slot=29 align=completee(0.55) temoin 0.0e+00  19.1s
+[15/56] escape__spam__mrpc__r8451  T=149 slot=23 align=completee(0.70) temoin 0.0e+00  21.1s
+[16/56] ignore__spam__rte__r9099  T=171 slot=26 align=completee(0.61) temoin 0.0e+00  23.0s
+[17/56] naive__jfleg__sentiment__r9761  T=116 slot=15 align=coupee(1.00) temoin 0.0e+00  16.7s
+[18/56] combine__jfleg__sentiment__r10308  T=115 slot=15 align=coupee(1.00) temoin 0.0e+00  17.2s
+[19/56] naive__jfleg__spam__r10529  T=141 slot=16 align=coupee(1.00) temoin 0.0e+00  19.5s
+[20/56] combine__jfleg__spam__r11068  T=157 slot=16 align=coupee(1.00) temoin 0.0e+00  21.4s
+[21/56] escape__jfleg__gigaword__r11666  T=104 slot=12 align=coupee(1.00) temoin 0.0e+00  15.0s
+[22/56] escape__jfleg__hsol__r12466  T=132 slot=29 align=completee(0.66) temoin 0.0e+00  18.4s
+[23/56] ignore__jfleg__mrpc__r13168  T=173 slot=23 align=completee(0.83) temoin 0.0e+00  23.6s
+[24/56] ignore__jfleg__rte__r13812  T=188 slot=26 align=completee(0.73) temoin 0.0e+00  24.7s
+[26/56] ignore__gigaword__spam__r15472  T=107 slot=16 align=completee(0.75) temoin 0.0e+00  16.5s
+[27/56] naive__gigaword__jfleg__r16040  T=109 slot=19 align=completee(0.63) temoin 0.0e+00  16.5s
+[28/56] combine__gigaword__jfleg__r16797  T=103 slot=19 align=completee(0.63) temoin 0.0e+00  15.0s
+[29/56] naive__gigaword__hsol__r16895  T=159 slot=29 align=completee(0.41) temoin 0.0e+00  21.3s
+[30/56] combine__gigaword__hsol__r17479  T=123 slot=29 align=completee(0.41) temoin 0.0e+00  17.6s
+[31/56] escape__gigaword__mrpc__r18169  T=174 slot=23 align=completee(0.52) temoin 0.0e+00  24.2s
+[32/56] escape__gigaword__rte__r18858  T=134 slot=26 align=completee(0.46) temoin 0.0e+00  20.2s
+[33/56] escape__hsol__sentiment__r19783  T=109 slot=15 align=completee(0.93) temoin 0.0e+00  16.7s
+[34/56] escape__hsol__spam__r20535  T=136 slot=16 align=completee(0.88) temoin 0.0e+00  19.4s
+[35/56] ignore__hsol__jfleg__r21120  T=127 slot=19 align=completee(0.95) temoin 0.0e+00  18.6s
+[36/56] ignore__hsol__gigaword__r21951  T=134 slot=12 align=completee(0.92) temoin 0.0e+00  19.5s
+[37/56] naive__hsol__mrpc__r22444  T=125 slot=23 align=coupee(1.00) temoin 0.0e+00  18.2s
+[38/56] combine__hsol__mrpc__r23041  T=166 slot=23 align=coupee(1.00) temoin 0.0e+00  22.4s
+[39/56] naive__hsol__rte__r23219  T=145 slot=26 align=coupee(1.00) temoin 0.0e+00  19.8s
+[40/56] combine__hsol__rte__r23871  T=148 slot=26 align=coupee(1.00) temoin 0.0e+00  20.2s
+[41/56] ignore__mrpc__sentiment__r24277  T=137 slot=15 align=coupee(1.00) temoin 0.0e+00  18.9s
+[42/56] ignore__mrpc__spam__r25081  T=129 slot=16 align=coupee(1.00) temoin 0.0e+00  18.5s
+[43/56] escape__mrpc__jfleg__r26119  T=118 slot=19 align=coupee(1.00) temoin 0.0e+00  17.1s
+[44/56] naive__mrpc__gigaword__r26571  T=120 slot=12 align=coupee(1.00) temoin 0.0e+00  17.4s
+[45/56] combine__mrpc__gigaword__r27046  T=159 slot=12 align=coupee(1.00) temoin 0.0e+00  22.1s
+[46/56] naive__mrpc__hsol__r27377  T=125 slot=29 align=completee(0.79) temoin 0.0e+00  17.8s
+[47/56] combine__mrpc__hsol__r27800  T=130 slot=29 align=completee(0.79) temoin 0.0e+00  18.2s
+[48/56] escape__mrpc__rte__r28412  T=232 slot=26 align=completee(0.89) temoin 0.0e+00  31.1s
+[49/56] escape__rte__sentiment__r29387  T=114 slot=15 align=coupee(1.00) temoin 0.0e+00  16.8s
+[50/56] escape__rte__spam__r30112  T=182 slot=16 align=coupee(1.00) temoin 0.0e+00  24.5s
+[51/56] naive__rte__jfleg__r30541  T=112 slot=19 align=coupee(1.00) temoin 0.0e+00  16.4s
+[52/56] combine__rte__jfleg__r31037  T=141 slot=19 align=coupee(1.00) temoin 0.0e+00  19.6s
+[53/56] ignore__rte__gigaword__r31531  T=119 slot=12 align=completee(0.92) temoin 0.0e+00  17.3s
+[54/56] ignore__rte__hsol__r32310  T=144 slot=29 align=completee(0.90) temoin 0.0e+00  19.9s
+[55/56] naive__rte__mrpc__r32941  T=160 slot=23 align=coupee(1.00) temoin 0.0e+00  22.0s
+[56/56] combine__rte__mrpc__r33594  T=170 slot=23 align=coupee(1.00) temoin 0.0e+00  23.2s
+
+55 paires retenues ; ignorees {'unmatched': 0, 'align': 0, 'too_long': 0, 'audit': 1, 'deltaN': 0, 'labels': 0}
+controle temoin : ecart max 0.000e+00 (attendu 0)
+bras C3_align : {'completee': 32, 'coupee': 23} ; part mediane de la consigne dans le slot 0.93
+ponderation par les valeurs : OK
+termine en 1057s

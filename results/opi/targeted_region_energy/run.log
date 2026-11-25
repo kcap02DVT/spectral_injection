@@ -1,0 +1,34 @@
+model Qwen/Qwen2.5-1.5B-Instruct layers 28 heads 12 device cpu
+[1/16] combine__gigaword__158 C3 tokens=120 counts={'task': 12, 'normal': 39, 'preamble': 10, 'slot': 29, 'tail': 21, 'template': 9} seg_ok=True elapsed=2.9s
+[1/16] combine__gigaword__158 C4 tokens=120 counts={'task': 12, 'normal': 39, 'preamble': 10, 'slot': 29, 'tail': 21, 'template': 9} seg_ok=True elapsed=5.7s
+[2/16] combine__hsol__9 C3 tokens=104 counts={'task': 28, 'normal': 25, 'preamble': 11, 'slot': 15, 'tail': 16, 'template': 9} seg_ok=True elapsed=8.0s
+[2/16] combine__hsol__9 C4 tokens=104 counts={'task': 28, 'normal': 25, 'preamble': 11, 'slot': 15, 'tail': 16, 'template': 9} seg_ok=True elapsed=10.3s
+[3/16] combine__sentiment__178 C3 tokens=142 counts={'task': 16, 'normal': 20, 'preamble': 10, 'slot': 16, 'tail': 71, 'template': 9} seg_ok=True elapsed=13.8s
+[3/16] combine__sentiment__178 C4 tokens=142 counts={'task': 16, 'normal': 20, 'preamble': 10, 'slot': 16, 'tail': 71, 'template': 9} seg_ok=True elapsed=17.4s
+[4/16] combine__spam__63 C3 tokens=132 counts={'task': 20, 'normal': 50, 'preamble': 10, 'slot': 12, 'tail': 31, 'template': 9} seg_ok=True elapsed=20.7s
+[4/16] combine__spam__63 C4 tokens=132 counts={'task': 20, 'normal': 50, 'preamble': 10, 'slot': 12, 'tail': 31, 'template': 9} seg_ok=True elapsed=24.0s
+[5/16] escape__gigaword__141 C3 tokens=130 counts={'task': 12, 'normal': 37, 'preamble': 0, 'slot': 16, 'tail': 56, 'template': 9} seg_ok=True elapsed=27.2s
+[5/16] escape__gigaword__141 C4 tokens=130 counts={'task': 12, 'normal': 37, 'preamble': 0, 'slot': 16, 'tail': 56, 'template': 9} seg_ok=True elapsed=30.3s
+[6/16] escape__hsol__99 C3 tokens=103 counts={'task': 28, 'normal': 31, 'preamble': 0, 'slot': 15, 'tail': 20, 'template': 9} seg_ok=True elapsed=32.8s
+[6/16] escape__hsol__99 C4 tokens=103 counts={'task': 28, 'normal': 31, 'preamble': 0, 'slot': 15, 'tail': 20, 'template': 9} seg_ok=True elapsed=35.1s
+[7/16] escape__sentiment__173 C3 tokens=104 counts={'task': 16, 'normal': 24, 'preamble': 1, 'slot': 12, 'tail': 42, 'template': 9} seg_ok=True elapsed=37.5s
+[7/16] escape__sentiment__173 C4 tokens=104 counts={'task': 16, 'normal': 24, 'preamble': 1, 'slot': 12, 'tail': 42, 'template': 9} seg_ok=True elapsed=40.1s
+[8/16] escape__spam__197 C3 tokens=91 counts={'task': 20, 'normal': 17, 'preamble': 1, 'slot': 12, 'tail': 32, 'template': 9} seg_ok=True elapsed=42.3s
+[8/16] escape__spam__197 C4 tokens=91 counts={'task': 20, 'normal': 17, 'preamble': 1, 'slot': 12, 'tail': 32, 'template': 9} seg_ok=True elapsed=44.4s
+[9/16] ignore__gigaword__101 C3 tokens=239 counts={'task': 12, 'normal': 54, 'preamble': 4, 'slot': 26, 'tail': 134, 'template': 9} seg_ok=True elapsed=51.4s
+[9/16] ignore__gigaword__101 C4 tokens=239 counts={'task': 12, 'normal': 54, 'preamble': 4, 'slot': 26, 'tail': 134, 'template': 9} seg_ok=True elapsed=58.2s
+[10/16] ignore__hsol__138 C3 tokens=106 counts={'task': 28, 'normal': 37, 'preamble': 4, 'slot': 19, 'tail': 9, 'template': 9} seg_ok=True elapsed=60.7s
+[10/16] ignore__hsol__138 C4 tokens=106 counts={'task': 28, 'normal': 37, 'preamble': 4, 'slot': 19, 'tail': 9, 'template': 9} seg_ok=True elapsed=63.1s
+[11/16] ignore__sentiment__19 C3 tokens=133 counts={'task': 16, 'normal': 24, 'preamble': 4, 'slot': 23, 'tail': 57, 'template': 9} seg_ok=True elapsed=66.2s
+[11/16] ignore__sentiment__19 C4 tokens=133 counts={'task': 16, 'normal': 24, 'preamble': 4, 'slot': 23, 'tail': 57, 'template': 9} seg_ok=True elapsed=69.3s
+[12/16] ignore__spam__46 C3 tokens=136 counts={'task': 20, 'normal': 36, 'preamble': 4, 'slot': 23, 'tail': 44, 'template': 9} seg_ok=True elapsed=72.5s
+[12/16] ignore__spam__46 C4 tokens=136 counts={'task': 20, 'normal': 36, 'preamble': 4, 'slot': 23, 'tail': 44, 'template': 9} seg_ok=True elapsed=75.7s
+[13/16] naive__gigaword__181 C3 tokens=181 counts={'task': 12, 'normal': 50, 'preamble': 0, 'slot': 29, 'tail': 81, 'template': 9} seg_ok=True elapsed=80.2s
+[13/16] naive__gigaword__181 C4 tokens=181 counts={'task': 12, 'normal': 50, 'preamble': 0, 'slot': 29, 'tail': 81, 'template': 9} seg_ok=True elapsed=84.8s
+[14/16] naive__hsol__157 C3 tokens=127 counts={'task': 28, 'normal': 35, 'preamble': 0, 'slot': 16, 'tail': 39, 'template': 9} seg_ok=True elapsed=87.7s
+[14/16] naive__hsol__157 C4 tokens=127 counts={'task': 28, 'normal': 35, 'preamble': 0, 'slot': 16, 'tail': 39, 'template': 9} seg_ok=True elapsed=90.6s
+[15/16] naive__sentiment__149 C3 tokens=118 counts={'task': 16, 'normal': 20, 'preamble': 0, 'slot': 16, 'tail': 57, 'template': 9} seg_ok=True elapsed=93.4s
+[15/16] naive__sentiment__149 C4 tokens=118 counts={'task': 16, 'normal': 20, 'preamble': 0, 'slot': 16, 'tail': 57, 'template': 9} seg_ok=True elapsed=96.0s
+[16/16] naive__spam__145 C3 tokens=78 counts={'task': 20, 'normal': 11, 'preamble': 0, 'slot': 29, 'tail': 9, 'template': 9} seg_ok=True elapsed=97.8s
+[16/16] naive__spam__145 C4 tokens=78 counts={'task': 20, 'normal': 11, 'preamble': 0, 'slot': 29, 'tail': 9, 'template': 9} seg_ok=True elapsed=99.7s
+all prompts captured; analyze paired deltas

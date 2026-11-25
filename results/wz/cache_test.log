@@ -1,0 +1,45 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+Loading weights:   0%|          | 0/290 [00:00<?, ?it/s]Loading weights:   8%|7         | 23/290 [00:00<00:01, 196.78it/s]Loading weights:  18%|#7        | 52/290 [00:00<00:00, 243.32it/s]Loading weights:  27%|##6       | 77/290 [00:00<00:00, 242.20it/s]Loading weights:  37%|###6      | 106/290 [00:00<00:00, 248.25it/s]Loading weights:  45%|####5     | 131/290 [00:00<00:00, 233.74it/s]Loading weights:  54%|#####4    | 157/290 [00:00<00:00, 234.59it/s]Loading weights:  63%|######3   | 183/290 [00:00<00:00, 241.18it/s]Loading weights:  73%|#######3  | 213/290 [00:00<00:00, 238.63it/s]Loading weights:  83%|########3 | 241/290 [00:01<00:00, 237.90it/s]Loading weights:  94%|#########4| 274/290 [00:01<00:00, 262.48it/s]Loading weights: 100%|##########| 290/290 [00:01<00:00, 252.41it/s]
+Qwen/Qwen2.5-0.5B-Instruct : 24 couches x 14 tetes -> cache/attn\Qwen2.5-0.5B-Instruct\test
+  [1/40] start    5 tok, prompt  273, cache      41 Mo (9.6 s/paire)
+  [2/40] middle  13 tok, prompt  331, cache     101 Mo (11.3 s/paire)
+  [3/40] end     12 tok, prompt  204, cache     124 Mo (9.4 s/paire)
+  [4/40] start    6 tok, prompt  336, cache     185 Mo (10.3 s/paire)
+  [5/40] middle  18 tok, prompt  245, cache     219 Mo (9.9 s/paire)
+  [6/40] end     18 tok, prompt  211, cache     244 Mo (9.2 s/paire)
+  [7/40] start   13 tok, prompt  194, cache     265 Mo (8.7 s/paire)
+  [8/40] middle  10 tok, prompt  201, cache     288 Mo (8.3 s/paire)
+  [9/40] end     12 tok, prompt  293, cache     335 Mo (8.5 s/paire)
+  [10/40] start    5 tok, prompt  337, cache     397 Mo (9.0 s/paire)
+  [11/40] middle  13 tok, prompt  334, cache     457 Mo (9.3 s/paire)
+  [12/40] end     13 tok, prompt  227, cache     486 Mo (9.1 s/paire)
+  [13/40] start   15 tok, prompt  241, cache     518 Mo (9.0 s/paire)
+  [14/40] middle  21 tok, prompt  265, cache     557 Mo (9.0 s/paire)
+  [15/40] end      6 tok, prompt  364, cache     628 Mo (9.3 s/paire)
+  [16/40] start   21 tok, prompt  230, cache     658 Mo (9.2 s/paire)
+  [17/40] middle  10 tok, prompt  323, cache     715 Mo (9.4 s/paire)
+  [18/40] end     10 tok, prompt  318, cache     770 Mo (9.5 s/paire)
+  [19/40] start   15 tok, prompt  345, cache     834 Mo (9.6 s/paire)
+  [20/40] middle  13 tok, prompt  208, cache     859 Mo (9.4 s/paire)
+  [21/40] end      3 tok, prompt  225, cache     887 Mo (9.3 s/paire)
+  [22/40] start   10 tok, prompt  205, cache     911 Mo (9.1 s/paire)
+  [23/40] middle  10 tok, prompt  303, cache     961 Mo (9.1 s/paire)
+  [24/40] end     10 tok, prompt  336, cache    1022 Mo (9.2 s/paire)
+  [25/40] start   14 tok, prompt  288, cache    1067 Mo (9.2 s/paire)
+  [26/40] middle  13 tok, prompt  335, cache    1129 Mo (9.2 s/paire)
+  [27/40] end     10 tok, prompt  184, cache    1148 Mo (9.1 s/paire)
+  [28/40] start    5 tok, prompt  298, cache    1197 Mo (9.1 s/paire)
+  [29/40] middle  22 tok, prompt  218, cache    1223 Mo (9.0 s/paire)
+  [30/40] end      6 tok, prompt  270, cache    1264 Mo (8.9 s/paire)
+  [31/40] start    8 tok, prompt  311, cache    1316 Mo (9.0 s/paire)
+  [32/40] middle  11 tok, prompt  363, cache    1386 Mo (9.1 s/paire)
+  [33/40] end     12 tok, prompt  238, cache    1418 Mo (9.0 s/paire)
+  [34/40] start   17 tok, prompt  366, cache    1490 Mo (9.1 s/paire)
+  [35/40] middle  20 tok, prompt  213, cache    1516 Mo (9.0 s/paire)
+  [36/40] end      6 tok, prompt  185, cache    1535 Mo (8.9 s/paire)
+  [37/40] start   19 tok, prompt  447, cache    1641 Mo (9.2 s/paire)
+  [38/40] middle  11 tok, prompt  219, cache    1668 Mo (9.1 s/paire)
+  [39/40] end     13 tok, prompt  297, cache    1717 Mo (9.1 s/paire)
+  [40/40] start    8 tok, prompt  241, cache    1749 Mo (9.1 s/paire)
+
+40 paires en cache, 0 ignorees, 1749 Mo (43.7 Mo/paire)

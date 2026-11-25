@@ -1,0 +1,67 @@
+  1 paires  (4.2 s/paire)
+  2 paires  (4.6 s/paire)
+  3 paires  (4.3 s/paire)
+  4 paires  (4.9 s/paire)
+  5 paires  (4.9 s/paire)
+  6 paires  (5.0 s/paire)
+  7 paires  (4.8 s/paire)
+  8 paires  (5.2 s/paire)
+  9 paires  (5.0 s/paire)
+  10 paires  (5.0 s/paire)
+  11 paires  (4.8 s/paire)
+  12 paires  (4.7 s/paire)
+  13 paires  (4.6 s/paire)
+  14 paires  (4.6 s/paire)
+  15 paires  (4.5 s/paire)
+  16 paires  (4.7 s/paire)
+  17 paires  (4.7 s/paire)
+  18 paires  (4.7 s/paire)
+  19 paires  (4.6 s/paire)
+  20 paires  (4.6 s/paire)
+  21 paires  (4.5 s/paire)
+  22 paires  (4.6 s/paire)
+  23 paires  (4.6 s/paire)
+  24 paires  (4.6 s/paire)
+  25 paires  (4.6 s/paire)
+  26 paires  (4.6 s/paire)
+  27 paires  (4.5 s/paire)
+  28 paires  (4.6 s/paire)
+  29 paires  (4.5 s/paire)
+  30 paires  (4.5 s/paire)
+  31 paires  (4.5 s/paire)
+  32 paires  (4.5 s/paire)
+  33 paires  (4.5 s/paire)
+  34 paires  (4.6 s/paire)
+  35 paires  (4.8 s/paire)
+  36 paires  (4.9 s/paire)
+  37 paires  (5.0 s/paire)
+
+444 mesures · echelles [0, 1, 1, 3, 5] · retrait kron · q90 · noyau mexican_hat
+
+ couche  tete    n  AUROC pooled  AUROC apparie  IoU inj   top-k
+----------------------------------------------------------------
+      0     0   37         0.516          0.459    0.000   0.000
+      0     7   37         0.470          0.486    0.004   0.081
+      8     0   37         0.443          0.432    0.108   0.297
+      8     7   37         0.570          0.676    0.025   0.216
+     16     0   37         0.543          0.459    0.000   0.027
+     16     7   37         0.511          0.541    0.000   0.054
+
+Meilleure cellule : couche 8, tete 7 -- pooled 0.570, apparie 0.676
+AUROC pooled  = ce que voit un detecteur (pas de paire).
+AUROC apparie = part des paires ou l'injecte depasse son controle.
+IoU           = recouvrement de la fenetre predite avec le span.
+top-k         = le span touche-t-il une des k meilleures fenetres.
+
+Couple (echelle, largeur) retenu par la regle aveugle :
+  s =  0.50  w =   8 :  23.4 %
+  s =  1.71  w =   8 :  20.7 %
+  s =  5.00  w =   8 :  14.0 %
+  s =  3.00  w =   8 :  11.3 %
+  s =  1.00  w =  15 :   5.4 %
+  s =  1.71  w =  20 :   4.5 %
+  s =  1.71  w =  11 :   3.6 %
+  s =  5.00  w =  20 :   2.7 %
+Une concentration sur la plus petite largeur est le biais d'agregation signale dans blind_decision, pas un resultat.
+
+-> results/wz/qwen05_fine.csv

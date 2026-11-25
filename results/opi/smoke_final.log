@@ -1,0 +1,83 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+1. dataset
+   33600 lignes, decomposition verifiee
+   echantillon : 8 lignes
+   taches  : ['gigaword', 'hsol', 'jfleg', 'mrpc', 'rte', 'sentiment', 'spam']
+   attaques: ['combine', 'escape', 'ignore', 'naive']
+
+2. modele
+Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights:  12%|█▏        | 18/146 [00:00<00:00, 149.66it/s]Loading weights:  23%|██▎       | 33/146 [00:00<00:01, 102.16it/s]Loading weights:  30%|███       | 44/146 [00:00<00:01, 69.05it/s] Loading weights:  36%|███▋      | 53/146 [00:00<00:01, 60.85it/s]Loading weights:  42%|████▏     | 62/146 [00:00<00:01, 62.62it/s]Loading weights:  47%|████▋     | 69/146 [00:01<00:01, 58.73it/s]Loading weights:  52%|█████▏    | 76/146 [00:01<00:01, 52.98it/s]Loading weights:  56%|█████▌    | 82/146 [00:01<00:01, 46.38it/s]Loading weights:  60%|█████▉    | 87/146 [00:01<00:01, 46.10it/s]Loading weights:  63%|██████▎   | 92/146 [00:01<00:01, 41.96it/s]Loading weights:  67%|██████▋   | 98/146 [00:01<00:01, 41.25it/s]Loading weights:  73%|███████▎  | 107/146 [00:01<00:00, 41.62it/s]Loading weights:  79%|███████▉  | 116/146 [00:02<00:00, 46.96it/s]Loading weights:  83%|████████▎ | 121/146 [00:02<00:00, 46.62it/s]Loading weights:  86%|████████▋ | 126/146 [00:02<00:00, 41.72it/s]Loading weights:  92%|█████████▏| 135/146 [00:02<00:00, 48.73it/s]Loading weights: 100%|██████████| 146/146 [00:02<00:00, 55.20it/s]
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+   meta-llama/Llama-3.2-1B-Instruct
+   16 couches x 32 tetes (kv=8), device=cpu
+   template experimental : llama3-user-only-nosystem
+   marqueurs : {'<|begin_of_text|>': 128000, '<|start_header_id|>': 128006, '<|end_header_id|>': 128007, '<|eot_id|>': 128009}
+   tokens de template hors contenu : 10
+   AUCUN message systeme : le bloc 'Cutting Knowledge Date / Today Date' du template officiel est supprime
+
+3. construction des conditions
+   appariement exact du remplissage : 8/8
+
+4. capture et analyse
+   [1/8] gigaword/combine T=163 (64.8 s/ligne)
+   [2/8] hsol/combine T=130 (72.3 s/ligne)
+   [3/8] jfleg/escape T=127 (69.9 s/ligne)
+   [4/8] mrpc/escape T=119 (64.6 s/ligne)
+   [5/8] rte/ignore T=192 (64.2 s/ligne)
+   [6/8] sentiment/ignore T=64 (61.9 s/ligne)
+   [7/8] spam/naive T=119 (59.3 s/ligne)
+   [8/8] gigaword/naive T=100 (57.2 s/ligne)
+
+5. sorties
+   tenseur H1-H5 (8, 4, 16, 32, 164) -> results/opi/smoke/values.npz
+   tenseur H6     (8, 4, 32, 172) (172 statistiques de trajectoire)
+   8 lignes -> results/opi/smoke/rows.csv
+   provenance -> results/opi/smoke/provenance.json
+
+6. controles d'integrite
+   valeurs finies : 100.00 %
+   F_(U->E) maximal : 0.000e+00  (doit etre nul, masque causal)
+   |cut - Dirichlet combinatoire| maximal : 2.842e-14
+   variante A : |centroide - Rayleigh| maximal : 2.554e-15
+   variante B : |centroide - Rayleigh| maximal : 4.219e-15
+   variante sans boucles : |cut - Dirichlet| maximal : 2.842e-14
+   |cut(avec boucles) - cut(sans boucles)| maximal : 0.000e+00   (doit etre nul : la diagonale ne traverse aucune frontiere)
+   lambda_max observe : [0.7645, 1.9766]  (borne theorique 2)
+   lambda_max sans boucles : [1.2968, 1.9987]
+   effet des boucles sur lambda_2 : mediane +0.0369 (sans - avec)
+
+7a. audit de la segmentation U/E/T
+   prompts conformes : 32/32
+   offset_gaps      : total 0
+   offset_overlaps  : total 0
+   covers_end       : 32/32
+   U_contiguous     : 32/32
+   E_contiguous     : 32/32
+   U_before_E       : 32/32
+   U_matches_span   : 0/32
+   E_matches_span   : 32/32
+   queue de U absorbee par le token frontiere : ['\'".\'', "'.'"]
+   tokens frontieres par prompt : min 1, max 1
+     token  17        '.ĊĊ' assigne a T, 1/3 caracteres dans U (part 0.333)
+
+7b. audit des tokens techniques T
+   taille de T : {11: 32}
+   compositions distinctes de T : 2 sur 32 prompts
+   composition (prompt 1), 11 tokens :
+     ['<|begin_of_text|>', '<|start_header_id|>', 'user', '<|end_header_id|>', 'ĊĊ', '.ĊĊ', '<|eot_id|>', '<|start_header_id|>', 'assistant', '<|end_header_id|>', 'ĊĊ']
+   positions : debut [0, 1, 2, 3, 4, 17] ... fin [17, 48, 49, 50, 51, 52]
+   positions distinctes : 23   taille constante : True
+   T varie sur 1 position(s) : [5] -- fusion du token frontiere U/E, sans effet structurel
+
+8. controles H5 / H6
+   K=2 : clusters effectifs mediane 2.00 (demande 2), melange U/E mediane 0.500
+   K=3 : clusters effectifs mediane 3.00 (demande 3), melange U/E mediane 0.333
+   K=5 : clusters effectifs mediane 5.00 (demande 5), melange U/E mediane 0.200
+   K=8 : clusters effectifs mediane 8.00 (demande 8), melange U/E mediane 0.125
+   K suggere par l'ecart spectral : {int(v): int(c) for c, v in top}
+   stabilite ARI entre couches, K=2 : mediane 0.084
+   stabilite ARI entre couches, K=3 : mediane 0.117
+   variation totale de lambda_2 : mediane 2.4928
+   valeurs finies dans le tenseur H6 : 100.00 %
+
+termine en 488 s

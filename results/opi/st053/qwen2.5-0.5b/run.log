@@ -1,0 +1,66 @@
+=== essai 0.5.3 sur injections  Qwen/Qwen2.5-0.5B-Instruct -> results\opi\st053\qwen2.5-0.5b
+spectral-trust 0.5.3 <- C:\Users\damsw\AppData\Local\Temp\claude\9a0e4d5417afac5e\2e38458b-4410-4411-ba61-7d92a843bcd1\scratchpad\st053_clean\spectral_trust
+couches declarees [4] ; q=0.25 ; cutoff=0.1 ; lambda_max=2.0 (declare, pas Gershgorin)
+17 quantites en 3 familles : A_attention=9 | B_hybride=5 | C_valeurs=3
+24 couches x 14 tetes
+[1/56] naive__sentiment__spam__r164  T=101 slot=16  7.8s
+[2/56] combine__sentiment__spam__r718  T=119 slot=16  8.3s
+[3/56] ignore__sentiment__jfleg__r1179  T=95 slot=19  6.7s
+[4/56] escape__sentiment__gigaword__r2147  T=88 slot=12  6.3s
+[5/56] escape__sentiment__hsol__r2897  T=116 slot=29  8.0s
+[6/56] ignore__sentiment__mrpc__r3485  T=129 slot=23  8.9s
+[7/56] naive__sentiment__rte__r4043  T=129 slot=26  9.0s
+[8/56] combine__sentiment__rte__r4730  T=158 slot=26  10.9s
+[9/56] ignore__spam__sentiment__r5114  T=77 slot=15  5.7s
+[10/56] escape__spam__jfleg__r6038  T=102 slot=19  7.2s
+[11/56] naive__spam__gigaword__r6438  T=130 slot=12  8.9s
+[12/56] combine__spam__gigaword__r7013  T=144 slot=12  9.8s
+[13/56] naive__spam__hsol__r7365  T=101 slot=29  7.2s
+[14/56] combine__spam__hsol__r7808  T=136 slot=29  9.5s
+[15/56] escape__spam__mrpc__r8451  T=149 slot=23  10.5s
+[16/56] ignore__spam__rte__r9099  T=171 slot=26  12.2s
+[17/56] naive__jfleg__sentiment__r9761  T=116 slot=15  8.0s
+[18/56] combine__jfleg__sentiment__r10308  T=115 slot=15  8.0s
+[19/56] naive__jfleg__spam__r10529  T=141 slot=16  9.7s
+[20/56] combine__jfleg__spam__r11068  T=157 slot=16  10.8s
+[21/56] escape__jfleg__gigaword__r11666  T=104 slot=12  7.4s
+[22/56] escape__jfleg__hsol__r12466  T=132 slot=29  9.2s
+[23/56] ignore__jfleg__mrpc__r13168  T=173 slot=23  12.1s
+[24/56] ignore__jfleg__rte__r13812  T=188 slot=26  13.1s
+[26/56] ignore__gigaword__spam__r15472  T=107 slot=16  7.7s
+[27/56] naive__gigaword__jfleg__r16040  T=109 slot=19  7.7s
+[28/56] combine__gigaword__jfleg__r16797  T=103 slot=19  7.3s
+[29/56] naive__gigaword__hsol__r16895  T=159 slot=29  11.1s
+[30/56] combine__gigaword__hsol__r17479  T=123 slot=29  8.6s
+[31/56] escape__gigaword__mrpc__r18169  T=174 slot=23  12.3s
+[32/56] escape__gigaword__rte__r18858  T=134 slot=26  9.2s
+[33/56] escape__hsol__sentiment__r19783  T=109 slot=15  7.7s
+[34/56] escape__hsol__spam__r20535  T=136 slot=16  9.3s
+[35/56] ignore__hsol__jfleg__r21120  T=127 slot=19  8.9s
+[36/56] ignore__hsol__gigaword__r21951  T=134 slot=12  9.3s
+[37/56] naive__hsol__mrpc__r22444  T=125 slot=23  8.6s
+[38/56] combine__hsol__mrpc__r23041  T=166 slot=23  11.5s
+[39/56] naive__hsol__rte__r23219  T=145 slot=26  10.1s
+[40/56] combine__hsol__rte__r23871  T=148 slot=26  10.2s
+[41/56] ignore__mrpc__sentiment__r24277  T=137 slot=15  9.6s
+[42/56] ignore__mrpc__spam__r25081  T=129 slot=16  9.0s
+[43/56] escape__mrpc__jfleg__r26119  T=118 slot=19  8.3s
+[44/56] naive__mrpc__gigaword__r26571  T=120 slot=12  8.3s
+[45/56] combine__mrpc__gigaword__r27046  T=159 slot=12  11.1s
+[46/56] naive__mrpc__hsol__r27377  T=125 slot=29  8.8s
+[47/56] combine__mrpc__hsol__r27800  T=130 slot=29  9.0s
+[48/56] escape__mrpc__rte__r28412  T=232 slot=26  17.6s
+[49/56] escape__rte__sentiment__r29387  T=114 slot=15  8.0s
+[50/56] escape__rte__spam__r30112  T=182 slot=16  13.1s
+[51/56] naive__rte__jfleg__r30541  T=112 slot=19  7.7s
+[52/56] combine__rte__jfleg__r31037  T=141 slot=19  9.9s
+[53/56] ignore__rte__gigaword__r31531  T=119 slot=12  8.3s
+[54/56] ignore__rte__hsol__r32310  T=144 slot=29  9.9s
+[55/56] naive__rte__mrpc__r32941  T=160 slot=23  11.0s
+[56/56] combine__rte__mrpc__r33594  T=170 slot=23  12.0s
+
+55 paires retenues ; ignorees {'unmatched': 0, 'too_long': 0, 'audit': 1, 'deltaN': 0, 'labels': 0}
+2310 lignes (paire x bras x couche x tete)
+non finis : aucun
+
+termine en 523s

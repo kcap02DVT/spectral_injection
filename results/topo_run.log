@@ -1,0 +1,86 @@
+  1 paires  (15.3 s/paire)
+  2 paires  (17.7 s/paire)
+  3 paires  (13.8 s/paire)
+  4 paires  (21.2 s/paire)
+  5 paires  (23.2 s/paire)
+  6 paires  (26.0 s/paire)
+  7 paires  (24.5 s/paire)
+  8 paires  (30.4 s/paire)
+  9 paires  (27.6 s/paire)
+  10 paires  (29.1 s/paire)
+  11 paires  (27.0 s/paire)
+  12 paires  (25.5 s/paire)
+  13 paires  (25.3 s/paire)
+  14 paires  (23.7 s/paire)
+  15 paires  (22.4 s/paire)
+  16 paires  (24.8 s/paire)
+  17 paires  (25.6 s/paire)
+  18 paires  (24.6 s/paire)
+  19 paires  (24.0 s/paire)
+  20 paires  (23.5 s/paire)
+  21 paires  (22.9 s/paire)
+  22 paires  (24.4 s/paire)
+  23 paires  (25.1 s/paire)
+  24 paires  (25.8 s/paire)
+  25 paires  (25.9 s/paire)
+  26 paires  (25.1 s/paire)
+  27 paires  (24.5 s/paire)
+  28 paires  (25.3 s/paire)
+  29 paires  (24.8 s/paire)
+  30 paires  (24.1 s/paire)
+  31 paires  (23.5 s/paire)
+  32 paires  (23.5 s/paire)
+  33 paires  (23.1 s/paire)
+  34 paires  (23.6 s/paire)
+  35 paires  (24.5 s/paire)
+  36 paires  (25.1 s/paire)
+  37 paires  (25.6 s/paire)
+
+37 paires · 12 couches (pas 2) · 14 tetes · 5 metriques = 840 cellules par topologie
+
+Selection independante par topologie (correction familiale par inversion de signe, 5000 tirages)
+topologie   cellules  p_fwer<0.05  max |dz|                 meilleure cellule
+-----------------------------------------------------------------------------
+g2               840           45     1.242      spectral_entropy_norm c12 t6
+g1_drop          840           65     1.539         connectivity_ratio c10 t0
+g1_renorm        840           61     1.566         connectivity_ratio c10 t0
+g1_kron          840           47     1.252         connectivity_ratio c10 t0
+
+Cellules choisies sur G2 (12 retenues sur 45 significatives), relues telles quelles :
+topologie    AUROC moy  AUROC max   dz moyen  cellules de meme signe
+--------------------------------------------------------------------
+g2               0.572      0.627      1.077                   12/12
+g1_drop          0.546      0.606      0.774                   11/12
+g1_renorm        0.547      0.603      0.765                   11/12
+g1_kron          0.560      0.622      0.935                   12/12
+
+Detail des 12 cellules (orientees par le signe sur G2)
+metrique               couche tete         g2    g1_drop  g1_renorm    g1_kron
+------------------------------------------------------------------------------
+spectral_entropy_norm      12    6      0.572      0.565      0.565      0.575
+hfer                       12   10      0.590      0.583      0.580      0.582
+hfer                        8    1      0.546      0.551      0.551      0.549
+spectral_entropy_norm       8   11      0.611      0.510      0.513      0.612
+hfer                       12    6      0.614      0.606      0.603      0.622
+spectral_entropy_norm       8    1      0.538      0.542      0.542      0.541
+spectral_radius            14    9      0.627      0.530      0.528      0.566
+spectral_radius             8    0      0.581      0.476      0.494      0.472
+spectral_entropy_norm      12   10      0.558      0.561      0.556      0.560
+fiedler_value               2    5      0.575      0.575      0.574      0.574
+spectral_entropy_norm      10    5      0.541      0.537      0.535      0.543
+spectral_entropy_norm       0    2      0.515      0.519      0.518      0.519
+
+Redondance des cinq metriques sur G2 (correlation de Pearson des dz, par cellule)
+                        fiedler_v  connectiv  spectral_       hfer  spectral_
+fiedler_value               1.000      0.973      0.547     -0.380     -0.128
+connectivity_ratio          0.973      1.000      0.517     -0.352     -0.249
+spectral_entropy_norm       0.547      0.517      1.000     -0.932     -0.051
+hfer                       -0.380     -0.352     -0.932      1.000      0.067
+spectral_radius            -0.128     -0.249     -0.051      0.067      1.000
+
+Lecture. Si G1-Kron garde l'AUROC de G2 et G1-drop la perd, le
+paradoxe de la tache 1 est clos : ce n'est pas le retrait du puits
+qui detruit le signal, c'est la facon de le retirer. Les cellules
+etant identiques et les paires les memes, rien d'autre ne varie.
+
+-> results/topo/Qwen2.5-0.5B-Instruct/values.npz

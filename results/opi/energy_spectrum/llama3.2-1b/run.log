@@ -1,0 +1,26 @@
+=== spectre d'energie  meta-llama/Llama-3.2-1B-Instruct -> results\opi\energy_spectrum\llama3.2-1b
+spectral-trust 0.5.3  (C:\Users\damsw\AppData\Local\Temp\claude\9a0e4d5417afac5e\2e38458b-4410-4411-ba61-7d92a843bcd1\scratchpad\st053_env\spectral_trust)
+correctif float64 de construct_laplacian : APPLIQUE
+plan : 16 paires (seed 2027, per_stratum 2)
+modele : 16 couches x 32 tetes, device cpu
+couche principale declaree : 4/15 (0.25 de la profondeur)
+[1/16] naive__sentiment__spam__r164  T=93  Parseval<3.8e-15  ortho<4.6e-13  14s
+[2/16] combine__sentiment__spam__r718  T=116  Parseval<4.7e-15  ortho<6.4e-13  25s
+[3/16] ignore__sentiment__jfleg__r1179  T=97  Parseval<4.9e-15  ortho<3.9e-12  32s
+[4/16] escape__sentiment__gigaword__r2147  T=90  Parseval<2.2e-15  ortho<6.7e-13  39s
+[5/16] escape__sentiment__hsol__r2897  T=114  Parseval<6.4e-15  ortho<6.7e-13  49s
+[6/16] ignore__sentiment__mrpc__r3485  T=125  Parseval<3.3e-15  ortho<9.9e-13  60s
+[7/16] naive__sentiment__rte__r4043  T=129  Parseval<2.9e-15  ortho<8.0e-13  72s
+[8/16] combine__sentiment__rte__r4730  T=158  Parseval<3.1e-15  ortho<7.7e-13  90s
+[9/16] ignore__spam__sentiment__r5114  T=79  Parseval<2.4e-15  ortho<4.9e-13  97s
+[10/16] escape__spam__jfleg__r6038  T=101  Parseval<6.0e-15  ortho<6.4e-13  107s
+[11/16] naive__spam__gigaword__r6438  T=129  Parseval<3.3e-15  ortho<6.2e-13  124s
+[12/16] combine__spam__gigaword__r7013  T=136  Parseval<3.2e-15  ortho<5.9e-13  141s
+[13/16] naive__spam__hsol__r7365  T=103  Parseval<3.6e-15  ortho<6.5e-13  152s
+[14/16] combine__spam__hsol__r7808  T=127  Parseval<4.7e-15  ortho<7.4e-13  168s
+[15/16] escape__spam__mrpc__r8451  T=140  Parseval<3.6e-15  ortho<1.3e-12  183s
+[16/16] ignore__spam__rte__r9099  T=144  Parseval<2.9e-15  ortho<7.1e-13  195s
+
+16 paires, 1926144 lignes, 197s
+Parseval pire cas : 6.44e-15
+ecrits : results\opi\energy_spectrum\llama3.2-1b/masses_long.parquet, integrity.csv, pairs.csv, provenance.json

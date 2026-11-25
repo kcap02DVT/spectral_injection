@@ -1,0 +1,93 @@
+{
+  "spectral_trust": "0.5.3",
+  "model": "meta-llama/Llama-3.2-1B-Instruct",
+  "tag": "llama3.2-1b",
+  "n_layers": 16,
+  "n_heads": 32,
+  "arm_ref": "C3_opi",
+  "arms_alt": [
+    "C4",
+    "C3_wiki"
+  ],
+  "combos": [
+    [
+      "C3_opi",
+      "C3_opi"
+    ],
+    [
+      "C4",
+      "C4"
+    ],
+    [
+      "C3_opi",
+      "C4"
+    ],
+    [
+      "C4",
+      "C3_opi"
+    ],
+    [
+      "C3_wiki",
+      "C3_wiki"
+    ],
+    [
+      "C3_opi",
+      "C3_wiki"
+    ],
+    [
+      "C3_wiki",
+      "C3_opi"
+    ]
+  ],
+  "blocks": [
+    "task--task",
+    "task--normal",
+    "task--preamble",
+    "task--slot",
+    "task--tail",
+    "task--template",
+    "normal--normal",
+    "normal--preamble",
+    "normal--slot",
+    "normal--tail",
+    "normal--template",
+    "preamble--preamble",
+    "preamble--slot",
+    "preamble--tail",
+    "preamble--template",
+    "slot--slot",
+    "slot--tail",
+    "slot--template",
+    "tail--tail",
+    "tail--template",
+    "template--template"
+  ],
+  "blocs_avant_slot": [
+    "task--task",
+    "task--normal",
+    "task--preamble",
+    "normal--normal",
+    "normal--preamble",
+    "preamble--preamble"
+  ],
+  "normalisation_terme": "E_tot(X_ref, L_ref)",
+  "family": "hybrid",
+  "signal": "hidden_states[l+1]",
+  "normalization": "sym",
+  "controle_zero": "none",
+  "float64_patch": true,
+  "seed": 2027,
+  "per_stratum": 2,
+  "n_pairs_kept": 55,
+  "skipped": {
+    "unmatched": 0,
+    "too_long": 0,
+    "audit": 1,
+    "deltaN": 0,
+    "labels": 0
+  },
+  "python": "3.12.10",
+  "numpy": "2.4.6",
+  "torch": "2.13.0+cpu",
+  "seconds": 589.9
+}

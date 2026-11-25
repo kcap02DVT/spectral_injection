@@ -1,0 +1,56 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+1. dataset
+   33600 lignes, decomposition verifiee
+   echantillon : 8 lignes
+   taches  : ['gigaword', 'hsol', 'jfleg', 'mrpc', 'rte', 'sentiment', 'spam']
+   attaques: ['combine', 'escape', 'ignore', 'naive']
+
+2. modele
+Loading weights:   0%|          | 0/146 [00:00<?, ?it/s]Loading weights:  12%|█▏        | 18/146 [00:00<00:01, 118.82it/s]Loading weights:  21%|██        | 30/146 [00:00<00:01, 81.16it/s] Loading weights:  27%|██▋       | 39/146 [00:00<00:02, 52.60it/s]Loading weights:  32%|███▏      | 46/146 [00:00<00:01, 54.87it/s]Loading weights:  37%|███▋      | 54/146 [00:00<00:01, 52.62it/s]Loading weights:  42%|████▏     | 62/146 [00:01<00:01, 49.48it/s]Loading weights:  47%|████▋     | 68/146 [00:01<00:01, 49.77it/s]Loading weights:  54%|█████▍    | 79/146 [00:01<00:01, 61.24it/s]Loading weights:  59%|█████▉    | 86/146 [00:01<00:01, 51.87it/s]Loading weights:  63%|██████▎   | 92/146 [00:01<00:01, 43.16it/s]Loading weights:  68%|██████▊   | 99/146 [00:01<00:01, 42.16it/s]Loading weights:  71%|███████   | 104/146 [00:02<00:01, 38.66it/s]Loading weights:  77%|███████▋  | 112/146 [00:02<00:00, 45.46it/s]Loading weights:  80%|████████  | 117/146 [00:02<00:00, 36.93it/s]Loading weights:  84%|████████▎ | 122/146 [00:02<00:00, 36.66it/s]Loading weights:  86%|████████▋ | 126/146 [00:02<00:00, 27.34it/s]Loading weights:  91%|█████████ | 133/146 [00:02<00:00, 31.30it/s]Loading weights:  94%|█████████▍| 137/146 [00:03<00:00, 20.98it/s]Loading weights:  96%|█████████▌| 140/146 [00:03<00:00, 19.62it/s]Loading weights: 100%|██████████| 146/146 [00:03<00:00, 40.60it/s]
+[transformers] Ignoring clean_up_tokenization_spaces=True for BPE tokenizer TokenizersBackend. The clean_up_tokenization post-processing step is designed for WordPiece tokenizers and is destructive for BPE (it strips spaces before punctuation). Set clean_up_tokenization_spaces=False to suppress this warning, or set clean_up_tokenization_spaces_for_bpe_even_though_it_will_corrupt_output=True to force cleanup anyway.
+   meta-llama/Llama-3.2-1B-Instruct
+   16 couches x 32 tetes (kv=8), device=cpu
+   template experimental : llama3-user-only-nosystem
+   marqueurs : {'<|begin_of_text|>': 128000, '<|start_header_id|>': 128006, '<|end_header_id|>': 128007, '<|eot_id|>': 128009}
+   tokens de template hors contenu : 10
+   AUCUN message systeme : le bloc 'Cutting Knowledge Date / Today Date' du template officiel est supprime
+
+3. construction des conditions
+   appariement exact du remplissage : 8/8
+
+4. capture et analyse
+   [1/8] gigaword/combine T=163 (26.9 s/ligne)
+   [2/8] hsol/combine T=130 (24.4 s/ligne)
+   [3/8] jfleg/escape T=127 (23.6 s/ligne)
+   [4/8] mrpc/escape T=119 (22.4 s/ligne)
+   [5/8] rte/ignore T=192 (24.1 s/ligne)
+   [6/8] sentiment/ignore T=64 (21.6 s/ligne)
+   [7/8] spam/naive T=119 (21.1 s/ligne)
+   [8/8] gigaword/naive T=100 (20.4 s/ligne)
+
+5. sorties
+   tenseur (8, 4, 16, 32, 107) -> results/opi/smoke/values.npz
+   8 lignes -> results/opi/smoke/rows.csv
+   provenance -> results/opi/smoke/provenance.json
+
+6. controles d'integrite
+   valeurs finies : 100.00 %
+   F_(U->E) maximal : 0.000e+00  (doit etre nul, masque causal)
+   |cut - Dirichlet combinatoire| maximal : 2.842e-14
+   variante A : |centroide - Rayleigh| maximal : 2.554e-15
+   variante B : |centroide - Rayleigh| maximal : 4.219e-15
+   variante sans boucles : |cut - Dirichlet| maximal : 2.842e-14
+   |cut(avec boucles) - cut(sans boucles)| maximal : 0.000e+00   (doit etre nul : la diagonale ne traverse aucune frontiere)
+   lambda_max observe : [0.7645, 1.9766]  (borne theorique 2)
+   lambda_max sans boucles : [1.2968, 1.9987]
+   effet des boucles sur lambda_2 : mediane +0.0369 (sans - avec)
+
+7. audit des tokens techniques T
+   taille de T : {11: 32}
+   compositions distinctes de T : 2 sur 32 prompts
+   composition (prompt 1), 11 tokens :
+     ['<|begin_of_text|>', '<|start_header_id|>', 'user', '<|end_header_id|>', 'ĊĊ', '.ĊĊ', '<|eot_id|>', '<|start_header_id|>', 'assistant', '<|end_header_id|>', 'ĊĊ']
+   positions : debut [0, 1, 2, 3, 4, 17] ... fin [17, 48, 49, 50, 51, 52]
+   ATTENTION : la region T n'est pas constante entre prompts
+
+termine en 187 s

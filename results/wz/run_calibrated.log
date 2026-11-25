@@ -1,0 +1,70 @@
+  1 paires  (4.7 s/paire)
+  2 paires  (4.9 s/paire)
+  3 paires  (4.5 s/paire)
+  4 paires  (5.1 s/paire)
+  5 paires  (5.1 s/paire)
+  6 paires  (5.2 s/paire)
+  7 paires  (5.0 s/paire)
+  8 paires  (5.5 s/paire)
+  9 paires  (5.3 s/paire)
+  10 paires  (5.2 s/paire)
+  11 paires  (5.1 s/paire)
+  12 paires  (5.0 s/paire)
+  13 paires  (4.9 s/paire)
+  14 paires  (4.9 s/paire)
+  15 paires  (4.9 s/paire)
+  16 paires  (5.3 s/paire)
+  17 paires  (5.4 s/paire)
+  18 paires  (5.4 s/paire)
+  19 paires  (5.4 s/paire)
+  20 paires  (5.4 s/paire)
+  21 paires  (5.4 s/paire)
+  22 paires  (5.5 s/paire)
+  23 paires  (5.5 s/paire)
+  24 paires  (5.6 s/paire)
+  25 paires  (5.6 s/paire)
+  26 paires  (5.6 s/paire)
+  27 paires  (5.6 s/paire)
+  28 paires  (5.6 s/paire)
+  29 paires  (5.6 s/paire)
+  30 paires  (5.6 s/paire)
+  31 paires  (5.6 s/paire)
+  32 paires  (5.6 s/paire)
+  33 paires  (5.6 s/paire)
+  34 paires  (5.6 s/paire)
+  35 paires  (5.6 s/paire)
+  36 paires  (5.7 s/paire)
+  37 paires  (5.7 s/paire)
+
+444 mesures · echelles [0, 1, 1, 3, 5] · retrait kron · q90 · noyau mexican_hat
+
+ANCIENNE regle argmax|z| contre NOUVELLE regle argmin(p), memes graphes, memes paires
+ couche  tete    n  pooled brut  pooled cal.  app. brut  app. cal.  IoU brut  IoU cal.   top-k
+----------------------------------------------------------------------------------------------
+      0     0   37        0.516        0.503      0.459      0.432     0.000     0.000   0.000
+      0     7   37        0.470        0.470      0.486      0.432     0.004     0.000   0.108
+      8     0   37        0.443        0.479      0.432      0.486     0.108     0.124   0.405
+      8     7   37        0.570        0.508      0.676      0.568     0.025     0.031   0.162
+     16     0   37        0.543        0.533      0.459      0.432     0.000     0.000   0.054
+     16     7   37        0.511        0.501      0.541      0.486     0.000     0.000   0.108
+
+Meilleure cellule, regle calibree : couche 16, tete 0 -- pooled 0.533, apparie 0.432
+Couples ex aequo au plancher de p : mediane 1 sur 25 -- d'ou le departage par z_std, qui sert aussi de score.
+pooled  = ce que voit un detecteur (pas de paire).
+apparie = part des paires ou l'injecte depasse son controle.
+brut    = argmax|z| a travers les couples (biaise vers w petit).
+cal.    = argmin(p) par couple, score = z_std du vainqueur.
+IoU     = recouvrement de la fenetre predite avec le vrai span.
+
+Couple (echelle, largeur) retenu par la regle aveugle :
+  s =  0.50  w =   8 :  21.6 %
+  s =  1.71  w =   8 :  13.1 %
+  s =  5.00  w =   8 :  10.4 %
+  s =  1.00  w =  15 :   8.1 %
+  s =  1.71  w =  20 :   7.2 %
+  s =  3.00  w =   8 :   5.9 %
+  s =  1.00  w =   8 :   4.5 %
+  s =  5.00  w =  20 :   4.5 %
+Une concentration sur la plus petite largeur est le biais d'agregation signale dans blind_decision, pas un resultat.
+
+-> results/wz/qwen05_calibrated.csv

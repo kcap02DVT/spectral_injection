@@ -1,0 +1,27 @@
+{
+  "model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "n_pairs": 16,
+  "conditions": [
+    "C3",
+    "C4"
+  ],
+  "token_lengths_equal": true,
+  "strata_counts": {
+    "combine": 4,
+    "escape": 4,
+    "ignore": 4,
+    "naive": 4
+  },
+  "region_order": [
+    "task",
+    "normal",
+    "preamble",
+    "slot",
+    "tail",
+    "template"
+  ],
+  "unit": "prompt pair; heads/layers aggregated within prompt",
+  "bootstrap": "10000 stratified resamples by attack_type",
+  "variance_identity_residual": 0.0,
+  "scope": "exploratory"
+}

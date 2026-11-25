@@ -1,0 +1,62 @@
+[
+  {
+    "file": "block_energy__slot_slot.png",
+    "quantity": "slot--slot",
+    "color_bound": 0.009311383453284966
+  },
+  {
+    "file": "block_energy__task_slot.png",
+    "quantity": "task--slot",
+    "color_bound": 0.01192332767598367
+  },
+  {
+    "file": "block_energy__slot_tail.png",
+    "quantity": "slot--tail",
+    "color_bound": 0.009701454122892625
+  },
+  {
+    "file": "block_energy__tail_tail.png",
+    "quantity": "tail--tail",
+    "color_bound": 0.0032236598581465263
+  },
+  {
+    "file": "block_share__slot_slot.png",
+    "quantity": "slot--slot",
+    "color_bound": 0.17435865897862915
+  },
+  {
+    "file": "block_share__task_slot.png",
+    "quantity": "task--slot",
+    "color_bound": 0.17045227136249455
+  },
+  {
+    "file": "block_share__slot_tail.png",
+    "quantity": "slot--tail",
+    "color_bound": 0.12724472239155254
+  },
+  {
+    "file": "block_share__task_task.png",
+    "quantity": "task--task",
+    "color_bound": 0.09769766440897087
+  },
+  {
+    "file": "directed_flow__slot_to_task.png",
+    "quantity": "slot \u2192 task",
+    "color_bound": 0.2539280282989881
+  },
+  {
+    "file": "directed_flow__slot_to_normal.png",
+    "quantity": "slot \u2192 normal",
+    "color_bound": 0.27587391127684624
+  },
+  {
+    "file": "directed_flow__tail_to_slot.png",
+    "quantity": "tail \u2192 slot",
+    "color_bound": 0.21734128052711124
+  },
+  {
+    "file": "directed_flow__template_to_slot.png",
+    "quantity": "template \u2192 slot",
+    "color_bound": 0.2533404731841416
+  }
+]

@@ -1,0 +1,185 @@
+[transformers] `torch_dtype` is deprecated! Use `dtype` instead!
+1. dataset
+   33600 lignes, decomposition verifiee
+   echantillon : 112 lignes
+   taches  : ['gigaword', 'hsol', 'jfleg', 'mrpc', 'rte', 'sentiment', 'spam']
+   attaques: ['combine', 'escape', 'ignore', 'naive']
+
+2. modele
+Loading weights:   0%|          | 0/288 [00:00<?, ?it/s]Loading weights:   4%|▍         | 12/288 [00:00<00:02, 98.13it/s]Loading weights:   8%|▊         | 22/288 [00:00<00:04, 59.29it/s]Loading weights:  10%|█         | 29/288 [00:00<00:04, 58.44it/s]Loading weights:  12%|█▎        | 36/288 [00:00<00:06, 37.44it/s]Loading weights:  16%|█▌        | 45/288 [00:00<00:05, 43.26it/s]Loading weights:  19%|█▉        | 54/288 [00:01<00:04, 49.17it/s]Loading weights:  21%|██        | 60/288 [00:01<00:05, 40.59it/s]Loading weights:  23%|██▎       | 66/288 [00:01<00:05, 38.51it/s]Loading weights:  26%|██▌       | 75/288 [00:01<00:04, 44.30it/s]Loading weights:  28%|██▊       | 80/288 [00:01<00:05, 39.41it/s]Loading weights:  30%|██▉       | 86/288 [00:01<00:04, 41.31it/s]Loading weights:  32%|███▏      | 91/288 [00:02<00:05, 39.04it/s]Loading weights:  34%|███▍      | 98/288 [00:02<00:05, 34.53it/s]Loading weights:  36%|███▌      | 103/288 [00:02<00:05, 35.46it/s]Loading weights:  38%|███▊      | 110/288 [00:02<00:04, 38.81it/s]Loading weights:  40%|███▉      | 115/288 [00:02<00:04, 38.80it/s]Loading weights:  42%|████▏     | 122/288 [00:02<00:03, 42.52it/s]Loading weights:  45%|████▌     | 131/288 [00:03<00:04, 39.03it/s]Loading weights:  49%|████▉     | 141/288 [00:03<00:03, 43.71it/s]Loading weights:  51%|█████     | 146/288 [00:03<00:03, 42.57it/s]Loading weights:  53%|█████▎    | 153/288 [00:03<00:03, 41.55it/s]Loading weights:  57%|█████▋    | 164/288 [00:03<00:02, 52.19it/s]Loading weights:  59%|█████▉    | 170/288 [00:03<00:02, 45.54it/s]Loading weights:  61%|██████    | 176/288 [00:04<00:02, 46.64it/s]Loading weights:  63%|██████▎   | 181/288 [00:04<00:02, 42.16it/s]Loading weights:  65%|██████▍   | 186/288 [00:04<00:02, 38.10it/s]Loading weights:  66%|██████▋   | 191/288 [00:04<00:02, 35.39it/s]Loading weights:  68%|██████▊   | 195/288 [00:04<00:02, 31.95it/s]Loading weights:  72%|███████▏  | 208/288 [00:05<00:02, 32.05it/s]Loading weights:  74%|███████▎  | 212/288 [00:05<00:02, 32.91it/s]Loading weights:  76%|███████▋  | 220/288 [00:05<00:01, 36.44it/s]Loading weights:  78%|███████▊  | 224/288 [00:05<00:01, 32.12it/s]Loading weights:  80%|███████▉  | 230/288 [00:05<00:02, 26.18it/s]Loading weights:  81%|████████▏ | 234/288 [00:06<00:02, 25.99it/s]Loading weights:  84%|████████▎ | 241/288 [00:06<00:02, 22.37it/s]Loading weights:  85%|████████▌ | 245/288 [00:06<00:02, 19.89it/s]Loading weights:  88%|████████▊ | 253/288 [00:07<00:02, 14.58it/s]Loading weights:  89%|████████▉ | 257/288 [00:07<00:01, 16.81it/s]Loading weights:  92%|█████████▏| 264/288 [00:07<00:01, 19.83it/s]Loading weights:  93%|█████████▎| 267/288 [00:08<00:01, 17.32it/s]Loading weights:  94%|█████████▍| 270/288 [00:08<00:01, 16.97it/s]Loading weights:  95%|█████████▌| 274/288 [00:08<00:01, 12.09it/s]Loading weights:  97%|█████████▋| 279/288 [00:09<00:00, 14.51it/s]Loading weights: 100%|██████████| 288/288 [00:09<00:00, 31.54it/s]
+   google/gemma-2-2b-it
+   26 couches x 8 tetes (kv=4), device=cpu
+   template experimental : gemma-user-only-nosystem
+   marqueurs : {'<bos>': 2, '<start_of_turn>': 106, '<end_of_turn>': 107}
+   tokens de template hors contenu : 9
+   AUCUN message systeme : le bloc fabrique par le template officiel de la famille est supprime
+
+3. construction des conditions
+   appariement exact du remplissage : 112/112
+
+4. capture et analyse
+   [1/112] sentiment/naive T=126 (57.2 s/ligne)
+   [2/112] sentiment/ignore T=91 (47.3 s/ligne)
+   [3/112] sentiment/combine T=106 (44.8 s/ligne)
+   [4/112] sentiment/naive T=81 (41.8 s/ligne)
+   [5/112] sentiment/escape T=90 (40.7 s/ligne)
+   [6/112] sentiment/combine T=106 (40.5 s/ligne)
+   [7/112] sentiment/ignore T=101 (40.1 s/ligne)
+   [8/112] sentiment/escape T=106 (40.1 s/ligne)
+   [9/112] sentiment/ignore T=128 (40.1 s/ligne)
+   [10/112] sentiment/escape T=155 (40.7 s/ligne)
+   [11/112] sentiment/naive T=116 (40.6 s/ligne)
+   [12/112] sentiment/escape T=110 (40.5 s/ligne)
+   [13/112] sentiment/combine T=145 (40.8 s/ligne)
+   [14/112] sentiment/naive T=146 (41.1 s/ligne)
+   [15/112] sentiment/ignore T=127 (41.2 s/ligne)
+   [16/112] sentiment/combine T=188 (41.9 s/ligne)
+   [17/112] spam/ignore T=128 (42.1 s/ligne)
+   [18/112] spam/escape T=91 (41.7 s/ligne)
+   [19/112] spam/naive T=84 (41.3 s/ligne)
+   [20/112] spam/ignore T=80 (40.8 s/ligne)
+   [21/112] spam/combine T=165 (41.3 s/ligne)
+   [22/112] spam/naive T=145 (41.6 s/ligne)
+   [23/112] spam/escape T=122 (41.7 s/ligne)
+   [24/112] spam/combine T=138 (41.9 s/ligne)
+   [25/112] spam/naive T=124 (41.9 s/ligne)
+   [26/112] spam/escape T=111 (41.9 s/ligne)
+   [27/112] spam/combine T=150 (42.2 s/ligne)
+   [28/112] spam/naive T=124 (42.2 s/ligne)
+   [29/112] spam/ignore T=155 (42.4 s/ligne)
+   [30/112] spam/combine T=182 (43.1 s/ligne)
+   [31/112] spam/ignore T=206 (44.1 s/ligne)
+   [32/112] spam/escape T=249 (45.1 s/ligne)
+   [33/112] jfleg/naive T=134 (45.1 s/ligne)
+   [34/112] jfleg/ignore T=121 (45.1 s/ligne)
+   [35/112] jfleg/combine T=106 (44.9 s/ligne)
+   [36/112] jfleg/naive T=193 (45.2 s/ligne)
+   [37/112] jfleg/ignore T=132 (45.2 s/ligne)
+   [38/112] jfleg/combine T=147 (45.2 s/ligne)
+   [39/112] jfleg/ignore T=123 (45.2 s/ligne)
+   [40/112] jfleg/escape T=143 (45.4 s/ligne)
+   [41/112] jfleg/ignore T=189 (45.6 s/ligne)
+   [42/112] jfleg/escape T=124 (45.5 s/ligne)
+   [43/112] jfleg/naive T=124 (45.4 s/ligne)
+   [44/112] jfleg/escape T=161 (45.6 s/ligne)
+   [45/112] jfleg/combine T=161 (45.6 s/ligne)
+   [46/112] jfleg/naive T=158 (45.7 s/ligne)
+   [47/112] jfleg/escape T=162 (45.8 s/ligne)
+   [48/112] jfleg/combine T=143 (45.8 s/ligne)
+   [49/112] gigaword/ignore T=86 (45.6 s/ligne)
+   [50/112] gigaword/escape T=96 (45.4 s/ligne)
+   [51/112] gigaword/ignore T=99 (45.2 s/ligne)
+   [52/112] gigaword/escape T=136 (45.2 s/ligne)
+   [53/112] gigaword/naive T=100 (45.0 s/ligne)
+   [54/112] gigaword/escape T=123 (45.0 s/ligne)
+   [55/112] gigaword/combine T=89 (44.8 s/ligne)
+   [56/112] gigaword/naive T=153 (44.8 s/ligne)
+   [57/112] gigaword/escape T=106 (44.7 s/ligne)
+   [58/112] gigaword/combine T=110 (44.6 s/ligne)
+   [59/112] gigaword/naive T=110 (44.5 s/ligne)
+   [60/112] gigaword/ignore T=163 (44.6 s/ligne)
+   [61/112] gigaword/combine T=165 (44.6 s/ligne)
+   [62/112] gigaword/naive T=128 (44.6 s/ligne)
+   [63/112] gigaword/ignore T=201 (44.8 s/ligne)
+   [64/112] gigaword/combine T=154 (44.9 s/ligne)
+   [65/112] hsol/naive T=89 (44.7 s/ligne)
+   [66/112] hsol/escape T=105 (44.6 s/ligne)
+   [67/112] hsol/combine T=117 (44.6 s/ligne)
+   [68/112] hsol/naive T=131 (44.6 s/ligne)
+   [69/112] hsol/escape T=139 (44.6 s/ligne)
+   [70/112] hsol/combine T=161 (44.6 s/ligne)
+   [71/112] hsol/naive T=95 (44.5 s/ligne)
+   [72/112] hsol/ignore T=112 (44.5 s/ligne)
+   [73/112] hsol/combine T=114 (44.4 s/ligne)
+   [74/112] hsol/naive T=109 (44.4 s/ligne)
+   [75/112] hsol/ignore T=119 (44.3 s/ligne)
+   [76/112] hsol/combine T=150 (44.4 s/ligne)
+   [77/112] hsol/ignore T=155 (44.4 s/ligne)
+   [78/112] hsol/escape T=160 (44.5 s/ligne)
+   [79/112] hsol/ignore T=205 (44.7 s/ligne)
+   [80/112] hsol/escape T=135 (44.7 s/ligne)
+   [81/112] mrpc/ignore T=118 (44.6 s/ligne)
+   [82/112] mrpc/escape T=145 (44.7 s/ligne)
+   [83/112] mrpc/ignore T=142 (44.8 s/ligne)
+   [84/112] mrpc/escape T=107 (44.7 s/ligne)
+   [85/112] mrpc/naive T=141 (44.8 s/ligne)
+   [86/112] mrpc/ignore T=167 (44.9 s/ligne)
+   [87/112] mrpc/combine T=138 (44.9 s/ligne)
+   [88/112] mrpc/naive T=176 (45.0 s/ligne)
+   [89/112] mrpc/escape T=145 (45.0 s/ligne)
+   [90/112] mrpc/combine T=152 (45.1 s/ligne)
+   [91/112] mrpc/naive T=201 (45.2 s/ligne)
+   [92/112] mrpc/escape T=147 (45.2 s/ligne)
+   [93/112] mrpc/combine T=216 (45.5 s/ligne)
+   [94/112] mrpc/naive T=174 (45.6 s/ligne)
+   [95/112] mrpc/ignore T=133 (45.6 s/ligne)
+   [96/112] mrpc/combine T=193 (45.7 s/ligne)
+   [97/112] rte/naive T=124 (45.6 s/ligne)
+   [98/112] rte/escape T=164 (45.7 s/ligne)
+   [99/112] rte/combine T=184 (45.8 s/ligne)
+   [100/112] rte/naive T=129 (45.8 s/ligne)
+   [101/112] rte/escape T=139 (45.8 s/ligne)
+   [102/112] rte/combine T=119 (45.8 s/ligne)
+   [103/112] rte/ignore T=182 (45.9 s/ligne)
+   [104/112] rte/escape T=119 (45.9 s/ligne)
+   [105/112] rte/naive T=174 (45.9 s/ligne)
+   [106/112] rte/ignore T=149 (46.0 s/ligne)
+   [107/112] rte/combine T=232 (46.3 s/ligne)
+   [108/112] rte/naive T=133 (46.3 s/ligne)
+   [109/112] rte/ignore T=136 (46.3 s/ligne)
+   [110/112] rte/combine T=162 (46.3 s/ligne)
+   [111/112] rte/ignore T=187 (46.4 s/ligne)
+   [112/112] rte/escape T=143 (46.4 s/ligne)
+
+5. sorties
+   tenseur H1-H5 (112, 4, 26, 8, 164) -> results/opi/multi/gemma-2-2b/values.npz
+   tenseur H6     (112, 4, 8, 172) (172 statistiques de trajectoire)
+   112 lignes -> results/opi/multi/gemma-2-2b/rows.csv
+   provenance -> results/opi/multi/gemma-2-2b/provenance.json
+
+6. controles d'integrite
+   valeurs finies : 100.00 %
+   F_(U->E) maximal : 0.000e+00  (doit etre nul, masque causal)
+   |cut - Dirichlet combinatoire| maximal : 2.842e-14
+   variante A : |centroide - Rayleigh| maximal : 2.998e-15
+   variante B : |centroide - Rayleigh| maximal : 4.219e-15
+   variante sans boucles : |cut - Dirichlet| maximal : 2.842e-14
+   |cut(avec boucles) - cut(sans boucles)| maximal : 0.000e+00   (doit etre nul : la diagonale ne traverse aucune frontiere)
+   lambda_max observe : [0.2001, 1.9601]  (borne theorique 2)
+   lambda_max sans boucles : [1.2199, 1.9941]
+   effet des boucles sur lambda_2 : mediane +0.0238 (sans - avec)
+
+7a. audit de la segmentation U/E/T
+   prompts conformes : 448/448
+   offset_gaps      : total 0
+   offset_overlaps  : total 0
+   covers_end       : 448/448
+   U_contiguous     : 448/448
+   E_contiguous     : 448/448
+   U_before_E       : 448/448
+   U_matches_span   : 448/448
+   E_matches_span   : 448/448
+   queue de U absorbee par le token frontiere : []
+   tokens frontieres par prompt : min 0, max 0
+
+7b. audit des tokens techniques T
+   taille de T : {10: 448}
+   compositions distinctes de T : 1 sur 448 prompts
+   composition (prompt 1), 10 tokens :
+     ['<bos>', '<start_of_turn>', 'user', '\n', '\n\n', '<end_of_turn>', '\n', '<start_of_turn>', 'model', '\n']
+   positions : debut [0, 1, 2, 3, 21, 43] ... fin [21, 43, 44, 45, 46, 47]
+   bloc d'ouverture toujours aux positions 0-4 : False
+   taille de T constante : True
+
+8. controles H5 / H6
+   K=2 : clusters effectifs mediane 2.00 (demande 2), melange U/E mediane 0.500
+   K=3 : clusters effectifs mediane 3.00 (demande 3), melange U/E mediane 0.333
+   K=5 : clusters effectifs mediane 5.00 (demande 5), melange U/E mediane 0.200
+   K=8 : clusters effectifs mediane 8.00 (demande 8), melange U/E mediane 0.125
+   K suggere par l'ecart spectral (K: occurrences) : {1: 89671, 2: 1803, 3: 702, 4: 380}
+   stabilite ARI entre couches, K=2 : mediane 0.108
+   stabilite ARI entre couches, K=3 : mediane 0.155
+   variation totale de lambda_2 : mediane 3.7858
+   valeurs finies dans le tenseur H6 : 100.00 %
+
+termine en 5249 s

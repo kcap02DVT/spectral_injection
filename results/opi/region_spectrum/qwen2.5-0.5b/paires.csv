@@ -1,0 +1,17 @@
+pair_id,T,attack_type,task_type,n_task,n_normal,n_preamble,n_slot,n_tail,n_template
+naive__sentiment__spam__r164,101,naive,sentiment,16,23,0,16,37,9
+combine__sentiment__spam__r718,119,combine,sentiment,16,30,10,16,38,9
+ignore__sentiment__jfleg__r1179,95,ignore,sentiment,16,24,4,19,23,9
+escape__sentiment__gigaword__r2147,88,escape,sentiment,16,13,1,12,37,9
+escape__sentiment__hsol__r2897,116,escape,sentiment,16,23,1,29,38,9
+ignore__sentiment__mrpc__r3485,129,ignore,sentiment,16,16,4,23,61,9
+naive__sentiment__rte__r4043,129,naive,sentiment,16,21,0,26,57,9
+combine__sentiment__rte__r4730,158,combine,sentiment,16,34,10,26,63,9
+ignore__spam__sentiment__r5114,77,ignore,spam,20,10,4,15,19,9
+escape__spam__jfleg__r6038,102,escape,spam,20,39,1,19,14,9
+naive__spam__gigaword__r6438,130,naive,spam,20,40,0,12,49,9
+combine__spam__gigaword__r7013,144,combine,spam,20,51,10,12,42,9
+naive__spam__hsol__r7365,101,naive,spam,20,12,0,29,31,9
+combine__spam__hsol__r7808,136,combine,spam,20,35,10,29,33,9
+escape__spam__mrpc__r8451,149,escape,spam,20,51,0,23,46,9
+ignore__spam__rte__r9099,171,ignore,spam,20,78,4,26,34,9

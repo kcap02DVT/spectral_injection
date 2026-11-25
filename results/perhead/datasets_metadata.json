@@ -1,0 +1,101 @@
+{
+ "xtram1": {
+  "name": "xTRam1/safe-guard-prompt-injection",
+  "splits": {
+   "train": 8236,
+   "test": 2060
+  },
+  "columns": [
+   "text",
+   "label"
+  ],
+  "features": {
+   "text": "Value('string')",
+   "label": "Value('int64')"
+  },
+  "labels": {
+   "train": {
+    "0": 5740,
+    "1": 2496
+   },
+   "test": {
+    "0": 1410,
+    "1": 650
+   }
+  },
+  "system_prompt_provided": false,
+  "note": "aucun System Prompt fourni ; 'text' est un bloc unique. Les exemples label=1 sont des phrases adversariales autonomes, non des injections enfouies dans un contenu externe : le contraste teste 'ce message est-il adversarial', pas 'y a-t-il une injection cachee'."
+ },
+ "spml": {
+  "name": "reshabhs/SPML_Chatbot_Prompt_Injection",
+  "splits": {
+   "train": 16012
+  },
+  "columns": [
+   "System Prompt",
+   "User Prompt",
+   "Prompt injection",
+   "Degree",
+   "Source"
+  ],
+  "labels": {
+   "1": 12542,
+   "0": 3470
+  },
+  "degree": {
+   "0": 3470,
+   "1": 2509,
+   "2": 1670,
+   "3": 2509,
+   "4": 1670,
+   "5": 2507,
+   "7": 839,
+   "10": 838
+  },
+  "degree_x_injection": {
+   "0": {
+    "0": 3470,
+    "1": 0
+   },
+   "1": {
+    "0": 0,
+    "1": 2509
+   },
+   "2": {
+    "0": 0,
+    "1": 1670
+   },
+   "3": {
+    "0": 0,
+    "1": 2509
+   },
+   "4": {
+    "0": 0,
+    "1": 1670
+   },
+   "5": {
+    "0": 0,
+    "1": 2507
+   },
+   "7": {
+    "0": 0,
+    "1": 839
+   },
+   "10": {
+    "0": 0,
+    "1": 838
+   }
+  },
+  "degree_semantics": "Degree=0 <=> injection=0 exactement ; Degree in {1,2,3,4,5,7,10} <=> injection=1. Degree est une intensite d'injection.",
+  "source": {
+   "<null>": 11844,
+   "Gandalf": 4168
+  },
+  "system_prompt_provided": true,
+  "n_system_prompts_distinct": 840,
+  "system_prompt_constant": false,
+  "rows_per_system_median": 20.0,
+  "n_systems_with_both_labels": 694,
+  "rows_covered_by_both_label_systems": 13859
+ }
+}

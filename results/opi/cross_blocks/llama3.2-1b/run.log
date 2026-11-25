@@ -1,0 +1,64 @@
+=== decomposition croisee par bloc  meta-llama/Llama-3.2-1B-Instruct -> results\opi\cross_blocks\llama3.2-1b
+spectral-trust 0.5.3
+correctif float64 : APPLIQUE
+16 couches x 32 tetes
+21 blocs ; 6 entierement anterieurs au slot : ['task--task', 'task--normal', 'task--preamble', 'normal--normal', 'normal--preamble', 'preamble--preamble']
+[1/56] naive__sentiment__spam__r164  T=93  dX_task<0.0e+00  zero_none<0.0e+00  16s
+[2/56] combine__sentiment__spam__r718  T=116  dX_task<0.0e+00  zero_none<0.0e+00  25s
+[3/56] ignore__sentiment__jfleg__r1179  T=97  dX_task<0.0e+00  zero_none<0.0e+00  32s
+[4/56] escape__sentiment__gigaword__r2147  T=90  dX_task<0.0e+00  zero_none<0.0e+00  39s
+[5/56] escape__sentiment__hsol__r2897  T=114  dX_task<0.0e+00  zero_none<0.0e+00  47s
+[6/56] ignore__sentiment__mrpc__r3485  T=125  dX_task<0.0e+00  zero_none<0.0e+00  57s
+[7/56] naive__sentiment__rte__r4043  T=129  dX_task<0.0e+00  zero_none<0.0e+00  67s
+[8/56] combine__sentiment__rte__r4730  T=158  dX_task<0.0e+00  zero_none<0.0e+00  80s
+[9/56] ignore__spam__sentiment__r5114  T=79  dX_task<0.0e+00  zero_none<0.0e+00  86s
+[10/56] escape__spam__jfleg__r6038  T=101  dX_task<0.0e+00  zero_none<0.0e+00  94s
+[11/56] naive__spam__gigaword__r6438  T=129  dX_task<0.0e+00  zero_none<0.0e+00  104s
+[12/56] combine__spam__gigaword__r7013  T=136  dX_task<0.0e+00  zero_none<0.0e+00  115s
+[13/56] naive__spam__hsol__r7365  T=103  dX_task<0.0e+00  zero_none<0.0e+00  124s
+[14/56] combine__spam__hsol__r7808  T=127  dX_task<0.0e+00  zero_none<0.0e+00  134s
+[15/56] escape__spam__mrpc__r8451  T=140  dX_task<0.0e+00  zero_none<0.0e+00  146s
+[16/56] ignore__spam__rte__r9099  T=144  dX_task<0.0e+00  zero_none<0.0e+00  157s
+[17/56] naive__jfleg__sentiment__r9761  T=118  dX_task<0.0e+00  zero_none<0.0e+00  167s
+[18/56] combine__jfleg__sentiment__r10308  T=117  dX_task<0.0e+00  zero_none<0.0e+00  176s
+[19/56] naive__jfleg__spam__r10529  T=130  dX_task<0.0e+00  zero_none<0.0e+00  186s
+[20/56] combine__jfleg__spam__r11068  T=153  dX_task<0.0e+00  zero_none<0.0e+00  199s
+[21/56] escape__jfleg__gigaword__r11666  T=106  dX_task<0.0e+00  zero_none<0.0e+00  207s
+[22/56] escape__jfleg__hsol__r12466  T=132  dX_task<0.0e+00  zero_none<0.0e+00  217s
+[23/56] ignore__jfleg__mrpc__r13168  T=175  dX_task<0.0e+00  zero_none<0.0e+00  232s
+[24/56] ignore__jfleg__rte__r13812  T=190  dX_task<0.0e+00  zero_none<0.0e+00  250s
+[26/56] ignore__gigaword__spam__r15472  T=109  dX_task<0.0e+00  zero_none<0.0e+00  258s
+[27/56] naive__gigaword__jfleg__r16040  T=111  dX_task<0.0e+00  zero_none<0.0e+00  264s
+[28/56] combine__gigaword__jfleg__r16797  T=105  dX_task<0.0e+00  zero_none<0.0e+00  271s
+[29/56] naive__gigaword__hsol__r16895  T=141  dX_task<0.0e+00  zero_none<0.0e+00  282s
+[30/56] combine__gigaword__hsol__r17479  T=121  dX_task<0.0e+00  zero_none<0.0e+00  291s
+[31/56] escape__gigaword__mrpc__r18169  T=170  dX_task<0.0e+00  zero_none<0.0e+00  306s
+[32/56] escape__gigaword__rte__r18858  T=130  dX_task<0.0e+00  zero_none<0.0e+00  316s
+[33/56] escape__hsol__sentiment__r19783  T=111  dX_task<0.0e+00  zero_none<0.0e+00  325s
+[34/56] escape__hsol__spam__r20535  T=124  dX_task<0.0e+00  zero_none<0.0e+00  334s
+[35/56] ignore__hsol__jfleg__r21120  T=129  dX_task<0.0e+00  zero_none<0.0e+00  345s
+[36/56] ignore__hsol__gigaword__r21951  T=133  dX_task<0.0e+00  zero_none<0.0e+00  355s
+[37/56] naive__hsol__mrpc__r22444  T=127  dX_task<0.0e+00  zero_none<0.0e+00  365s
+[38/56] combine__hsol__mrpc__r23041  T=162  dX_task<0.0e+00  zero_none<0.0e+00  379s
+[39/56] naive__hsol__rte__r23219  T=145  dX_task<0.0e+00  zero_none<0.0e+00  390s
+[40/56] combine__hsol__rte__r23871  T=150  dX_task<0.0e+00  zero_none<0.0e+00  402s
+[41/56] ignore__mrpc__sentiment__r24277  T=131  dX_task<0.0e+00  zero_none<0.0e+00  413s
+[42/56] ignore__mrpc__spam__r25081  T=125  dX_task<0.0e+00  zero_none<0.0e+00  422s
+[43/56] escape__mrpc__jfleg__r26119  T=120  dX_task<0.0e+00  zero_none<0.0e+00  431s
+[44/56] naive__mrpc__gigaword__r26571  T=122  dX_task<0.0e+00  zero_none<0.0e+00  441s
+[45/56] combine__mrpc__gigaword__r27046  T=159  dX_task<0.0e+00  zero_none<0.0e+00  454s
+[46/56] naive__mrpc__hsol__r27377  T=124  dX_task<0.0e+00  zero_none<0.0e+00  463s
+[47/56] combine__mrpc__hsol__r27800  T=132  dX_task<0.0e+00  zero_none<0.0e+00  473s
+[48/56] escape__mrpc__rte__r28412  T=231  dX_task<0.0e+00  zero_none<0.0e+00  497s
+[49/56] escape__rte__sentiment__r29387  T=111  dX_task<0.0e+00  zero_none<0.0e+00  505s
+[50/56] escape__rte__spam__r30112  T=169  dX_task<0.0e+00  zero_none<0.0e+00  519s
+[51/56] naive__rte__jfleg__r30541  T=114  dX_task<0.0e+00  zero_none<0.0e+00  527s
+[52/56] combine__rte__jfleg__r31037  T=139  dX_task<0.0e+00  zero_none<0.0e+00  539s
+[53/56] ignore__rte__gigaword__r31531  T=120  dX_task<0.0e+00  zero_none<0.0e+00  548s
+[54/56] ignore__rte__hsol__r32310  T=141  dX_task<0.0e+00  zero_none<0.0e+00  559s
+[55/56] naive__rte__mrpc__r32941  T=162  dX_task<0.0e+00  zero_none<0.0e+00  573s
+[56/56] combine__rte__mrpc__r33594  T=172  dX_task<0.0e+00  zero_none<0.0e+00  587s
+
+55 paires, 1182720 lignes, 590s
+controle causalite : max |dX_task| 0.00e+00, max |dA_task| 0.00e+00
+controle zero en 'none' avant slot : 0.00e+00 (tolerance 1e-12)

@@ -1,0 +1,39 @@
+=== spectre d'energie PAR REGION  meta-llama/Llama-3.2-1B-Instruct -> results\opi\region_spectrum\llama3.2-1b
+spectral-trust 0.5.3
+correctif float64 : APPLIQUE
+16 couches x 32 tetes ; couche declaree 4 ; region declaree 'slot'
+regions : ['task', 'normal', 'preamble', 'slot', 'tail', 'template']
+[1/16] naive__sentiment__spam__r164  T=93  task=16 normal=23 preamble=0 slot=16 tail=27 template=11  16.7s
+[2/16] combine__sentiment__spam__r718  T=116  task=16 normal=30 preamble=10 slot=16 tail=33 template=11  17.7s
+[3/16] ignore__sentiment__jfleg__r1179  T=97  task=16 normal=24 preamble=4 slot=19 tail=23 template=11  16.2s
+[4/16] escape__sentiment__gigaword__r2147  T=90  task=16 normal=13 preamble=1 slot=12 tail=37 template=11  15.3s
+[5/16] escape__sentiment__hsol__r2897  T=114  task=16 normal=23 preamble=1 slot=29 tail=34 template=11  16.3s
+[6/16] ignore__sentiment__mrpc__r3485  T=125  task=16 normal=16 preamble=4 slot=23 tail=55 template=11  19.7s
+[7/16] naive__sentiment__rte__r4043  T=129  task=16 normal=21 preamble=0 slot=26 tail=55 template=11  19.1s
+[8/16] combine__sentiment__rte__r4730  T=158  task=16 normal=32 preamble=10 slot=26 tail=63 template=11  22.0s
+[9/16] ignore__spam__sentiment__r5114  T=79  task=20 normal=10 preamble=4 slot=15 tail=19 template=11  14.8s
+[10/16] escape__spam__jfleg__r6038  T=101  task=20 normal=36 preamble=1 slot=19 tail=14 template=11  13.7s
+[11/16] naive__spam__gigaword__r6438  T=129  task=20 normal=37 preamble=0 slot=12 tail=49 template=11  18.0s
+[12/16] combine__spam__gigaword__r7013  T=136  task=20 normal=41 preamble=10 slot=12 tail=42 template=11  21.1s
+[13/16] naive__spam__hsol__r7365  T=103  task=20 normal=12 preamble=0 slot=29 tail=31 template=11  14.4s
+[14/16] combine__spam__hsol__r7808  T=127  task=20 normal=24 preamble=10 slot=29 tail=33 template=11  20.3s
+[15/16] escape__spam__mrpc__r8451  T=140  task=20 normal=40 preamble=0 slot=23 tail=46 template=11  22.2s
+[16/16] ignore__spam__rte__r9099  T=144  task=20 normal=53 preamble=4 slot=26 tail=30 template=11  22.7s
+
+16 paires retenues ; ignorees {'unmatched': 0, 'too_long': 0, 'audit': 0, 'deltaN': 0, 'labels': 0}
+regions trop petites (< 4 tokens), paires concernees : {'preamble': 8}
+Parseval, pire ecart relatif : 2.887e-15 (tolerance 1e-10)
+
+-- controle de causalite, vue 'propre', couche declaree
+region      max |d lambda|   max |d masse|  identique
+task             0.000e+00       0.000e+00        OUI
+normal           0.000e+00       0.000e+00        OUI
+slot             1.229e+00       4.096e+01        non
+tail             5.996e-01       3.420e+01        non
+template         2.130e-01       2.006e+05        non
+preamble         0.000e+00       0.000e+00        OUI
+
+vue propre   : 1,923,072 lignes
+vue partagee : 664,768 lignes (couche 4)
+
+termine en 311s

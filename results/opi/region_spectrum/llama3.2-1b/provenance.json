@@ -1,0 +1,38 @@
+{
+  "model": "meta-llama/Llama-3.2-1B-Instruct",
+  "tag": "llama3.2-1b",
+  "spectral_trust": "0.5.3",
+  "n_layers": 16,
+  "n_heads": 32,
+  "couche_declaree": 4,
+  "region_declaree": "slot",
+  "regions": [
+    "task",
+    "normal",
+    "preamble",
+    "slot",
+    "tail",
+    "template"
+  ],
+  "arms": [
+    "C3_opi",
+    "C4"
+  ],
+  "signal": "hidden_states[l+1]",
+  "family": "hybrid",
+  "normalization": "sym",
+  "n_min_region": 4,
+  "n_pairs_kept": 16,
+  "skipped": {
+    "unmatched": 0,
+    "too_long": 0,
+    "audit": 0,
+    "deltaN": 0,
+    "labels": 0
+  },
+  "parseval_max": 2.886579864025407e-15,
+  "seed": 2027,
+  "per_stratum": 2,
+  "python": "3.12.10",
+  "secondes": 310.7
+}

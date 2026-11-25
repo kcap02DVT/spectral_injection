@@ -1,0 +1,9 @@
+row_index,uid,task_type,attack_type,injected_task,sample_id,target_tokens_D,filler_matched,filler_candidates,len_P_atk,len_I_inj,len_D_inj,len_normal,T_C1,nU_C1,nE_C1,nT_C1,T_C2,nU_C2,nE_C2,nT_C2,T_C3,nU_C3,nE_C3,nT_C3,T_C4,nU_C4,nE_C4,nT_C4
+19020,gigaword|combine|rte|20,gigaword,combine,rte,20,26,True,2,53,111,333,159,53,12,30,11,137,12,114,11,163,12,140,11,163,12,140,11
+22364,hsol|combine|gigaword|164,hsol,combine,gigaword,164,12,True,1,59,63,188,102,71,28,32,11,118,28,79,11,130,28,91,11,130,28,91,11
+11767,jfleg|escape|gigaword|167,jfleg,escape,gigaword,167,12,True,1,1,63,136,130,84,46,27,11,115,46,58,11,127,46,70,11,127,46,70,11
+26814,mrpc|escape|gigaword|14,mrpc,escape,gigaword,14,12,True,1,1,63,167,190,70,20,39,11,107,20,76,11,119,20,88,11,119,20,88,11
+33005,rte|ignore|mrpc|5,rte,ignore,mrpc,5,23,True,1,31,111,365,273,97,25,61,11,169,25,133,11,192,25,156,11,192,25,156,11
+1113,sentiment|ignore|jfleg|113,sentiment,ignore,jfleg,113,19,True,2,31,120,36,26,33,16,6,11,45,16,18,11,64,16,37,11,64,16,37,11
+8173,spam|naive|mrpc|173,spam,naive,mrpc,173,23,True,2,1,111,211,73,55,20,24,11,96,20,65,11,119,20,88,11,119,20,88,11
+14502,gigaword|naive|sentiment|102,gigaword,naive,sentiment,102,15,True,1,1,86,84,188,68,12,45,11,85,12,62,11,100,12,77,11,100,12,77,11
